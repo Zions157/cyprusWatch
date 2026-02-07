@@ -172,13 +172,23 @@ export default function AdminPage() {
       const response = await fetch(`/api/products/${id}`, {
         method: 'DELETE'
       });
+      
+      if (!response.ok) {
+        throw new Error('Silme işlemi başarısız');
+      }
+      
       const data = await response.json();
       if (data.success) {
-        alert('Ürün silindi!');
-        fetchProducts();
+        // Önce ürünleri yenile
+        await fetchProducts();
+        // Sonra mesaj göster
+        alert('✅ Ürün başarıyla silindi!');
+      } else {
+        alert('❌ Ürün silinemedi');
       }
     } catch (error) {
-      alert('Silme hatası: ' + error.message);
+      console.error('Silme hatası:', error);
+      alert('❌ Silme hatası: ' + error.message);
     }
   };
 
