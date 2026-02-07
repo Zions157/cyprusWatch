@@ -81,6 +81,42 @@ export default function AdminPage() {
     });
   };
 
+  const handleFileChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Önizleme için
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+
+    // Dosyayı sunucuya yükle
+    setUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const response = await fetch('/api/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        setFormData(prev => ({ ...prev, image: data.url }));
+        alert('Görsel başarıyla yüklendi!');
+      } else {
+        alert('Görsel yüklenemedi: ' + data.error);
+      }
+    } catch (error) {
+      alert('Görsel yüklenirken hata oluştu: ' + error.message);
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
