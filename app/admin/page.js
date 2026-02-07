@@ -416,6 +416,7 @@ export default function AdminPage() {
                     </div>
                     <div className="flex space-x-2">
                       <Button
+                        type="button"
                         onClick={() => handleEdit(product)}
                         variant="outline"
                         size="icon"
@@ -423,6 +424,7 @@ export default function AdminPage() {
                         <Edit className="h-4 w-4" />
                       </Button>
                       <Button
+                        type="button"
                         onClick={() => handleDelete(product.id)}
                         variant="destructive"
                         size="icon"
