@@ -348,19 +348,26 @@ export default function AdminPage() {
                   />
                 </div>
                 <div>
-                  <Label htmlFor="image">Görsel URL</Label>
+                  <Label htmlFor="imageFile">Ürün Görseli *</Label>
                   <Input
-                    id="image"
-                    name="image"
-                    value={formData.image}
-                    onChange={handleInputChange}
-                    placeholder="https://... (Boş bırakılırsa varsayılan görsel kullanılır)"
+                    id="imageFile"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    disabled={uploadingImage}
+                    className="cursor-pointer"
                   />
+                  {uploadingImage && (
+                    <p className="text-sm text-gray-500 mt-1">Görsel yükleniyor...</p>
+                  )}
+                  <p className="text-xs text-gray-500 mt-1">
+                    JPG, PNG, WEBP, GIF - Max 5MB
+                  </p>
                 </div>
-                {formData.image && (
+                {imagePreview && (
                   <div>
                     <Label>Görsel Önizleme</Label>
-                    <img src={formData.image} alt="Preview" className="w-full h-48 object-cover rounded" />
+                    <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded border" />
                   </div>
                 )}
                 <div className="flex space-x-4">
