@@ -185,6 +185,7 @@ export default function AdminPage() {
   const openAddDialog = () => {
     setEditingProduct(null);
     setFormData({ name: '', description: '', price: '', stock: '', category: '', image: '' });
+    setImagePreview('');
     setIsDialogOpen(true);
   };
 
