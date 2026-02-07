@@ -1,6 +1,8 @@
 import { MongoClient, ObjectId } from 'mongodb';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
+import { writeFile } from 'fs/promises';
+import { join } from 'path';
 
 const uri = process.env.MONGO_URL;
 let cachedClient = null;
