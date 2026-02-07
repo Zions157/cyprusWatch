@@ -1,6 +1,6 @@
 # 🛍️ E-Ticaret Sitesi
 
-Modern ve kullanıcı dostu e-ticaret platformu. Next.js, React ve MongoDB ile geliştirilmiştir.
+Modern ve kullanıcı dostu e-ticaret platformu. **Next.js (React) + MongoDB** ile geliştirilmiştir.
 
 ## ✨ Özellikler
 
@@ -9,16 +9,17 @@ Modern ve kullanıcı dostu e-ticaret platformu. Next.js, React ve MongoDB ile g
 - **Ürün Detay**: Detaylı ürün bilgileri ve görselleri
 - **Alışveriş Sepeti**: Ürün ekleme, çıkarma ve miktar güncelleme
 - **Ödeme Sistemi**: 2 farklı ödeme yöntemi
-  - 🏦 Banka API ile kart ödemesi (Demo)
+  - 🏦 Banka API ile kart ödemesi (Demo - gerçek API hazır)
   - 💳 IBAN/Havale ile ödeme
 - **Hakkımızda Sayfası**: Şirket bilgileri ve iletişim
 
 ### ⚙️ Admin Paneli
+- **Dosya Upload**: Bilgisayardan direkt görsel yükleme (JPG, PNG, WEBP, GIF - Max 5MB)
 - Ürün ekleme, düzenleme ve silme
 - Stok yönetimi
 - Fiyat güncelleme
 - Kategori yönetimi
-- Basit kimlik doğrulama
+- Basit kimlik doğrulama (admin/admin123)
 
 ## 🚀 Kurulum ve Çalıştırma
 
