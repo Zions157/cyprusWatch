@@ -70,6 +70,47 @@ export async function POST(request) {
   const path = url.pathname.replace('/api/', '');
 
   try {
+    // POST /api/upload - Dosya yükleme (FormData kullanır, JSON değil)
+    if (path === 'upload' || path === 'upload/') {
+      try {
+        const formData = await request.formData();
+        const file = formData.get('file');
+        
+        if (!file) {
+          return NextResponse.json({ error: 'Dosya bulunamadı' }, { status: 400 });
+        }
+
+        // Dosya uzantısını kontrol et
+        const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp', 'image/gif'];
+        if (!allowedTypes.includes(file.type)) {
+          return NextResponse.json({ error: 'Sadece resim dosyaları yüklenebilir (jpg, png, webp, gif)' }, { status: 400 });
+        }
+
+        // Dosya boyutunu kontrol et (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+          return NextResponse.json({ error: 'Dosya boyutu 5MB\'dan küçük olmalıdır' }, { status: 400 });
+        }
+
+        // Benzersiz dosya adı oluştur
+        const bytes = await file.arrayBuffer();
+        const buffer = Buffer.from(bytes);
+        
+        const fileExtension = file.name.split('.').pop();
+        const fileName = `${uuidv4()}.${fileExtension}`;
+        const filePath = join(process.cwd(), 'public', 'uploads', fileName);
+        
+        // Dosyayı kaydet
+        await writeFile(filePath, buffer);
+        
+        // URL'i döndür
+        const fileUrl = `/uploads/${fileName}`;
+        return NextResponse.json({ url: fileUrl, success: true });
+      } catch (error) {
+        console.error('Upload Error:', error);
+        return NextResponse.json({ error: 'Dosya yüklenirken hata oluştu: ' + error.message }, { status: 500 });
+      }
+    }
+
     const db = await getDB();
     const body = await request.json();
 
