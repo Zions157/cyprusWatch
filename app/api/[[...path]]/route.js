@@ -1,104 +1,234 @@
-import { MongoClient } from 'mongodb'
-import { v4 as uuidv4 } from 'uuid'
-import { NextResponse } from 'next/server'
+import { MongoClient, ObjectId } from 'mongodb';
+import { NextResponse } from 'next/server';
+import { v4 as uuidv4 } from 'uuid';
 
-// MongoDB connection
-let client
-let db
+const uri = process.env.MONGO_URL;
+let cachedClient = null;
 
-async function connectToMongo() {
-  if (!client) {
-    client = new MongoClient(process.env.MONGO_URL)
-    await client.connect()
-    db = client.db(process.env.DB_NAME)
+async function connectToDatabase() {
+  if (cachedClient) {
+    return cachedClient;
   }
-  return db
+  const client = new MongoClient(uri);
+  await client.connect();
+  cachedClient = client;
+  return client;
 }
 
-// Helper function to handle CORS
-function handleCORS(response) {
-  response.headers.set('Access-Control-Allow-Origin', process.env.CORS_ORIGINS || '*')
-  response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
-  response.headers.set('Access-Control-Allow-Headers', 'Content-Type, Authorization')
-  response.headers.set('Access-Control-Allow-Credentials', 'true')
-  return response
+// Admin credentials (basit auth)
+const ADMIN_USERNAME = 'admin';
+const ADMIN_PASSWORD = 'admin123';
+
+// Helper: Get DB
+async function getDB() {
+  const client = await connectToDatabase();
+  return client.db('ecommerce');
 }
 
-// OPTIONS handler for CORS
-export async function OPTIONS() {
-  return handleCORS(new NextResponse(null, { status: 200 }))
-}
-
-// Route handler function
-async function handleRoute(request, { params }) {
-  const { path = [] } = params
-  const route = `/${path.join('/')}`
-  const method = request.method
+// GET handler
+export async function GET(request) {
+  const url = new URL(request.url);
+  const path = url.pathname.replace('/api/', '');
 
   try {
-    const db = await connectToMongo()
+    const db = await getDB();
 
-    // Root endpoint - GET /api/root (since /api/ is not accessible with catch-all)
-    if (route === '/root' && method === 'GET') {
-      return handleCORS(NextResponse.json({ message: "Hello World" }))
-    }
-    // Root endpoint - GET /api/root (since /api/ is not accessible with catch-all)
-    if (route === '/' && method === 'GET') {
-      return handleCORS(NextResponse.json({ message: "Hello World" }))
+    // GET /api/products - Tüm ürünleri listele
+    if (path === 'products' || path === 'products/') {
+      const products = await db.collection('products').find({}).toArray();
+      return NextResponse.json(products);
     }
 
-    // Status endpoints - POST /api/status
-    if (route === '/status' && method === 'POST') {
-      const body = await request.json()
-      
-      if (!body.client_name) {
-        return handleCORS(NextResponse.json(
-          { error: "client_name is required" }, 
-          { status: 400 }
-        ))
+    // GET /api/products/:id - Tek ürün detayı
+    if (path.startsWith('products/') && path.split('/').length === 2) {
+      const id = path.split('/')[1];
+      const product = await db.collection('products').findOne({ id });
+      if (!product) {
+        return NextResponse.json({ error: 'Ürün bulunamadı' }, { status: 404 });
       }
-
-      const statusObj = {
-        id: uuidv4(),
-        client_name: body.client_name,
-        timestamp: new Date()
-      }
-
-      await db.collection('status_checks').insertOne(statusObj)
-      return handleCORS(NextResponse.json(statusObj))
+      return NextResponse.json(product);
     }
 
-    // Status endpoints - GET /api/status
-    if (route === '/status' && method === 'GET') {
-      const statusChecks = await db.collection('status_checks')
-        .find({})
-        .limit(1000)
-        .toArray()
-
-      // Remove MongoDB's _id field from response
-      const cleanedStatusChecks = statusChecks.map(({ _id, ...rest }) => rest)
-      
-      return handleCORS(NextResponse.json(cleanedStatusChecks))
+    // GET /api/orders - Tüm siparişleri listele
+    if (path === 'orders' || path === 'orders/') {
+      const orders = await db.collection('orders').find({}).toArray();
+      return NextResponse.json(orders);
     }
 
-    // Route not found
-    return handleCORS(NextResponse.json(
-      { error: `Route ${route} not found` }, 
-      { status: 404 }
-    ))
-
+    return NextResponse.json({ error: 'Endpoint bulunamadı' }, { status: 404 });
   } catch (error) {
-    console.error('API Error:', error)
-    return handleCORS(NextResponse.json(
-      { error: "Internal server error" }, 
-      { status: 500 }
-    ))
+    console.error('GET Error:', error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
-// Export all HTTP methods
-export const GET = handleRoute
-export const POST = handleRoute
-export const PUT = handleRoute
-export const DELETE = handleRoute
-export const PATCH = handleRoute
+// POST handler
+export async function POST(request) {
+  const url = new URL(request.url);
+  const path = url.pathname.replace('/api/', '');
+
+  try {
+    const db = await getDB();
+    const body = await request.json();
+
+    // POST /api/admin/login - Admin girişi
+    if (path === 'admin/login') {
+      const { username, password } = body;
+      if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+        return NextResponse.json({ success: true, message: 'Giriş başarılı' });
+      }
+      return NextResponse.json({ error: 'Kullanıcı adı veya şifre hatalı' }, { status: 401 });
+    }
+
+    // POST /api/products - Yeni ürün ekle
+    if (path === 'products' || path === 'products/') {
+      const product = {
+        id: uuidv4(),
+        name: body.name,
+        description: body.description,
+        price: parseFloat(body.price),
+        image: body.image || 'https://via.placeholder.com/400x300?text=Ürün+Görseli',
+        stock: parseInt(body.stock) || 100,
+        category: body.category || 'Genel',
+        createdAt: new Date().toISOString()
+      };
+      await db.collection('products').insertOne(product);
+      return NextResponse.json(product);
+    }
+
+    // POST /api/orders - Sipariş oluştur
+    if (path === 'orders' || path === 'orders/') {
+      const order = {
+        id: uuidv4(),
+        items: body.items,
+        totalAmount: parseFloat(body.totalAmount),
+        customerInfo: body.customerInfo,
+        paymentMethod: body.paymentMethod,
+        status: 'pending',
+        createdAt: new Date().toISOString()
+      };
+      await db.collection('orders').insertOne(order);
+      return NextResponse.json(order);
+    }
+
+    // POST /api/payment/bank - Mock banka ödemesi
+    if (path === 'payment/bank') {
+      // Gerçek banka API'si buraya entegre edilecek
+      // Şimdilik mock response
+      const { orderId, amount, cardInfo } = body;
+      
+      // Simüle edilmiş ödeme işlemi
+      const success = Math.random() > 0.2; // %80 başarı oranı
+      
+      if (success) {
+        // Sipariş durumunu güncelle
+        await db.collection('orders').updateOne(
+          { id: orderId },
+          { $set: { status: 'paid', paidAt: new Date().toISOString() } }
+        );
+        
+        return NextResponse.json({
+          success: true,
+          transactionId: uuidv4(),
+          message: 'Ödeme başarılı! (Demo)'
+        });
+      } else {
+        return NextResponse.json({
+          success: false,
+          message: 'Ödeme reddedildi (Demo)'
+        }, { status: 400 });
+      }
+    }
+
+    // POST /api/payment/transfer - IBAN/Havale ödemesi
+    if (path === 'payment/transfer') {
+      const { orderId } = body;
+      
+      // Havale bekliyor durumuna al
+      await db.collection('orders').updateOne(
+        { id: orderId },
+        { $set: { status: 'awaiting_transfer', requestedAt: new Date().toISOString() } }
+      );
+      
+      return NextResponse.json({
+        success: true,
+        iban: 'TR33 0006 1005 1978 6457 8413 26',
+        accountName: 'E-Ticaret Şirketi A.Ş.',
+        message: 'Havale bilgileri gönderildi. Ödeme onayı bekleniyor.'
+      });
+    }
+
+    return NextResponse.json({ error: 'Endpoint bulunamadı' }, { status: 404 });
+  } catch (error) {
+    console.error('POST Error:', error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+// PUT handler
+export async function PUT(request) {
+  const url = new URL(request.url);
+  const path = url.pathname.replace('/api/', '');
+
+  try {
+    const db = await getDB();
+    const body = await request.json();
+
+    // PUT /api/products/:id - Ürün güncelle
+    if (path.startsWith('products/') && path.split('/').length === 2) {
+      const id = path.split('/')[1];
+      const updateData = {
+        name: body.name,
+        description: body.description,
+        price: parseFloat(body.price),
+        image: body.image,
+        stock: parseInt(body.stock),
+        category: body.category,
+        updatedAt: new Date().toISOString()
+      };
+      
+      const result = await db.collection('products').updateOne(
+        { id },
+        { $set: updateData }
+      );
+      
+      if (result.matchedCount === 0) {
+        return NextResponse.json({ error: 'Ürün bulunamadı' }, { status: 404 });
+      }
+      
+      return NextResponse.json({ success: true, message: 'Ürün güncellendi' });
+    }
+
+    return NextResponse.json({ error: 'Endpoint bulunamadı' }, { status: 404 });
+  } catch (error) {
+    console.error('PUT Error:', error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
+// DELETE handler
+export async function DELETE(request) {
+  const url = new URL(request.url);
+  const path = url.pathname.replace('/api/', '');
+
+  try {
+    const db = await getDB();
+
+    // DELETE /api/products/:id - Ürün sil
+    if (path.startsWith('products/') && path.split('/').length === 2) {
+      const id = path.split('/')[1];
+      const result = await db.collection('products').deleteOne({ id });
+      
+      if (result.deletedCount === 0) {
+        return NextResponse.json({ error: 'Ürün bulunamadı' }, { status: 404 });
+      }
+      
+      return NextResponse.json({ success: true, message: 'Ürün silindi' });
+    }
+
+    return NextResponse.json({ error: 'Endpoint bulunamadı' }, { status: 404 });
+  } catch (error) {
+    console.error('DELETE Error:', error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
