@@ -25,6 +25,8 @@ export default function AdminPage() {
     category: '',
     image: ''
   });
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [imagePreview, setImagePreview] = useState('');
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('adminLoggedIn');
