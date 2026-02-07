@@ -417,7 +417,7 @@ class EcommerceAPITester:
         
         # Product Management Tests
         initial_products = self.test_get_products()
-        results.append(len(initial_products) >= 0)  # At least retrieve the list
+        results.append(isinstance(initial_products, list))  # Should return a list
         
         results.append(self.test_create_product())
         results.append(self.test_get_single_product())
