@@ -161,6 +161,7 @@ export default function AdminPage() {
       category: product.category,
       image: product.image
     });
+    setImagePreview(product.image);
     setIsDialogOpen(true);
   };
 
