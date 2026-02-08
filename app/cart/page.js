@@ -23,7 +23,7 @@ export default function CartPage() {
 
   const updateQuantity = (productId, newQuantity) => {
     if (newQuantity < 1) return;
-    
+
     const newCart = cart.map(item =>
       item.id === productId ? { ...item, quantity: newQuantity } : item
     );
@@ -51,7 +51,7 @@ export default function CartPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center space-x-2">
             <Package className="h-8 w-8 text-indigo-600" />
-            <h1 className="text-2xl font-bold text-gray-900">E-Ticaret Mağazam</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Cyprus Watch</h1>
           </div>
         </div>
       </header>
@@ -140,7 +140,7 @@ export default function CartPage() {
               <Card className="sticky top-4">
                 <CardContent className="p-6 space-y-4">
                   <h3 className="text-xl font-bold mb-4">Sipariş Özeti</h3>
-                  
+
                   <div className="space-y-2 pb-4 border-b">
                     <div className="flex justify-between text-gray-600">
                       <span>Ara Toplam:</span>
@@ -151,7 +151,7 @@ export default function CartPage() {
                       <span className="text-green-600 font-semibold">Ücretsiz</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex justify-between text-xl font-bold pt-2">
                     <span>Toplam:</span>
                     <span className="text-indigo-600">{totalAmount.toFixed(2)} ₺</span>

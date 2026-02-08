@@ -39,7 +39,7 @@ export default function AdminPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/admin/login', {
+      const response = await fetch('/api/login/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginForm)
@@ -167,16 +167,16 @@ export default function AdminPage() {
 
   const handleDelete = async (id) => {
     if (!confirm('Ürünü silmek istediğinize emin misiniz?')) return;
-    
+
     try {
       const response = await fetch(`/api/products/${id}`, {
         method: 'DELETE'
       });
-      
+
       if (!response.ok) {
         throw new Error('Silme işlemi başarısız');
       }
-      
+
       const data = await response.json();
       if (data.success) {
         // Önce ürünleri yenile
@@ -218,7 +218,7 @@ export default function AdminPage() {
                   value={loginForm.username}
                   onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
                   required
-                  placeholder="admin"
+                  placeholder="USERNAME"
                 />
               </div>
               <div>
@@ -229,7 +229,7 @@ export default function AdminPage() {
                   value={loginForm.password}
                   onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
                   required
-                  placeholder="admin123"
+                  placeholder="PASSWORD"
                 />
               </div>
               <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700">
@@ -243,9 +243,6 @@ export default function AdminPage() {
               >
                 Ana Sayfaya Dön
               </Button>
-              <p className="text-sm text-gray-500 text-center">
-                Demo: admin / admin123
-              </p>
             </form>
           </CardContent>
         </Card>

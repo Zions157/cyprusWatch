@@ -4,8 +4,8 @@ import './globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'E-Ticaret Mağazam',
-  description: 'Modern e-ticaret sitesi',
+  title: 'Cyprus Watch',
+  description: 'Modern saat ve aksesuarlar',
 };
 
 export default function RootLayout({ children }) {

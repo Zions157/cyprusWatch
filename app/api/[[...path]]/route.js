@@ -18,8 +18,8 @@ async function connectToDatabase() {
 }
 
 // Admin credentials (basit auth)
-const ADMIN_USERNAME = 'admin';
-const ADMIN_PASSWORD = 'admin123';
+const ADMIN_USERNAME = 'admin123';
+const ADMIN_PASSWORD = 'Zion157359_-_.?';
 
 // Helper: Get DB
 async function getDB() {
@@ -75,7 +75,7 @@ export async function POST(request) {
       try {
         const formData = await request.formData();
         const file = formData.get('file');
-        
+
         if (!file) {
           return NextResponse.json({ error: 'Dosya bulunamadı' }, { status: 400 });
         }
@@ -94,14 +94,14 @@ export async function POST(request) {
         // Benzersiz dosya adı oluştur
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
-        
+
         const fileExtension = file.name.split('.').pop();
         const fileName = `${uuidv4()}.${fileExtension}`;
         const filePath = join(process.cwd(), 'public', 'uploads', fileName);
-        
+
         // Dosyayı kaydet
         await writeFile(filePath, buffer);
-        
+
         // URL'i döndür
         const fileUrl = `/uploads/${fileName}`;
         return NextResponse.json({ url: fileUrl, success: true });
@@ -115,7 +115,7 @@ export async function POST(request) {
     const body = await request.json();
 
     // POST /api/admin/login - Admin girişi
-    if (path === 'admin/login') {
+    if (path === 'login/login') {
       const { username, password } = body;
       if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
         return NextResponse.json({ success: true, message: 'Giriş başarılı' });
@@ -159,17 +159,17 @@ export async function POST(request) {
       // Gerçek banka API'si buraya entegre edilecek
       // Şimdilik mock response
       const { orderId, amount, cardInfo } = body;
-      
+
       // Simüle edilmiş ödeme işlemi
       const success = Math.random() > 0.2; // %80 başarı oranı
-      
+
       if (success) {
         // Sipariş durumunu güncelle
         await db.collection('orders').updateOne(
           { id: orderId },
           { $set: { status: 'paid', paidAt: new Date().toISOString() } }
         );
-        
+
         return NextResponse.json({
           success: true,
           transactionId: uuidv4(),
@@ -186,13 +186,13 @@ export async function POST(request) {
     // POST /api/payment/transfer - IBAN/Havale ödemesi
     if (path === 'payment/transfer') {
       const { orderId } = body;
-      
+
       // Havale bekliyor durumuna al
       await db.collection('orders').updateOne(
         { id: orderId },
         { $set: { status: 'awaiting_transfer', requestedAt: new Date().toISOString() } }
       );
-      
+
       return NextResponse.json({
         success: true,
         iban: 'TR33 0006 1005 1978 6457 8413 26',
@@ -229,16 +229,16 @@ export async function PUT(request) {
         category: body.category,
         updatedAt: new Date().toISOString()
       };
-      
+
       const result = await db.collection('products').updateOne(
         { id },
         { $set: updateData }
       );
-      
+
       if (result.matchedCount === 0) {
         return NextResponse.json({ error: 'Ürün bulunamadı' }, { status: 404 });
       }
-      
+
       return NextResponse.json({ success: true, message: 'Ürün güncellendi' });
     }
 
@@ -261,11 +261,11 @@ export async function DELETE(request) {
     if (path.startsWith('products/') && path.split('/').length === 2) {
       const id = path.split('/')[1];
       const result = await db.collection('products').deleteOne({ id });
-      
+
       if (result.deletedCount === 0) {
         return NextResponse.json({ error: 'Ürün bulunamadı' }, { status: 404 });
       }
-      
+
       return NextResponse.json({ success: true, message: 'Ürün silindi' });
     }
 

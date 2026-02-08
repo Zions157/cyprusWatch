@@ -137,7 +137,7 @@ export default function CheckoutPage() {
         <Card className="max-w-md p-8 text-center">
           <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Siparişiniz Alındı!</h2>
-          
+
           {transferInfo ? (
             <div className="text-left space-y-4 mb-6">
               <Alert>
@@ -160,7 +160,7 @@ export default function CheckoutPage() {
               Ödemeniz başarıyla tamamlandı. Siparişiniz hazırlanıyor.
             </p>
           )}
-          
+
           <Button
             onClick={() => router.push('/')}
             className="w-full bg-indigo-600 hover:bg-indigo-700"
@@ -328,10 +328,33 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
+                  {/* IBAN/Havale Bilgileri */}
                   {paymentMethod === 'transfer' && (
                     <Alert className="mt-6">
+                      <Building2 className="h-4 w-4" />
                       <AlertDescription>
-                        Siparişinizi tamamladıktan sonra havale bilgileriniz gösterilecektir.
+                        <p className="font-semibold mb-3">Havale/EFT Bilgileri:</p>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between border-b pb-2">
+                            <span className="text-gray-600">Banka:</span>
+                            <span className="font-medium">Ziraat Bankası</span>
+                          </div>
+                          <div className="flex justify-between border-b pb-2">
+                            <span className="text-gray-600">Hesap Sahibi:</span>
+                            <span className="font-medium">E-Ticaret Şirketi A.Ş.</span>
+                          </div>
+                          <div className="flex justify-between border-b pb-2">
+                            <span className="text-gray-600">IBAN:</span>
+                            <span className="font-medium">TR33 0006 1005 1978 6457 8413 26</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Tutar:</span>
+                            <span className="font-bold text-indigo-600">{totalAmount.toFixed(2)} ₺</span>
+                          </div>
+                        </div>
+                        <p className="text-xs text-gray-500 mt-4">
+                          ℹ️ Sipariş tamamlandıktan sonra havale yapabilirsiniz. Açıklama kısmına sipariş numaranızı yazmayı unutmayın.
+                        </p>
                       </AlertDescription>
                     </Alert>
                   )}
@@ -358,7 +381,7 @@ export default function CheckoutPage() {
                       </div>
                     ))}
                   </div>
-                  
+
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex justify-between text-gray-600">
                       <span>Ara Toplam:</span>
@@ -369,7 +392,7 @@ export default function CheckoutPage() {
                       <span className="text-green-600 font-semibold">Ücretsiz</span>
                     </div>
                   </div>
-                  
+
                   <div className="flex justify-between text-xl font-bold pt-2 border-t">
                     <span>Toplam:</span>
                     <span className="text-indigo-600">{totalAmount.toFixed(2)} ₺</span>

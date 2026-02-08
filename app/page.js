@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { ShoppingCart, Package, CreditCard, Info, Settings } from 'lucide-react';
+import { ShoppingCart, Package, Info, Settings } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function Home() {
@@ -37,7 +37,7 @@ export default function Home() {
   const addToCart = (product) => {
     const existingItem = cart.find(item => item.id === product.id);
     let newCart;
-    
+
     if (existingItem) {
       newCart = cart.map(item =>
         item.id === product.id
@@ -47,7 +47,7 @@ export default function Home() {
     } else {
       newCart = [...cart, { ...product, quantity: 1 }];
     }
-    
+
     setCart(newCart);
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
@@ -62,9 +62,9 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2">
               <Package className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold text-gray-900">E-Ticaret Mağazam</h1>
+              <h1 className="text-2xl font-bold text-gray-900">Cyprus Watch</h1>
             </div>
-            
+
             <nav className="flex items-center space-x-4">
               <Button
                 variant="ghost"
@@ -80,14 +80,6 @@ export default function Home() {
               >
                 <Info className="h-4 w-4 mr-2" />
                 Hakkımızda
-              </Button>
-              <Button
-                variant="ghost"
-                onClick={() => router.push('/admin')}
-                className="text-gray-700"
-              >
-                <Settings className="h-4 w-4 mr-2" />
-                Admin
               </Button>
               <Button
                 onClick={() => router.push('/cart')}
@@ -126,21 +118,12 @@ export default function Home() {
               </Card>
             ))}
           </div>
-        ) : products.length === 0 ? (
-          <Card className="p-12 text-center">
-            <Package className="h-16 w-16 mx-auto text-gray-400 mb-4" />
-            <h3 className="text-xl font-semibold text-gray-700 mb-2">Henüz ürün eklenmemiş</h3>
-            <p className="text-gray-500 mb-4">Admin panelinden ürün ekleyebilirsiniz</p>
-            <Button onClick={() => router.push('/admin')} className="bg-indigo-600 hover:bg-indigo-700">
-              Admin Paneline Git
-            </Button>
-          </Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((product) => (
               <Card key={product.id} className="hover:shadow-lg transition-shadow cursor-pointer group">
                 <CardHeader className="p-0">
-                  <div 
+                  <div
                     onClick={() => router.push(`/product/${product.id}`)}
                     className="relative h-48 bg-gray-100 rounded-t-lg overflow-hidden"
                   >
@@ -155,7 +138,7 @@ export default function Home() {
                   </div>
                 </CardHeader>
                 <CardContent className="p-4">
-                  <CardTitle 
+                  <CardTitle
                     onClick={() => router.push(`/product/${product.id}`)}
                     className="text-lg mb-2 line-clamp-2 group-hover:text-indigo-600 transition-colors"
                   >
@@ -197,7 +180,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-white border-t mt-16">
         <div className="container mx-auto px-4 py-8 text-center text-gray-600">
-          <p>© 2024 E-Ticaret Mağazam. Tüm hakları saklıdır.</p>
+          <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
         </div>
       </footer>
     </div>

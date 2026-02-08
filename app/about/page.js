@@ -15,7 +15,7 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center space-x-2">
             <Package className="h-8 w-8 text-indigo-600" />
-            <h1 className="text-2xl font-bold text-gray-900">E-Ticaret Mağazam</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Cyprus Watch</h1>
           </div>
         </div>
       </header>
@@ -42,11 +42,11 @@ export default function AboutPage() {
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Hikayemiz</h3>
               <p className="text-gray-600 leading-relaxed mb-4">
-                E-Ticaret Mağazam, 2024 yılında müşterilerimize en iyi alışveriş deneyimini sunmak amacıyla kuruldu. 
+                Cyprus Watch, 2026 yılında müşterilerimize en iyi alışveriş deneyimini sunmak amacıyla kuruldu.
                 Kaliteli ürünleri, uygun fiyatlarla ve hızlı teslimatla bir araya getirerek sektörde fark yaratmayı hedefliyoruz.
               </p>
               <p className="text-gray-600 leading-relaxed">
-                Müşteri memnuniyetini her zaman ön planda tutarak, güvenilir ve kaliteli hizmet sunmaya devam ediyoruz. 
+                Müşteri memnuniyetini her zaman ön planda tutarak, güvenilir ve kaliteli hizmet sunmaya devam ediyoruz.
                 Geniş ürün yelpazemiz ve kolay kullanımlı platformumuz ile alışverişi daha keyifli hale getiriyoruz.
               </p>
             </CardContent>
@@ -114,7 +114,7 @@ export default function AboutPage() {
                   <Mail className="h-6 w-6 text-indigo-600 mt-1" />
                   <div>
                     <h4 className="font-semibold mb-1">E-posta</h4>
-                    <p className="text-gray-600">info@eticaretmagazam.com</p>
+                    <p className="text-gray-600">info@cypruswatch.com</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -155,7 +155,7 @@ export default function AboutPage() {
       {/* Footer */}
       <footer className="bg-white border-t mt-16">
         <div className="container mx-auto px-4 py-8 text-center text-gray-600">
-          <p>© 2024 E-Ticaret Mağazam. Tüm hakları saklıdır.</p>
+          <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
         </div>
       </footer>
     </div>

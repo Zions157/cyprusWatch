@@ -35,9 +35,9 @@ export default function ProductDetail() {
   const addToCart = () => {
     const savedCart = localStorage.getItem('cart');
     let cart = savedCart ? JSON.parse(savedCart) : [];
-    
+
     const existingItem = cart.find(item => item.id === product.id);
-    
+
     if (existingItem) {
       cart = cart.map(item =>
         item.id === product.id
@@ -47,7 +47,7 @@ export default function ProductDetail() {
     } else {
       cart.push({ ...product, quantity });
     }
-    
+
     localStorage.setItem('cart', JSON.stringify(cart));
     router.push('/cart');
   };
@@ -83,7 +83,7 @@ export default function ProductDetail() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center space-x-2">
             <Package className="h-8 w-8 text-indigo-600" />
-            <h1 className="text-2xl font-bold text-gray-900">E-Ticaret Mağazam</h1>
+            <h1 className="text-2xl font-bold text-gray-900">Cyprus Watch</h1>
           </div>
         </div>
       </header>
