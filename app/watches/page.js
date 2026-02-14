@@ -307,7 +307,7 @@ export default function WatchesPage() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-lg font-bold text-amber-500">
-                        {product.price?.toFixed(2)} ₺
+                        {formatPrice(product.price)} ₺
                       </span>
                       <Badge variant="secondary" className="text-xs bg-white/10 text-gray-300">
                         {product.category}
