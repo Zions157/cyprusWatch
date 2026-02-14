@@ -20,6 +20,11 @@ import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses } from 'lucide-react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 
+// Saat kategorileri
+const WATCH_CATEGORIES = ['Lüks', 'Spor', 'Klasik', 'Dijital', 'Akıllı Saat'];
+// Gözlük kategorileri
+const EYEWEAR_CATEGORIES = ['Güneş Gözlüğü', 'Optik', 'Spor Gözlük', 'Moda'];
+
 export default function AdminPage() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -32,8 +37,8 @@ export default function AdminPage() {
     description: '',
     price: '',
     stock: '',
-    category: 'Saat',
-    productType: 'Saat',
+    category: 'Lüks',
+    productType: 'watch', // 'watch' veya 'eyewear'
     image: ''
   });
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -93,11 +98,13 @@ export default function AdminPage() {
     });
   };
 
-  const handleProductTypeChange = (value) => {
+  const handleProductTypeChange = (type) => {
+    // Ürün tipi değişince kategoriyi de güncelle
+    const newCategory = type === 'watch' ? WATCH_CATEGORIES[0] : EYEWEAR_CATEGORIES[0];
     setFormData({
       ...formData,
-      productType: value,
-      category: value === 'Gözlük' ? 'Gözlük' : formData.category
+      productType: type,
+      category: newCategory
     });
   };
 
@@ -139,8 +146,13 @@ export default function AdminPage() {
     e.preventDefault();
     try {
       const submitData = {
-        ...formData,
-        category: formData.productType === 'Gözlük' ? 'Gözlük' : formData.category
+        name: formData.name,
+        description: formData.description,
+        price: formData.price,
+        stock: formData.stock,
+        image: formData.image,
+        productType: formData.productType, // 'watch' veya 'eyewear'
+        category: formData.category
       };
 
       if (editingProduct) {
@@ -165,7 +177,7 @@ export default function AdminPage() {
       }
       setIsDialogOpen(false);
       setEditingProduct(null);
-      setFormData({ name: '', description: '', price: '', stock: '', category: 'Saat', productType: 'Saat', image: '' });
+      setFormData({ name: '', description: '', price: '', stock: '', category: 'Lüks', productType: 'watch', image: '' });
       setImagePreview('');
       fetchProducts();
     } catch (error) {
@@ -175,14 +187,13 @@ export default function AdminPage() {
 
   const handleEdit = (product) => {
     setEditingProduct(product);
-    const isEyewear = product.category === 'Gözlük' || product.category === 'gözlük' || product.category === 'Eyewear';
     setFormData({
       name: product.name,
       description: product.description,
       price: product.price.toString(),
       stock: product.stock.toString(),
       category: product.category,
-      productType: isEyewear ? 'Gözlük' : 'Saat',
+      productType: product.productType || 'watch',
       image: product.image
     });
     setImagePreview(product.image);
@@ -209,17 +220,21 @@ export default function AdminPage() {
 
   const openAddDialog = () => {
     setEditingProduct(null);
-    setFormData({ name: '', description: '', price: '', stock: '', category: 'Saat', productType: 'Saat', image: '' });
+    setFormData({ name: '', description: '', price: '', stock: '', category: 'Lüks', productType: 'watch', image: '' });
     setImagePreview('');
     setIsDialogOpen(true);
   };
 
   const filteredProducts = products.filter(p => {
     if (filterType === 'all') return true;
-    if (filterType === 'watch') return p.category !== 'Gözlük' && p.category !== 'gözlük' && p.category !== 'Eyewear';
-    if (filterType === 'eyewear') return p.category === 'Gözlük' || p.category === 'gözlük' || p.category === 'Eyewear';
+    if (filterType === 'watch') return p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük');
+    if (filterType === 'eyewear') return p.productType === 'eyewear' || p.category === 'Gözlük';
     return true;
   });
+
+  // Mevcut kategorileri say
+  const watchCount = products.filter(p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')).length;
+  const eyewearCount = products.filter(p => p.productType === 'eyewear' || p.category === 'Gözlük').length;
 
   if (!isLoggedIn) {
     return (
@@ -243,7 +258,7 @@ export default function AdminPage() {
                   value={loginForm.username}
                   onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
                   required
-                  placeholder="USERNAME"
+                  placeholder="Kullanıcı adınız"
                   className="bg-black/50 border-white/20 text-white"
                 />
               </div>
@@ -255,7 +270,7 @@ export default function AdminPage() {
                   value={loginForm.password}
                   onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
                   required
-                  placeholder="PASSWORD"
+                  placeholder="Şifreniz"
                   className="bg-black/50 border-white/20 text-white"
                 />
               </div>
@@ -285,7 +300,9 @@ export default function AdminPage() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
           <div>
             <h2 className="text-3xl font-bold text-white">Admin - Ürün Yönetimi</h2>
-            <p className="text-gray-400">Toplam {products.length} ürün ({filteredProducts.length} gösteriliyor)</p>
+            <p className="text-gray-400">
+              Toplam {products.length} ürün • {watchCount} Saat • {eyewearCount} Gözlük
+            </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
             {/* Filter Buttons */}
@@ -296,7 +313,7 @@ export default function AdminPage() {
                 onClick={() => setFilterType('all')}
                 className={filterType === 'all' ? 'bg-amber-500 text-black' : 'border-white/20 text-gray-300'}
               >
-                Tümü
+                Tümü ({products.length})
               </Button>
               <Button
                 variant={filterType === 'watch' ? 'default' : 'outline'}
@@ -304,7 +321,7 @@ export default function AdminPage() {
                 onClick={() => setFilterType('watch')}
                 className={filterType === 'watch' ? 'bg-amber-500 text-black' : 'border-white/20 text-gray-300'}
               >
-                <Clock className="h-4 w-4 mr-1" /> Saatler
+                <Clock className="h-4 w-4 mr-1" /> Saatler ({watchCount})
               </Button>
               <Button
                 variant={filterType === 'eyewear' ? 'default' : 'outline'}
@@ -312,7 +329,7 @@ export default function AdminPage() {
                 onClick={() => setFilterType('eyewear')}
                 className={filterType === 'eyewear' ? 'bg-amber-500 text-black' : 'border-white/20 text-gray-300'}
               >
-                <Glasses className="h-4 w-4 mr-1" /> Gözlükler
+                <Glasses className="h-4 w-4 mr-1" /> Gözlükler ({eyewearCount})
               </Button>
             </div>
 
@@ -325,34 +342,59 @@ export default function AdminPage() {
               </DialogTrigger>
               <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 border-white/10 text-white">
                 <DialogHeader>
-                  <DialogTitle className="text-white">
+                  <DialogTitle className="text-white text-xl">
                     {editingProduct ? 'Ürün Düzenle' : 'Yeni Ürün Ekle'}
                   </DialogTitle>
                 </DialogHeader>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {/* Product Type Selection */}
-                  <div className="bg-black/30 p-4 rounded-lg border border-white/10">
-                    <Label className="text-amber-500 font-semibold mb-3 block">Ürün Tipi *</Label>
-                    <div className="flex gap-4">
-                      <Button
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  {/* Product Type Selection - Büyük ve Net */}
+                  <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-5 rounded-xl border border-white/10">
+                    <Label className="text-amber-500 font-bold text-lg mb-4 block">Ürün Tipi Seçin *</Label>
+                    <div className="grid grid-cols-2 gap-4">
+                      <button
                         type="button"
-                        variant={formData.productType === 'Saat' ? 'default' : 'outline'}
-                        onClick={() => handleProductTypeChange('Saat')}
-                        className={formData.productType === 'Saat' ? 'bg-amber-500 text-black flex-1' : 'border-white/20 text-gray-300 flex-1'}
+                        onClick={() => handleProductTypeChange('watch')}
+                        className={`p-6 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${
+                          formData.productType === 'watch' 
+                            ? 'border-amber-500 bg-amber-500/20 text-amber-500' 
+                            : 'border-gray-600 bg-gray-800 text-gray-400 hover:border-gray-500'
+                        }`}
                       >
-                        <Clock className="h-5 w-5 mr-2" />
-                        Saat
-                      </Button>
-                      <Button
+                        <Clock className="h-10 w-10" />
+                        <span className="font-bold text-lg">SAAT</span>
+                        <span className="text-xs opacity-70">Kol saati, akıllı saat vb.</span>
+                      </button>
+                      <button
                         type="button"
-                        variant={formData.productType === 'Gözlük' ? 'default' : 'outline'}
-                        onClick={() => handleProductTypeChange('Gözlük')}
-                        className={formData.productType === 'Gözlük' ? 'bg-amber-500 text-black flex-1' : 'border-white/20 text-gray-300 flex-1'}
+                        onClick={() => handleProductTypeChange('eyewear')}
+                        className={`p-6 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${
+                          formData.productType === 'eyewear' 
+                            ? 'border-purple-500 bg-purple-500/20 text-purple-500' 
+                            : 'border-gray-600 bg-gray-800 text-gray-400 hover:border-gray-500'
+                        }`}
                       >
-                        <Glasses className="h-5 w-5 mr-2" />
-                        Gözlük
-                      </Button>
+                        <Glasses className="h-10 w-10" />
+                        <span className="font-bold text-lg">GÖZLÜK</span>
+                        <span className="text-xs opacity-70">Güneş gözlüğü, optik vb.</span>
+                      </button>
                     </div>
+                  </div>
+
+                  {/* Kategori Seçimi - Ürün tipine göre değişir */}
+                  <div>
+                    <Label htmlFor="category" className="text-gray-300">
+                      {formData.productType === 'watch' ? 'Saat Kategorisi' : 'Gözlük Kategorisi'} *
+                    </Label>
+                    <Select value={formData.category} onValueChange={(v) => setFormData({...formData, category: v})}>
+                      <SelectTrigger className="bg-black/50 border-white/20 text-white">
+                        <SelectValue placeholder="Kategori seçin" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {(formData.productType === 'watch' ? WATCH_CATEGORIES : EYEWEAR_CATEGORIES).map(cat => (
+                          <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div>
@@ -363,10 +405,11 @@ export default function AdminPage() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      placeholder="Örn: Rolex Submariner"
+                      placeholder={formData.productType === 'watch' ? 'Örn: Rolex Submariner' : 'Örn: Ray-Ban Aviator'}
                       className="bg-black/50 border-white/20 text-white"
                     />
                   </div>
+
                   <div>
                     <Label htmlFor="description" className="text-gray-300">Açıklama *</Label>
                     <Textarea
@@ -376,10 +419,11 @@ export default function AdminPage() {
                       onChange={handleInputChange}
                       required
                       placeholder="Ürün hakkında detaylı bilgi..."
-                      rows={4}
+                      rows={3}
                       className="bg-black/50 border-white/20 text-white"
                     />
                   </div>
+
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="price" className="text-gray-300">Fiyat (₺) *</Label>
@@ -410,24 +454,6 @@ export default function AdminPage() {
                     </div>
                   </div>
 
-                  {formData.productType === 'Saat' && (
-                    <div>
-                      <Label htmlFor="category" className="text-gray-300">Saat Kategorisi</Label>
-                      <Select value={formData.category} onValueChange={(v) => setFormData({...formData, category: v})}>
-                        <SelectTrigger className="bg-black/50 border-white/20 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-900 border-white/20">
-                          <SelectItem value="Lüks">Lüks</SelectItem>
-                          <SelectItem value="Spor">Spor</SelectItem>
-                          <SelectItem value="Klasik">Klasik</SelectItem>
-                          <SelectItem value="Dijital">Dijital</SelectItem>
-                          <SelectItem value="Akıllı Saat">Akıllı Saat</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                  )}
-
                   <div>
                     <Label htmlFor="imageFile" className="text-gray-300">Ürün Görseli *</Label>
                     <Input
@@ -436,21 +462,30 @@ export default function AdminPage() {
                       accept="image/*"
                       onChange={handleFileChange}
                       disabled={uploadingImage}
-                      className="cursor-pointer bg-black/50 border-white/20 text-white"
+                      className="cursor-pointer bg-black/50 border-white/20 text-white file:bg-amber-500 file:text-black file:border-0 file:rounded file:mr-3"
                     />
                     {uploadingImage && (
-                      <p className="text-sm text-amber-500 mt-1">Görsel yükleniyor...</p>
+                      <p className="text-sm text-amber-500 mt-1 animate-pulse">Görsel yükleniyor...</p>
                     )}
                   </div>
+
                   {imagePreview && (
                     <div>
                       <Label className="text-gray-300">Görsel Önizleme</Label>
-                      <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded border border-white/20" />
+                      <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-lg border border-white/20" />
                     </div>
                   )}
-                  <div className="flex space-x-4">
-                    <Button type="submit" className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black">
-                      {editingProduct ? 'Güncelle' : 'Ekle'}
+
+                  <div className="flex gap-3 pt-4">
+                    <Button 
+                      type="submit" 
+                      className={`flex-1 ${
+                        formData.productType === 'watch' 
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600' 
+                          : 'bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600'
+                      } text-white font-bold`}
+                    >
+                      {editingProduct ? 'Güncelle' : (formData.productType === 'watch' ? 'Saat Ekle' : 'Gözlük Ekle')}
                     </Button>
                     <Button
                       type="button"
@@ -473,34 +508,42 @@ export default function AdminPage() {
         {filteredProducts.length === 0 ? (
           <Card className="p-12 text-center bg-white/5 border-white/10">
             <Package className="h-16 w-16 mx-auto text-gray-600 mb-4" />
-            <h3 className="text-xl font-semibold text-white mb-2">Henüz ürün yok</h3>
+            <h3 className="text-xl font-semibold text-white mb-2">
+              {filterType === 'all' ? 'Henüz ürün yok' : filterType === 'watch' ? 'Saat bulunamadı' : 'Gözlük bulunamadı'}
+            </h3>
             <p className="text-gray-400 mb-4">Yeni ürün ekleyerek başlayın</p>
           </Card>
         ) : (
           <div className="grid gap-4">
             {filteredProducts.map((product) => {
-              const isEyewear = product.category === 'Gözlük' || product.category === 'gözlük' || product.category === 'Eyewear';
+              const isEyewear = product.productType === 'eyewear' || product.category === 'Gözlük';
               return (
-                <Card key={product.id} className="bg-white/5 border-white/10">
+                <Card key={product.id} className="bg-white/5 border-white/10 hover:border-white/20 transition-colors">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-4">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-24 h-24 object-cover rounded"
+                        className="w-24 h-24 object-cover rounded-lg"
                       />
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <h3 className="font-bold text-lg text-white">{product.name}</h3>
-                          <Badge className={isEyewear ? 'bg-purple-500' : 'bg-amber-500 text-black'}>
-                            {isEyewear ? <><Glasses className="h-3 w-3 mr-1" /> Gözlük</> : <><Clock className="h-3 w-3 mr-1" /> Saat</>}
+                          <Badge className={isEyewear ? 'bg-purple-500 text-white' : 'bg-amber-500 text-black'}>
+                            {isEyewear ? (
+                              <><Glasses className="h-3 w-3 mr-1" /> Gözlük</>
+                            ) : (
+                              <><Clock className="h-3 w-3 mr-1" /> Saat</>
+                            )}
+                          </Badge>
+                          <Badge variant="secondary" className="bg-gray-700 text-gray-200">
+                            {product.category}
                           </Badge>
                         </div>
                         <p className="text-gray-400 text-sm mb-2 line-clamp-2">{product.description}</p>
                         <div className="flex items-center space-x-4 text-sm">
-                          <span className="font-bold text-amber-500">{product.price?.toFixed(2)} ₺</span>
+                          <span className="font-bold text-amber-500 text-lg">{product.price?.toFixed(2)} ₺</span>
                           <span className="text-gray-500">Stok: {product.stock}</span>
-                          <span className="text-gray-500">{product.category}</span>
                         </div>
                       </div>
                       <div className="flex space-x-2">
