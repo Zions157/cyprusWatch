@@ -152,7 +152,7 @@ export default function CheckoutPage() {
                   <p className="font-semibold mb-2">Havale Bilgileri:</p>
                   <p className="text-sm"><strong>IBAN:</strong> {transferInfo.iban}</p>
                   <p className="text-sm"><strong>Hesap Adı:</strong> {transferInfo.accountName}</p>
-                  <p className="text-sm"><strong>Tutar:</strong> {totalAmount.toFixed(2)} ₺</p>
+                  <p className="text-sm"><strong>Tutar:</strong> {formatPrice(totalAmount)} ₺</p>
                   <p className="text-xs text-gray-500 mt-2">
                     Lütfen açıklama kısmına sipariş numaranızı yazınız.
                   </p>
