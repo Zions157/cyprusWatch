@@ -603,6 +603,50 @@ export default function AdminPage() {
               );
             })}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex items-center justify-center gap-2 mt-8">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                disabled={currentPage === 1}
+                className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50"
+              >
+                <ChevronLeft className="h-4 w-4 mr-1" />
+                Önceki
+              </Button>
+              
+              <div className="flex gap-1">
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                  <Button
+                    key={page}
+                    variant={currentPage === page ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setCurrentPage(page)}
+                    className={currentPage === page 
+                      ? 'bg-amber-500 text-black hover:bg-amber-600 min-w-[40px]' 
+                      : 'bg-gray-800 border-gray-700 text-white hover:bg-gray-700 min-w-[40px]'}
+                  >
+                    {page}
+                  </Button>
+                ))}
+              </div>
+
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="bg-gray-800 border-gray-700 text-white hover:bg-gray-700 disabled:opacity-50"
+              >
+                Sonraki
+                <ChevronRight className="h-4 w-4 ml-1" />
+              </Button>
+            </div>
+          )}
+        </>
         )}
       </main>
     </div>
