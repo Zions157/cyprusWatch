@@ -50,9 +50,9 @@ export default function WatchesPage() {
     try {
       const response = await fetch('/api/products');
       const data = await response.json();
-      // Filter only watch products (exclude eyewear)
+      // Filter only watch products using productType
       const watchProducts = (Array.isArray(data) ? data : []).filter(
-        p => p.category !== 'Gözlük' && p.category !== 'gözlük' && p.category !== 'Eyewear'
+        p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')
       );
       setProducts(watchProducts);
     } catch (error) {
