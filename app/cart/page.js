@@ -106,7 +106,7 @@ export default function CartPage() {
                         </Button>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-lg mb-2 text-white">{(item.price * item.quantity).toFixed(2)} ₺</p>
+                        <p className="font-bold text-lg mb-2 text-white">{formatPrice(item.price * item.quantity)} ₺</p>
                         <Button
                           variant="destructive"
                           size="sm"
