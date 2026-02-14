@@ -2,8 +2,9 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { ArrowLeft, ShoppingCart, Package, Minus, Plus } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
@@ -54,10 +55,13 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Package className="h-12 w-12 animate-spin mx-auto text-indigo-600 mb-4" />
-          <p className="text-gray-600">Yükleniyor...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+        <Navbar />
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <Package className="h-12 w-12 animate-spin mx-auto text-indigo-600 mb-4" />
+            <p className="text-gray-600">Yükleniyor...</p>
+          </div>
         </div>
       </div>
     );
@@ -65,37 +69,32 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-        <Card className="p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Ürün bulunamadı</h2>
-          <Button onClick={() => router.push('/')} className="bg-indigo-600 hover:bg-indigo-700">
-            Ana Sayfaya Dön
-          </Button>
-        </Card>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+        <Navbar />
+        <div className="flex items-center justify-center py-20">
+          <Card className="p-8 text-center">
+            <h2 className="text-2xl font-bold text-gray-700 mb-4">Ürün bulunamadı</h2>
+            <Button onClick={() => router.push('/watches')} className="bg-indigo-600 hover:bg-indigo-700">
+              Saatlere Dön
+            </Button>
+          </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center space-x-2">
-            <Package className="h-8 w-8 text-indigo-600" />
-            <h1 className="text-2xl font-bold text-gray-900">Cyprus Watch</h1>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+      <Navbar />
 
       <main className="container mx-auto px-4 py-8">
         <Button
-          onClick={() => router.push('/')}
+          onClick={() => router.push('/watches')}
           variant="ghost"
           className="mb-6"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Ürünlere Geri Dön
+          Saatlere Geri Dön
         </Button>
 
         <div className="grid md:grid-cols-2 gap-8">
