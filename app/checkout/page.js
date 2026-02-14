@@ -121,28 +121,33 @@ export default function CheckoutPage() {
 
   if (cart.length === 0 && !orderComplete) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-        <Card className="p-8 text-center">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Sepetiniz boş</h2>
-          <Button onClick={() => router.push('/')} className="bg-indigo-600 hover:bg-indigo-700">
-            Alışverişe Başla
-          </Button>
-        </Card>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+        <Navbar />
+        <div className="flex items-center justify-center py-20">
+          <Card className="p-8 text-center">
+            <h2 className="text-2xl font-bold text-gray-700 mb-4">Sepetiniz boş</h2>
+            <Button onClick={() => router.push('/watches')} className="bg-indigo-600 hover:bg-indigo-700">
+              Alışverişe Başla
+            </Button>
+          </Card>
+        </div>
       </div>
     );
   }
 
   if (orderComplete) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-        <Card className="max-w-md p-8 text-center">
-          <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Siparişiniz Alındı!</h2>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+        <Navbar />
+        <div className="flex items-center justify-center py-20">
+          <Card className="max-w-md p-8 text-center">
+            <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">Siparişiniz Alındı!</h2>
 
-          {transferInfo ? (
-            <div className="text-left space-y-4 mb-6">
-              <Alert>
-                <AlertDescription>
+            {transferInfo ? (
+              <div className="text-left space-y-4 mb-6">
+                <Alert>
+                  <AlertDescription>
                   <p className="font-semibold mb-2">Havale Bilgileri:</p>
                   <p className="text-sm"><strong>IBAN:</strong> {transferInfo.iban}</p>
                   <p className="text-sm"><strong>Hesap Adı:</strong> {transferInfo.accountName}</p>
