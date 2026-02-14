@@ -171,7 +171,7 @@ export default function ProductDetail() {
                   className="w-full h-12 text-lg bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />
-                  Sepete Ekle - {(product.price * quantity).toFixed(2)} ₺
+                  Sepete Ekle - {formatPrice(product.price * quantity)} ₺
                 </Button>
                 <Button
                   onClick={() => router.push('/cart')}
