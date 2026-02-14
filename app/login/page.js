@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Logo from '@/components/Logo';
@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 
@@ -24,6 +24,8 @@ import { Badge } from '@/components/ui/badge';
 const WATCH_CATEGORIES = ['Lüks', 'Spor', 'Klasik', 'Dijital', 'Akıllı Saat'];
 // Gözlük kategorileri
 const EYEWEAR_CATEGORIES = ['Güneş Gözlüğü', 'Optik', 'Spor Gözlük', 'Moda'];
+
+const ITEMS_PER_PAGE = 10;
 
 export default function AdminPage() {
   const router = useRouter();
