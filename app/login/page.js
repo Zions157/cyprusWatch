@@ -264,16 +264,17 @@ export default function AdminPage() {
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold text-gray-900">Ürün Yönetimi</h2>
+            <h2 className="text-3xl font-bold text-gray-900">Admin - Ürün Yönetimi</h2>
             <p className="text-gray-600">Toplam {products.length} ürün</p>
           </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <Button onClick={openAddDialog} className="bg-indigo-600 hover:bg-indigo-700">
-                <Plus className="h-4 w-4 mr-2" />
-                Yeni Ürün Ekle
-              </Button>
-            </DialogTrigger>
+          <div className="flex items-center space-x-4">
+            <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+              <DialogTrigger asChild>
+                <Button onClick={openAddDialog} className="bg-indigo-600 hover:bg-indigo-700">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Yeni Ürün Ekle
+                </Button>
+              </DialogTrigger>
             <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>
