@@ -37,8 +37,9 @@ export default function WhatsAppButton({ phoneNumber = '905331234567' }) {
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-6 left-6 z-[9999] bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group"
+      className="fixed bottom-3 left-3 z-[99999] bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 group"
       aria-label="WhatsApp ile iletişime geç"
+      style={{ bottom: '12px', left: '12px' }}
     >
       <svg
         viewBox="0 0 24 24"
