@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, ShoppingCart, Trash2, Minus, Plus, Package } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Trash2, Minus, Plus } from 'lucide-react';
 
 export default function CartPage() {
   const router = useRouter();
@@ -45,20 +46,12 @@ export default function CartPage() {
   const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center space-x-2">
-            <Package className="h-8 w-8 text-indigo-600" />
-            <h1 className="text-2xl font-bold text-gray-900">Cyprus Watch</h1>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+      <Navbar />
 
       <main className="container mx-auto px-4 py-8">
         <Button
-          onClick={() => router.push('/')}
+          onClick={() => router.push('/watches')}
           variant="ghost"
           className="mb-6"
         >
