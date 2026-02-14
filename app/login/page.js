@@ -257,10 +257,10 @@ export default function AdminPage() {
     return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
   }, [filteredProducts, currentPage]);
 
-  // Filtre değişince sayfayı sıfırla
+  // Filtre veya arama değişince sayfayı sıfırla
   useEffect(() => {
     setCurrentPage(1);
-  }, [filterType]);
+  }, [filterType, searchQuery]);
 
   // Mevcut kategorileri say
   const watchCount = products.filter(p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')).length;
