@@ -376,7 +376,7 @@ export default function CheckoutPage() {
                           {item.name} x {item.quantity}
                         </span>
                         <span className="font-semibold">
-                          {(item.price * item.quantity).toFixed(2)} ₺
+                          {formatPrice(item.price * item.quantity)} ₺
                         </span>
                       </div>
                     ))}
