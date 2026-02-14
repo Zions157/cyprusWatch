@@ -260,7 +260,7 @@ export default function Home() {
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-xl font-bold text-amber-500">
-                        {product.price?.toFixed(2)} ₺
+                        {formatPrice(product.price)} ₺
                       </span>
                     </div>
                   </CardContent>
