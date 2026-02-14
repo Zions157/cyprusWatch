@@ -306,28 +306,34 @@ export default function AdminPage() {
           </div>
           <div className="flex flex-wrap items-center gap-3">
             {/* Filter Buttons */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 bg-gray-800/50 p-1 rounded-lg">
               <Button
-                variant={filterType === 'all' ? 'default' : 'outline'}
+                variant={filterType === 'all' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setFilterType('all')}
-                className={filterType === 'all' ? 'bg-amber-500 text-black' : 'border-white/20 text-gray-300'}
+                className={filterType === 'all' 
+                  ? 'bg-amber-500 text-black font-bold hover:bg-amber-600' 
+                  : 'bg-gray-700 text-white hover:bg-gray-600 border-0'}
               >
                 Tümü ({products.length})
               </Button>
               <Button
-                variant={filterType === 'watch' ? 'default' : 'outline'}
+                variant={filterType === 'watch' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setFilterType('watch')}
-                className={filterType === 'watch' ? 'bg-amber-500 text-black' : 'border-white/20 text-gray-300'}
+                className={filterType === 'watch' 
+                  ? 'bg-amber-500 text-black font-bold hover:bg-amber-600' 
+                  : 'bg-gray-700 text-white hover:bg-gray-600 border-0'}
               >
                 <Clock className="h-4 w-4 mr-1" /> Saatler ({watchCount})
               </Button>
               <Button
-                variant={filterType === 'eyewear' ? 'default' : 'outline'}
+                variant={filterType === 'eyewear' ? 'default' : 'ghost'}
                 size="sm"
                 onClick={() => setFilterType('eyewear')}
-                className={filterType === 'eyewear' ? 'bg-amber-500 text-black' : 'border-white/20 text-gray-300'}
+                className={filterType === 'eyewear' 
+                  ? 'bg-purple-500 text-white font-bold hover:bg-purple-600' 
+                  : 'bg-gray-700 text-white hover:bg-gray-600 border-0'}
               >
                 <Glasses className="h-4 w-4 mr-1" /> Gözlükler ({eyewearCount})
               </Button>
