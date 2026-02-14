@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ArrowLeft, ShoppingCart, Package, Minus, Plus, Clock, Glasses } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { formatPrice } from '@/lib/utils';
 
 export default function ProductDetail() {
   const router = useRouter();
