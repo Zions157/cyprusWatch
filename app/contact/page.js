@@ -22,14 +22,12 @@ export default function ContactPage() {
     e.preventDefault();
     setLoading(true);
     
-    // Simüle edilmiş form gönderimi
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     setSubmitted(true);
     setLoading(false);
     setFormData({ name: '', email: '', subject: '', message: '' });
     
-    // 3 saniye sonra mesajı kaldır
     setTimeout(() => setSubmitted(false), 3000);
   };
 
@@ -61,14 +59,14 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <div className="min-h-screen bg-black">
       <Navbar />
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-800 py-16">
+      <div className="pt-24 pb-16 bg-gradient-to-b from-gray-900 to-black">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">İletişim</h1>
-          <p className="text-indigo-200 text-lg max-w-2xl mx-auto">
+          <h1 className="text-5xl font-bold text-white mb-4">İletişim</h1>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
             Sorularınız için bize ulaşın. Size en kısa sürede dönüş yapacağız.
           </p>
         </div>
@@ -78,8 +76,8 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Bize Ulaşın</h2>
-            <p className="text-gray-600 mb-8">
+            <h2 className="text-2xl font-bold text-white mb-6">Bize Ulaşın</h2>
+            <p className="text-gray-400 mb-8">
               Cyprus Watch olarak müşteri memnuniyetini ön planda tutuyoruz. 
               Her türlü soru, öneri ve talepleriniz için bizimle iletişime geçebilirsiniz.
             </p>
@@ -88,15 +86,15 @@ export default function ContactPage() {
               {contactInfo.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index} className="border-0 shadow-md hover:shadow-lg transition-shadow">
+                  <Card key={index} className="bg-white/5 border-white/10 hover:border-amber-500/50 transition-colors">
                     <CardContent className="p-5">
                       <div className="flex items-start space-x-4">
-                        <div className="bg-indigo-100 p-3 rounded-lg">
-                          <Icon className="h-6 w-6 text-indigo-600" />
+                        <div className="bg-gradient-to-br from-amber-500 to-yellow-500 p-3 rounded-lg">
+                          <Icon className="h-6 w-6 text-black" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                          <p className="text-indigo-600 font-medium">{item.content}</p>
+                          <h3 className="font-semibold text-white">{item.title}</h3>
+                          <p className="text-amber-500 font-medium">{item.content}</p>
                           <p className="text-sm text-gray-500 mt-1">{item.subContent}</p>
                         </div>
                       </div>
@@ -105,32 +103,22 @@ export default function ContactPage() {
                 );
               })}
             </div>
-
-            {/* Map Placeholder */}
-            <div className="mt-8 rounded-xl overflow-hidden shadow-lg">
-              <div className="bg-gray-200 h-64 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <MapPin className="h-12 w-12 mx-auto mb-2" />
-                  <p>Harita - Lefkoşa, Kuzey Kıbrıs</p>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* Contact Form */}
           <div>
-            <Card className="border-0 shadow-xl">
+            <Card className="bg-white/5 border-white/10">
               <CardHeader>
-                <CardTitle className="text-2xl">Mesaj Gönderin</CardTitle>
+                <CardTitle className="text-2xl text-white">Mesaj Gönderin</CardTitle>
               </CardHeader>
               <CardContent>
                 {submitted ? (
                   <div className="text-center py-8">
                     <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                    <h3 className="text-xl font-semibold text-white mb-2">
                       Mesajınız Alındı!
                     </h3>
-                    <p className="text-gray-600">
+                    <p className="text-gray-400">
                       En kısa sürede size dönüş yapacağız.
                     </p>
                   </div>
@@ -138,7 +126,7 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-300 mb-1">
                           Adınız Soyadınız
                         </label>
                         <Input
@@ -147,10 +135,11 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="Adınız Soyadınız"
+                          className="bg-black/50 border-white/20 text-white"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-gray-300 mb-1">
                           E-posta Adresiniz
                         </label>
                         <Input
@@ -159,12 +148,13 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="ornek@email.com"
+                          className="bg-black/50 border-white/20 text-white"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-300 mb-1">
                         Konu
                       </label>
                       <Input
@@ -173,11 +163,12 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder="Mesajınızın konusu"
+                        className="bg-black/50 border-white/20 text-white"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-gray-300 mb-1">
                         Mesajınız
                       </label>
                       <Textarea
@@ -186,23 +177,18 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Mesajınızı buraya yazın..."
+                        className="bg-black/50 border-white/20 text-white"
                       />
                     </div>
 
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-indigo-600 hover:bg-indigo-700"
+                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
                       size="lg"
                     >
                       {loading ? (
-                        <span className="flex items-center">
-                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                          </svg>
-                          Gönderiliyor...
-                        </span>
+                        <span>Gönderiliyor...</span>
                       ) : (
                         <span className="flex items-center justify-center">
                           <Send className="h-5 w-5 mr-2" />
@@ -219,8 +205,8 @@ export default function ContactPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto px-4 text-center text-gray-400">
+      <footer className="bg-black text-white py-8 border-t border-white/10">
+        <div className="container mx-auto px-4 text-center text-gray-500">
           <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
         </div>
       </footer>

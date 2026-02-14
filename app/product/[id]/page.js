@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ArrowLeft, ShoppingCart, Package, Minus, Plus } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Package, Minus, Plus, Clock, Glasses } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 export default function ProductDetail() {
@@ -53,14 +53,16 @@ export default function ProductDetail() {
     router.push('/cart');
   };
 
+  const isEyewear = product?.category === 'Gözlük' || product?.category === 'gözlük' || product?.category === 'Eyewear';
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+      <div className="min-h-screen bg-black">
         <Navbar />
-        <div className="flex items-center justify-center py-20">
+        <div className="flex items-center justify-center py-32">
           <div className="text-center">
-            <Package className="h-12 w-12 animate-spin mx-auto text-indigo-600 mb-4" />
-            <p className="text-gray-600">Yükleniyor...</p>
+            <Package className="h-12 w-12 animate-spin mx-auto text-amber-500 mb-4" />
+            <p className="text-gray-400">Yükleniyor...</p>
           </div>
         </div>
       </div>
@@ -69,13 +71,13 @@ export default function ProductDetail() {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+      <div className="min-h-screen bg-black">
         <Navbar />
-        <div className="flex items-center justify-center py-20">
-          <Card className="p-8 text-center">
-            <h2 className="text-2xl font-bold text-gray-700 mb-4">Ürün bulunamadı</h2>
-            <Button onClick={() => router.push('/watches')} className="bg-indigo-600 hover:bg-indigo-700">
-              Saatlere Dön
+        <div className="flex items-center justify-center py-32">
+          <Card className="p-8 text-center bg-white/5 border-white/10">
+            <h2 className="text-2xl font-bold text-white mb-4">Ürün bulunamadı</h2>
+            <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-amber-500 to-yellow-500 text-black">
+              Ürünlere Dön
             </Button>
           </Card>
         </div>
@@ -84,23 +86,23 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+    <div className="min-h-screen bg-black">
       <Navbar />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 pt-24">
         <Button
-          onClick={() => router.push('/watches')}
+          onClick={() => router.push(isEyewear ? '/eyewear' : '/watches')}
           variant="ghost"
-          className="mb-6"
+          className="mb-6 text-gray-400 hover:text-white"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
-          Saatlere Geri Dön
+          {isEyewear ? 'Gözlüklere' : 'Saatlere'} Geri Dön
         </Button>
 
         <div className="grid md:grid-cols-2 gap-8">
           {/* Ürün Görseli */}
-          <Card className="overflow-hidden">
-            <div className="relative h-96 bg-gray-100">
+          <Card className="overflow-hidden bg-white/5 border-white/10">
+            <div className="relative h-96 bg-gray-800">
               <img
                 src={product.image}
                 alt={product.name}
@@ -112,46 +114,51 @@ export default function ProductDetail() {
               {product.stock === 0 && (
                 <Badge className="absolute top-4 right-4 bg-gray-500">Stokta Yok</Badge>
               )}
+              <Badge className="absolute top-4 left-4 bg-amber-500 text-black">
+                {isEyewear ? <><Glasses className="h-3 w-3 mr-1" /> Gözlük</> : <><Clock className="h-3 w-3 mr-1" /> Saat</>}
+              </Badge>
             </div>
           </Card>
 
           {/* Ürün Detayları */}
           <div className="space-y-6">
             <div>
-              <Badge className="mb-2">{product.category}</Badge>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
-              <p className="text-gray-600 text-lg leading-relaxed">{product.description}</p>
+              <Badge className="mb-2 bg-white/10 text-gray-300">{product.category}</Badge>
+              <h1 className="text-4xl font-bold text-white mb-4">{product.name}</h1>
+              <p className="text-gray-400 text-lg leading-relaxed">{product.description}</p>
             </div>
 
-            <div className="border-t pt-6">
+            <div className="border-t border-white/10 pt-6">
               <div className="flex items-baseline space-x-2 mb-6">
-                <span className="text-5xl font-bold text-indigo-600">{product.price.toFixed(2)} ₺</span>
+                <span className="text-5xl font-bold text-amber-500">{product.price?.toFixed(2)} ₺</span>
               </div>
 
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
-                  <span className="text-gray-700 font-medium">Adet:</span>
+                  <span className="text-gray-300 font-medium">Adet:</span>
                   <div className="flex items-center space-x-2">
                     <Button
                       variant="outline"
                       size="icon"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                      className="border-white/20 text-gray-300 hover:bg-white/10"
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="text-xl font-semibold w-12 text-center">{quantity}</span>
+                    <span className="text-xl font-semibold w-12 text-center text-white">{quantity}</span>
                     <Button
                       variant="outline"
                       size="icon"
                       onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
                       disabled={quantity >= product.stock}
+                      className="border-white/20 text-gray-300 hover:bg-white/10"
                     >
                       <Plus className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
 
-                <div className="flex items-center space-x-2 text-gray-600">
+                <div className="flex items-center space-x-2 text-gray-400">
                   <Package className="h-5 w-5" />
                   <span>Stok: {product.stock} adet</span>
                 </div>
@@ -161,7 +168,7 @@ export default function ProductDetail() {
                 <Button
                   onClick={addToCart}
                   disabled={product.stock === 0}
-                  className="w-full h-12 text-lg bg-indigo-600 hover:bg-indigo-700"
+                  className="w-full h-12 text-lg bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   Sepete Ekle - {(product.price * quantity).toFixed(2)} ₺
@@ -169,7 +176,7 @@ export default function ProductDetail() {
                 <Button
                   onClick={() => router.push('/cart')}
                   variant="outline"
-                  className="w-full h-12 text-lg"
+                  className="w-full h-12 text-lg border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black"
                 >
                   Sepete Git
                 </Button>
