@@ -228,6 +228,7 @@ export async function PUT(request) {
         image: body.image,
         stock: parseInt(body.stock),
         category: body.category,
+        productType: body.productType || 'watch',
         updatedAt: new Date().toISOString()
       };
 
