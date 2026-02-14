@@ -228,12 +228,26 @@ export default function AdminPage() {
     setIsDialogOpen(true);
   };
 
-  const filteredProducts = products.filter(p => {
-    if (filterType === 'all') return true;
-    if (filterType === 'watch') return p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük');
-    if (filterType === 'eyewear') return p.productType === 'eyewear' || p.category === 'Gözlük';
-    return true;
-  });
+  const filteredProducts = useMemo(() => {
+    return products.filter(p => {
+      if (filterType === 'all') return true;
+      if (filterType === 'watch') return p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük');
+      if (filterType === 'eyewear') return p.productType === 'eyewear' || p.category === 'Gözlük';
+      return true;
+    });
+  }, [products, filterType]);
+
+  // Pagination hesaplamaları
+  const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
+  const paginatedProducts = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredProducts.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredProducts, currentPage]);
+
+  // Filtre değişince sayfayı sıfırla
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterType]);
 
   // Mevcut kategorileri say
   const watchCount = products.filter(p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')).length;
