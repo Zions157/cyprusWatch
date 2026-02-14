@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowLeft, ShoppingCart, Trash2, Minus, Plus } from 'lucide-react';
+import { formatPrice } from '@/lib/utils';
 
 export default function CartPage() {
   const router = useRouter();
