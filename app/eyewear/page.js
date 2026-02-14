@@ -23,18 +23,17 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { ShoppingCart, Search, Filter, SlidersHorizontal, X, Clock } from 'lucide-react';
+import { ShoppingCart, Search, Filter, SlidersHorizontal, X, Glasses } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 10;
 
-export default function WatchesPage() {
+export default function EyewearPage() {
   const router = useRouter();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('default');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -50,11 +49,11 @@ export default function WatchesPage() {
     try {
       const response = await fetch('/api/products');
       const data = await response.json();
-      // Filter only watch products (exclude eyewear)
-      const watchProducts = (Array.isArray(data) ? data : []).filter(
-        p => p.category !== 'Gözlük' && p.category !== 'gözlük' && p.category !== 'Eyewear'
+      // Filter only eyewear products
+      const eyewearProducts = (Array.isArray(data) ? data : []).filter(
+        p => p.category === 'Gözlük' || p.category === 'gözlük' || p.category === 'Eyewear'
       );
-      setProducts(watchProducts);
+      setProducts(eyewearProducts);
     } catch (error) {
       console.error('Ürünler yüklenemedi:', error);
       setProducts([]);
@@ -62,11 +61,6 @@ export default function WatchesPage() {
       setLoading(false);
     }
   };
-
-  const categories = useMemo(() => {
-    const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
-    return ['all', ...cats];
-  }, [products]);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -76,13 +70,8 @@ export default function WatchesPage() {
       result = result.filter(
         p =>
           p.name?.toLowerCase().includes(query) ||
-          p.description?.toLowerCase().includes(query) ||
-          p.category?.toLowerCase().includes(query)
+          p.description?.toLowerCase().includes(query)
       );
-    }
-
-    if (selectedCategory !== 'all') {
-      result = result.filter(p => p.category === selectedCategory);
     }
 
     switch (sortBy) {
@@ -98,15 +87,12 @@ export default function WatchesPage() {
       case 'name-desc':
         result.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
         break;
-      case 'newest':
-        result.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
-        break;
       default:
         break;
     }
 
     return result;
-  }, [products, searchQuery, selectedCategory, sortBy]);
+  }, [products, searchQuery, sortBy]);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = useMemo(() => {
@@ -116,7 +102,7 @@ export default function WatchesPage() {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [searchQuery, selectedCategory, sortBy]);
+  }, [searchQuery, sortBy]);
 
   const addToCart = (product) => {
     const existingItem = cart.find(item => item.id === product.id);
@@ -138,12 +124,11 @@ export default function WatchesPage() {
 
   const clearFilters = () => {
     setSearchQuery('');
-    setSelectedCategory('all');
     setSortBy('default');
     setCurrentPage(1);
   };
 
-  const hasActiveFilters = searchQuery || selectedCategory !== 'all' || sortBy !== 'default';
+  const hasActiveFilters = searchQuery || sortBy !== 'default';
 
   const getPaginationItems = () => {
     const items = [];
@@ -174,10 +159,10 @@ export default function WatchesPage() {
       <div className="pt-24 pb-12 bg-gradient-to-b from-gray-900 to-black">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3">
-            <Clock className="h-10 w-10 text-amber-500" />
+            <Glasses className="h-10 w-10 text-amber-500" />
             <div>
-              <h1 className="text-4xl font-bold text-white">Saatler</h1>
-              <p className="text-gray-400">Lüks saat koleksiyonumuzu keşfedin</p>
+              <h1 className="text-4xl font-bold text-white">Gözlükler</h1>
+              <p className="text-gray-400">Premium gözlük koleksiyonumuzu keşfedin</p>
             </div>
           </div>
         </div>
@@ -191,27 +176,11 @@ export default function WatchesPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <Input
                 type="text"
-                placeholder="Saat ara..."
+                placeholder="Gözlük ara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 w-full bg-black/50 border-white/20 text-white placeholder:text-gray-500"
               />
-            </div>
-
-            <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-400" />
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full lg:w-[180px] bg-black/50 border-white/20 text-white">
-                  <SelectValue placeholder="Kategori" />
-                </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-white/20">
-                  {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat}>
-                      {cat === 'all' ? 'Tüm Kategoriler' : cat}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
@@ -226,7 +195,6 @@ export default function WatchesPage() {
                   <SelectItem value="price-desc">Fiyat: Yüksekten Düşüğe</SelectItem>
                   <SelectItem value="name-asc">İsim: A-Z</SelectItem>
                   <SelectItem value="name-desc">İsim: Z-A</SelectItem>
-                  <SelectItem value="newest">En Yeni</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -244,13 +212,8 @@ export default function WatchesPage() {
           </div>
 
           <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-sm text-gray-400">
-            <span>
-              {filteredProducts.length} ürün bulundu
-              {hasActiveFilters && ' (filtrelendi)'}
-            </span>
-            <span>
-              Sayfa {currentPage} / {totalPages || 1}
-            </span>
+            <span>{filteredProducts.length} ürün bulundu</span>
+            <span>Sayfa {currentPage} / {totalPages || 1}</span>
           </div>
         </div>
 
@@ -304,14 +267,9 @@ export default function WatchesPage() {
                     <p className="text-xs text-gray-400 line-clamp-2 mb-2">
                       {product.description}
                     </p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-amber-500">
-                        {product.price?.toFixed(2)} ₺
-                      </span>
-                      <Badge variant="secondary" className="text-xs bg-white/10 text-gray-300">
-                        {product.category}
-                      </Badge>
-                    </div>
+                    <span className="text-lg font-bold text-amber-500">
+                      {product.price?.toFixed(2)} ₺
+                    </span>
                   </CardContent>
                   <CardFooter className="p-3 pt-0">
                     <Button
@@ -380,13 +338,11 @@ export default function WatchesPage() {
           </>
         ) : (
           <div className="text-center py-16">
-            <div className="text-gray-600 mb-4">
-              <Search className="h-16 w-16 mx-auto" />
-            </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Ürün Bulunamadı</h3>
-            <p className="text-gray-400 mb-4">Arama kriterlerinize uygun ürün bulunamadı.</p>
-            <Button onClick={clearFilters} variant="outline" className="border-amber-500 text-amber-500">
-              Filtreleri Temizle
+            <Glasses className="h-16 w-16 mx-auto text-gray-600 mb-4" />
+            <h3 className="text-xl font-semibold text-white mb-2">Gözlük Bulunamadı</h3>
+            <p className="text-gray-400 mb-4">Henüz gözlük ürünü eklenmemiş.</p>
+            <Button onClick={() => router.push('/')} variant="outline" className="border-amber-500 text-amber-500">
+              Anasayfaya Dön
             </Button>
           </div>
         )}
