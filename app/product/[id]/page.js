@@ -136,24 +136,23 @@ export default function ProductDetail() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-4">
                   <span className="text-gray-300 font-medium">Adet:</span>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-3">
                     <Button
-                      variant="outline"
                       size="icon"
                       onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                      className="border-white/20 text-gray-300 hover:bg-white/10"
+                      disabled={quantity <= 1}
+                      className="h-10 w-10 bg-gray-700 hover:bg-gray-600 text-white border-0 disabled:opacity-50"
                     >
-                      <Minus className="h-4 w-4" />
+                      <Minus className="h-5 w-5" />
                     </Button>
-                    <span className="text-xl font-semibold w-12 text-center text-white">{quantity}</span>
+                    <span className="text-2xl font-bold w-14 text-center text-white bg-gray-800 py-2 rounded-lg">{quantity}</span>
                     <Button
-                      variant="outline"
                       size="icon"
                       onClick={() => setQuantity(Math.min(product.stock, quantity + 1))}
                       disabled={quantity >= product.stock}
-                      className="border-white/20 text-gray-300 hover:bg-white/10"
+                      className="h-10 w-10 bg-amber-500 hover:bg-amber-600 text-black border-0 disabled:opacity-50"
                     >
-                      <Plus className="h-4 w-4" />
+                      <Plus className="h-5 w-5" />
                     </Button>
                   </div>
                 </div>
