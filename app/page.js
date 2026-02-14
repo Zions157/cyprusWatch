@@ -104,7 +104,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Slider */}
-      <section className="relative h-[80vh] mt-16 overflow-hidden">
+      <section className="relative h-[80vh] overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
