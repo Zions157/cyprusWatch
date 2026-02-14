@@ -133,6 +133,7 @@ export async function POST(request) {
         image: body.image || 'https://via.placeholder.com/400x300?text=Ürün+Görseli',
         stock: parseInt(body.stock) || 100,
         category: body.category || 'Genel',
+        productType: body.productType || 'watch', // 'watch' veya 'eyewear'
         createdAt: new Date().toISOString()
       };
       await db.collection('products').insertOne(product);
