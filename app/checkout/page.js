@@ -385,7 +385,7 @@ export default function CheckoutPage() {
                   <div className="border-t pt-4 space-y-2">
                     <div className="flex justify-between text-gray-600">
                       <span>Ara Toplam:</span>
-                      <span>{totalAmount.toFixed(2)} ₺</span>
+                      <span>{formatPrice(totalAmount)} ₺</span>
                     </div>
                     <div className="flex justify-between text-gray-600">
                       <span>Kargo:</span>
@@ -395,7 +395,7 @@ export default function CheckoutPage() {
 
                   <div className="flex justify-between text-xl font-bold pt-2 border-t">
                     <span>Toplam:</span>
-                    <span className="text-indigo-600">{totalAmount.toFixed(2)} ₺</span>
+                    <span className="text-indigo-600">{formatPrice(totalAmount)} ₺</span>
                   </div>
 
                   <Button
