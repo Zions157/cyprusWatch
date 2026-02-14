@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 
