@@ -611,9 +611,8 @@ export default function AdminPage() {
                         <Button
                           type="button"
                           onClick={() => handleEdit(product)}
-                          variant="outline"
                           size="icon"
-                          className="border-white/20 text-gray-300 hover:bg-white/10"
+                          className="bg-blue-600 hover:bg-blue-700 text-white"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
