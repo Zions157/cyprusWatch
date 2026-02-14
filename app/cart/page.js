@@ -146,7 +146,7 @@ export default function CartPage() {
 
                   <div className="flex justify-between text-xl font-bold pt-2">
                     <span className="text-white">Toplam:</span>
-                    <span className="text-amber-500">{totalAmount.toFixed(2)} ₺</span>
+                    <span className="text-amber-500">{formatPrice(totalAmount)} ₺</span>
                   </div>
 
                   <Button
