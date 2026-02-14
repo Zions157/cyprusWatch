@@ -1,6 +1,34 @@
 'use client';
 
+import { useEffect } from 'react';
+
 export default function WhatsAppButton({ phoneNumber = '905331234567' }) {
+  
+  // Hide Emergent N button
+  useEffect(() => {
+    const hideEmergentButton = () => {
+      // Find and hide elements with "N" or issue-related content
+      const allElements = document.querySelectorAll('button, div');
+      allElements.forEach(el => {
+        const style = window.getComputedStyle(el);
+        if (style.position === 'fixed' && 
+            style.bottom && parseInt(style.bottom) < 50 && 
+            style.left && parseInt(style.left) < 50) {
+          // Check if it's not our WhatsApp button
+          if (!el.getAttribute('aria-label')?.includes('WhatsApp')) {
+            el.style.display = 'none';
+          }
+        }
+      });
+    };
+
+    // Run immediately and on interval
+    hideEmergentButton();
+    const interval = setInterval(hideEmergentButton, 500);
+    
+    return () => clearInterval(interval);
+  }, []);
+
   const handleClick = () => {
     const message = encodeURIComponent('Merhaba, Cyprus Watch hakkında bilgi almak istiyorum.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
