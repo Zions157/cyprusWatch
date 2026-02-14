@@ -269,7 +269,7 @@ export default function EyewearPage() {
                       {product.description}
                     </p>
                     <span className="text-lg font-bold text-amber-500">
-                      {product.price?.toFixed(2)} ₺
+                      {formatPrice(product.price)} ₺
                     </span>
                   </CardContent>
                   <CardFooter className="p-3 pt-0">
