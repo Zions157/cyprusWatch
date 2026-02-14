@@ -349,7 +349,7 @@ export default function CheckoutPage() {
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-600">Tutar:</span>
-                            <span className="font-bold text-indigo-600">{totalAmount.toFixed(2)} ₺</span>
+                            <span className="font-bold text-indigo-600">{formatPrice(totalAmount)} ₺</span>
                           </div>
                         </div>
                         <p className="text-xs text-gray-500 mt-4">
