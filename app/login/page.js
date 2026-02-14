@@ -382,6 +382,10 @@ export default function AdminPage() {
               </form>
             </DialogContent>
           </Dialog>
+          <Button onClick={handleLogout} variant="destructive">
+            Çıkış Yap
+          </Button>
+          </div>
         </div>
 
         {products.length === 0 ? (
