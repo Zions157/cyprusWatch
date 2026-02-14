@@ -327,7 +327,7 @@ export default function AdminPage() {
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 pt-24">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-8 gap-4">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 gap-4">
           <div>
             <h2 className="text-3xl font-bold text-white">Admin - Ürün Yönetimi</h2>
             <p className="text-gray-400">
