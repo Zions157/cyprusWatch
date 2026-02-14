@@ -173,7 +173,8 @@ export default function CheckoutPage() {
           >
             Ana Sayfaya Dön
           </Button>
-        </Card>
+          </Card>
+        </div>
       </div>
     );
   }
