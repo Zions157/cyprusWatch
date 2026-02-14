@@ -56,7 +56,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
-            <Watch className="h-8 w-8 text-indigo-600 group-hover:rotate-12 transition-transform" />
+            <Logo size={36} className="group-hover:scale-105 transition-transform" />
             <span className="text-2xl font-bold text-gray-900">Cyprus Watch</span>
           </Link>
 
