@@ -86,7 +86,7 @@ export default function CartPage() {
                       <div className="flex-1">
                         <h3 className="font-semibold text-lg mb-1 text-white">{item.name}</h3>
                         <p className="text-gray-500 text-sm mb-2 line-clamp-1">{item.description}</p>
-                        <p className="text-amber-500 font-bold text-xl">{item.price?.toFixed(2)} ₺</p>
+                        <p className="text-amber-500 font-bold text-xl">{formatPrice(item.price)} ₺</p>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Button
