@@ -51,9 +51,10 @@ export default function WatchesPage() {
     try {
       const response = await fetch('/api/products');
       const data = await response.json();
-      setProducts(data);
+      setProducts(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Ürünler yüklenemedi:', error);
+      setProducts([]);
     } finally {
       setLoading(false);
     }
