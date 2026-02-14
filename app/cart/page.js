@@ -87,23 +87,21 @@ export default function CartPage() {
                         <p className="text-gray-500 text-sm mb-2 line-clamp-1">{item.description}</p>
                         <p className="text-amber-500 font-bold text-xl">{item.price?.toFixed(2)} ₺</p>
                       </div>
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-3">
                         <Button
-                          variant="outline"
                           size="icon"
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="border-white/20 text-gray-300 hover:bg-white/10"
+                          className="h-9 w-9 bg-gray-700 hover:bg-gray-600 text-white border-0"
                         >
-                          <Minus className="h-4 w-4" />
+                          <Minus className="h-5 w-5" />
                         </Button>
-                        <span className="text-lg font-semibold w-12 text-center text-white">{item.quantity}</span>
+                        <span className="text-xl font-bold w-12 text-center text-white bg-gray-800 py-1.5 rounded-lg">{item.quantity}</span>
                         <Button
-                          variant="outline"
                           size="icon"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="border-white/20 text-gray-300 hover:bg-white/10"
+                          className="h-9 w-9 bg-amber-500 hover:bg-amber-600 text-black border-0"
                         >
-                          <Plus className="h-4 w-4" />
+                          <Plus className="h-5 w-5" />
                         </Button>
                       </div>
                       <div className="text-right">
