@@ -17,7 +17,7 @@ import { ShoppingCart, ChevronRight, Star, Clock, Award, Truck, Sparkles } from 
 
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1547996160-81dfa63595aa?w=1920&q=80',
+    image: 'https://images.unsplash.com/photo-1670177257750-9b47927f68eb?w=1920&q=80',
     title: 'Lüks Saatlerin Adresi',
     subtitle: 'Zamansız elegans, modern tasarım',
   },
@@ -27,17 +27,17 @@ const heroSlides = [
     subtitle: 'Dünyanın en prestijli markaları',
   },
   {
-    image: 'https://images.unsplash.com/photo-1635462684825-3621c1df5403?w=1920&q=80',
+    image: 'https://images.unsplash.com/photo-1604242692760-2f7b0c26856d?w=1920&q=80',
     title: 'Özel Seri Saatler',
     subtitle: 'Sınırlı sayıda üretim',
   },
   {
-    image: 'https://images.unsplash.com/photo-1643110279326-6ff17149856a?w=1920&q=80',
+    image: 'https://images.unsplash.com/photo-1762706334838-ea8425b43116?w=1920&q=80',
     title: 'Tasarım Gözlükler',
     subtitle: 'Tarzınızı yansıtın',
   },
   {
-    image: 'https://images.unsplash.com/photo-1588768921672-12779d0e1c61?w=1920&q=80',
+    image: 'https://images.unsplash.com/photo-1642792539381-b9d9a32f6e1b?w=1920&q=80',
     title: 'Yeni Sezon',
     subtitle: '2026 koleksiyonu şimdi mağazada',
   },
