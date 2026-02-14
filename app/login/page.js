@@ -203,77 +203,63 @@ export default function AdminPage() {
 
   if (!isLoggedIn) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardHeader>
-            <CardTitle className="text-2xl flex items-center justify-center">
-              <Lock className="h-6 w-6 mr-2" />
-              Admin Girişi
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <Label htmlFor="username">Kullanıcı Adı</Label>
-                <Input
-                  id="username"
-                  value={loginForm.username}
-                  onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
-                  required
-                  placeholder="USERNAME"
-                />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+        <div className="flex items-center justify-center min-h-screen">
+          <Card className="w-full max-w-md">
+            <CardHeader className="text-center">
+              <div className="flex justify-center mb-4">
+                <Logo size={60} />
               </div>
-              <div>
-                <Label htmlFor="password">Şifre</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={loginForm.password}
-                  onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                  required
-                  placeholder="PASSWORD"
-                />
-              </div>
-              <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700">
-                Giriş Yap
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                onClick={() => router.push('/')}
-                className="w-full"
-              >
-                Ana Sayfaya Dön
-              </Button>
-            </form>
-          </CardContent>
-        </Card>
+              <CardTitle className="text-2xl flex items-center justify-center">
+                <Lock className="h-6 w-6 mr-2" />
+                Admin Girişi
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div>
+                  <Label htmlFor="username">Kullanıcı Adı</Label>
+                  <Input
+                    id="username"
+                    value={loginForm.username}
+                    onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
+                    required
+                    placeholder="USERNAME"
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="password">Şifre</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={loginForm.password}
+                    onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
+                    required
+                    placeholder="PASSWORD"
+                  />
+                </div>
+                <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-700">
+                  Giriş Yap
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => router.push('/')}
+                  className="w-full"
+                >
+                  Ana Sayfaya Dön
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <Package className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-2xl font-bold text-gray-900">Admin Paneli</h1>
-            </div>
-            <div className="flex items-center space-x-4">
-              <Button onClick={() => router.push('/')} variant="outline">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Ana Sayfa
-              </Button>
-              <Button onClick={handleLogout} variant="destructive">
-                Çıkış Yap
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 to-indigo-50">
+      <Navbar />
 
       <main className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-8">
