@@ -139,3 +139,10 @@ code {
     @apply bg-background text-foreground;
     }
 }
+
+/* Hide Emergent debug button */
+[class*="emergent"],
+button[aria-label*="Issue"],
+div[class*="fixed"][class*="bottom"][class*="left"] > button:not([aria-label="WhatsApp"]) {
+  display: none !important;
+}
