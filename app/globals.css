@@ -139,3 +139,14 @@ code {
     @apply bg-background text-foreground;
     }
 }
+/* Hide Emergent N button */
+[class*="fixed"][class*="bottom"][class*="left"]:has(> span:only-child),
+button[class*="rounded-full"][class*="shadow"]:has(> span:only-child:not(svg)) {
+  display: none !important;
+}
+
+/* More specific - hide the Emergent issue button */
+div[style*="position: fixed"][style*="left: 12px"][style*="bottom: 12px"],
+div[style*="position:fixed"][style*="left:12px"][style*="bottom:12px"] {
+  display: none !important;
+}
