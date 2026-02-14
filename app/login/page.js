@@ -46,6 +46,7 @@ export default function AdminPage() {
   const [uploadingImage, setUploadingImage] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
   const [filterType, setFilterType] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('adminLoggedIn');
