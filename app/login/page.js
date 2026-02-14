@@ -19,6 +19,7 @@ import {
 import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, ChevronLeft, ChevronRight, Search } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
+import { formatPrice } from '@/lib/utils';
 
 // Saat kategorileri
 const WATCH_CATEGORIES = ['Lüks', 'Spor', 'Klasik', 'Dijital', 'Akıllı Saat'];
