@@ -541,13 +541,29 @@ export default function AdminPage() {
           </div>
         </div>
 
+        {/* Search Box */}
+        <div className="mb-6">
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Ürün ara... (isim, açıklama, kategori)"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus:border-amber-500 focus:ring-amber-500"
+            />
+          </div>
+        </div>
+
         {filteredProducts.length === 0 ? (
           <Card className="p-12 text-center bg-white/5 border-white/10">
             <Package className="h-16 w-16 mx-auto text-gray-600 mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">
-              {filterType === 'all' ? 'Henüz ürün yok' : filterType === 'watch' ? 'Saat bulunamadı' : 'Gözlük bulunamadı'}
+              {searchQuery ? 'Arama sonucu bulunamadı' : filterType === 'all' ? 'Henüz ürün yok' : filterType === 'watch' ? 'Saat bulunamadı' : 'Gözlük bulunamadı'}
             </h3>
-            <p className="text-gray-400 mb-4">Yeni ürün ekleyerek başlayın</p>
+            <p className="text-gray-400 mb-4">
+              {searchQuery ? `"${searchQuery}" için sonuç yok` : 'Yeni ürün ekleyerek başlayın'}
+            </p>
           </Card>
         ) : (
           <>
