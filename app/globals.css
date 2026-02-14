@@ -139,19 +139,3 @@ code {
     @apply bg-background text-foreground;
     }
 }
-
-/* Hide Emergent debug button - more specific */
-#__next-build-watcher,
-[data-nextjs-dialog-overlay],
-[data-nextjs-toast],
-div[style*="position: fixed"][style*="bottom"][style*="left"]:not([aria-label="WhatsApp ile iletişime geç"]) {
-  display: none !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* Target the N button specifically by its visual characteristics */
-body > div:last-of-type:not(#__next):not(main):not(header):not(footer):not(nav) {
-  display: none !important;
-}
