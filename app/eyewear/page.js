@@ -49,9 +49,9 @@ export default function EyewearPage() {
     try {
       const response = await fetch('/api/products');
       const data = await response.json();
-      // Filter only eyewear products
+      // Filter only eyewear products using productType
       const eyewearProducts = (Array.isArray(data) ? data : []).filter(
-        p => p.category === 'Gözlük' || p.category === 'gözlük' || p.category === 'Eyewear'
+        p => p.productType === 'eyewear' || p.category === 'Gözlük'
       );
       setProducts(eyewearProducts);
     } catch (error) {
