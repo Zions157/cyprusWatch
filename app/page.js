@@ -326,7 +326,7 @@ export default function Home() {
               <h4 className="font-semibold mb-4 text-white">İletişim</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>info@cypruswatch.com</li>
-                <li>+90 533 123 4567</li>
+                <li>+90 533 123 4123</li>
                 <li>Kıbrıs, Lefkoşa</li>
               </ul>
             </div>
