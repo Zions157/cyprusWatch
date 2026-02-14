@@ -604,7 +604,7 @@ export default function AdminPage() {
                         </div>
                         <p className="text-gray-400 text-sm mb-2 line-clamp-2">{product.description}</p>
                         <div className="flex items-center space-x-4 text-sm">
-                          <span className="font-bold text-amber-500 text-lg">{product.price?.toFixed(2)} ₺</span>
+                          <span className="font-bold text-amber-500 text-lg">{formatPrice(product.price)} ₺</span>
                           <span className="text-gray-500">Stok: {product.stock}</span>
                         </div>
                       </div>
