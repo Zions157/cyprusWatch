@@ -131,7 +131,7 @@ export default function ProductDetail() {
 
             <div className="border-t border-white/10 pt-6">
               <div className="flex items-baseline space-x-2 mb-6">
-                <span className="text-5xl font-bold text-amber-500">{product.price?.toFixed(2)} ₺</span>
+                <span className="text-5xl font-bold text-amber-500">{formatPrice(product.price)} ₺</span>
               </div>
 
               <div className="space-y-4">
