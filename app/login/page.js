@@ -230,13 +230,25 @@ export default function AdminPage() {
   };
 
   const filteredProducts = useMemo(() => {
-    return products.filter(p => {
+    let result = products.filter(p => {
       if (filterType === 'all') return true;
       if (filterType === 'watch') return p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük');
       if (filterType === 'eyewear') return p.productType === 'eyewear' || p.category === 'Gözlük';
       return true;
     });
-  }, [products, filterType]);
+
+    // Search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(p => 
+        p.name?.toLowerCase().includes(query) ||
+        p.description?.toLowerCase().includes(query) ||
+        p.category?.toLowerCase().includes(query)
+      );
+    }
+
+    return result;
+  }, [products, filterType, searchQuery]);
 
   // Pagination hesaplamaları
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
