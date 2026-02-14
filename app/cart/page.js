@@ -136,7 +136,7 @@ export default function CartPage() {
                   <div className="space-y-2 pb-4 border-b border-white/10">
                     <div className="flex justify-between text-gray-400">
                       <span>Ara Toplam:</span>
-                      <span>{totalAmount.toFixed(2)} ₺</span>
+                      <span>{formatPrice(totalAmount)} ₺</span>
                     </div>
                     <div className="flex justify-between text-gray-400">
                       <span>Kargo:</span>
