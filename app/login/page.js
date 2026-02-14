@@ -537,17 +537,26 @@ export default function AdminPage() {
             <p className="text-gray-400 mb-4">Yeni ürün ekleyerek başlayın</p>
           </Card>
         ) : (
-          <div className="grid gap-4">
-            {filteredProducts.map((product) => {
-              const isEyewear = product.productType === 'eyewear' || product.category === 'Gözlük';
-              return (
-                <Card key={product.id} className="bg-white/5 border-white/10 hover:border-white/20 transition-colors">
-                  <CardContent className="p-4">
-                    <div className="flex items-center space-x-4">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-24 h-24 object-cover rounded-lg"
+          <>
+            {/* Sayfa bilgisi */}
+            <div className="flex items-center justify-between mb-4 text-sm text-gray-400">
+              <span>
+                {filteredProducts.length} üründen {((currentPage - 1) * ITEMS_PER_PAGE) + 1} - {Math.min(currentPage * ITEMS_PER_PAGE, filteredProducts.length)} arası gösteriliyor
+              </span>
+              <span>Sayfa {currentPage} / {totalPages}</span>
+            </div>
+
+            <div className="grid gap-4">
+              {paginatedProducts.map((product) => {
+                const isEyewear = product.productType === 'eyewear' || product.category === 'Gözlük';
+                return (
+                  <Card key={product.id} className="bg-white/5 border-white/10 hover:border-white/20 transition-colors">
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-4">
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-24 h-24 object-cover rounded-lg"
                       />
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
