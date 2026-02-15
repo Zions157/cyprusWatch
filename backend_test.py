@@ -768,8 +768,8 @@ class CyprusWatchAPITester:
             self.log_test("Verify Product NEW FIELDS", False, f"HTTP {response.status_code}: {response.text}")
 
     def run_all_tests(self):
-        """Run all backend API tests in sequence"""
-        print(f"\n🚀 Starting Cyprus Watch Backend API Tests")
+        """Run all backend API tests in sequence including NEW FEATURES"""
+        print(f"\n🚀 Starting Cyprus Watch Backend API Tests - Including NEW FEATURES")
         print(f"Base URL: {self.base_url}")
         print(f"API Base: {self.api_base}")
         print(f"Test User Email: {self.test_user_email}")
@@ -781,27 +781,45 @@ class CyprusWatchAPITester:
         self.test_user_profile_get()
         self.test_user_profile_update()
         
-        self.test_create_product()  # Need product for favorites/orders
+        # Product tests with NEW FIELDS
+        self.test_create_product()  # Now includes new fields
         self.test_get_products()
+        self.test_product_fields_verification()  # NEW: Verify all new fields present
         
+        # NEW: ETA product type test
+        self.test_create_eta_product()
+        
+        # NEW: Admin user management tests
+        self.test_get_all_users()
+        self.test_get_user_detail()
+        
+        # Favorites tests
         self.test_add_to_favorites()
         self.test_get_favorites()
         
+        # Order tests
         self.test_create_order()
         self.test_get_user_orders()
         self.test_admin_get_orders()
         
+        # Payment tests with email verification
         self.test_payment_bank()  # Includes email verification
         self.test_payment_transfer()
         
+        # NEW: Reviews system tests
+        self.test_add_review()
+        self.test_get_product_reviews()
+        
+        # Admin operations
         self.test_admin_update_order()
         
+        # Cleanup tests
         self.test_update_product()
         self.test_remove_from_favorites()
         self.test_delete_product()
         
         print("\n" + "=" * 80)
-        print(f"🎯 Test Results Summary:")
+        print(f"🎯 Test Results Summary (Including NEW FEATURES):")
         print(f"✅ Passed: {self.results['passed']}")
         print(f"❌ Failed: {self.results['failed']}")
         print(f"📊 Total: {self.results['passed'] + self.results['failed']}")
