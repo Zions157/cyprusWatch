@@ -9,8 +9,16 @@ import { Resend } from 'resend';
 
 const uri = process.env.MONGO_URL;
 const JWT_SECRET = process.env.JWT_SECRET;
-const resend = new Resend(process.env.RESEND_API_KEY);
 const SENDER_EMAIL = process.env.SENDER_EMAIL;
+
+// Lazy initialization for Resend - only create when needed
+let resendClient = null;
+function getResendClient() {
+  if (!resendClient && process.env.RESEND_API_KEY) {
+    resendClient = new Resend(process.env.RESEND_API_KEY);
+  }
+  return resendClient;
+}
 
 let cachedClient = null;
 
