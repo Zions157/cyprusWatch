@@ -924,6 +924,19 @@ export default function AdminPage() {
 
           {/* SİPARİŞ YÖNETİMİ - Önceki kod aynı kalacak, buraya eklenmedi (uzun olmasın diye) */}
           <TabsContent value="orders">
+            {/* Arama Kutusu */}
+            <div className="mb-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Sipariş ID, müşteri adı, email veya telefon ile ara..."
+                  value={orderSearchQuery}
+                  onChange={(e) => setOrderSearchQuery(e.target.value)}
+                  className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
+                />
+              </div>
+            </div>
+
             <div className="mb-6 flex gap-2 bg-gray-800/50 p-1 rounded-lg flex-wrap">
               {[
                 { value: 'all', label: 'Tümü', count: orders.length },
