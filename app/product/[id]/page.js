@@ -15,11 +15,14 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [quantity, setQuantity] = useState(1);
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     if (params.id) {
       fetchProduct(params.id);
     }
+    checkFavoriteStatus();
   }, [params.id]);
 
   const fetchProduct = async (id) => {
