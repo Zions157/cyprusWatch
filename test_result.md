@@ -160,7 +160,10 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Product Schema NEW FIELDS"
+    - "Users Management ADMIN API"
+    - "Reviews System API"
   stuck_tasks: 
     - "User Registration API"
     - "User Login API" 
@@ -174,3 +177,5 @@ agent_communication:
     message: "Starting comprehensive backend API testing for Cyprus Watch e-commerce platform. Testing all authentication, favorites, orders, payment, and product endpoints with email functionality."
   - agent: "testing"
     message: "CRITICAL FINDING: External API access blocked by routing/ingress issues. Auth endpoints work internally (visible in logs from web interface) but return 404 externally. Products, orders creation, and payments work perfectly. Email system functioning correctly."
+  - agent: "testing"
+    message: "NEW FEATURES TESTING COMPLETE: Found critical deployment sync issue. Local backend code has NEW FIELDS (gender, brand, specs) and Users/Reviews APIs properly implemented, but live API is outdated. Product creation works but missing new fields. Users API returns 'endpoint not found'. Requires immediate code deployment/sync resolution."
