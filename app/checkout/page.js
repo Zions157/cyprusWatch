@@ -79,10 +79,19 @@ export default function CheckoutPage() {
     setLoading(true);
 
     try {
+      const token = localStorage.getItem('token');
+      const headers = {
+        'Content-Type': 'application/json'
+      };
+      
+      if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+      }
+
       // Sipariş oluştur
       const orderResponse = await fetch('/api/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify({
           items: cart,
           totalAmount,
