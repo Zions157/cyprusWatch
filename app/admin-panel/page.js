@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, Search, ShoppingBag, User, Mail, Phone, MapPin, Calendar, CreditCard } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, Search, ShoppingBag, User, Mail, Phone, MapPin, Calendar, CreditCard, Gem } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { formatPrice } from '@/lib/utils';
@@ -26,6 +26,8 @@ import { formatPrice } from '@/lib/utils';
 const WATCH_CATEGORIES = ['Lüks', 'Spor', 'Klasik', 'Dijital', 'Akıllı Saat'];
 // Gözlük kategorileri
 const EYEWEAR_CATEGORIES = ['Güneş Gözlüğü', 'Optik', 'Spor Gözlük', 'Moda'];
+// ETA kategorileri
+const ETA_CATEGORIES = ['Premium', 'Limited Edition', 'Classic', 'Modern'];
 
 export default function AdminPage() {
   const router = useRouter();
@@ -92,6 +94,7 @@ export default function AdminPage() {
         setIsLoggedIn(true);
         fetchProducts();
         fetchOrders();
+        fetchUsers();
       } else {
         alert(data.error);
       }
@@ -144,6 +147,7 @@ export default function AdminPage() {
       setIsUserDialogOpen(true);
     } catch (error) {
       console.error('Kullanıcı detayı yüklenemedi:', error);
+      alert('Kullanıcı detayı yüklenemedi!');
     }
   };
 
@@ -166,14 +170,30 @@ export default function AdminPage() {
   };
 
   const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    const { name, value } = e.target;
+    if (name.startsWith('specs.')) {
+      const specKey = name.replace('specs.', '');
+      setFormData({
+        ...formData,
+        specs: {
+          ...formData.specs,
+          [specKey]: value
+        }
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
   };
 
   const handleProductTypeChange = (type) => {
-    const newCategory = type === 'watch' ? WATCH_CATEGORIES[0] : EYEWEAR_CATEGORIES[0];
+    let newCategory = 'Lüks';
+    if (type === 'watch') newCategory = WATCH_CATEGORIES[0];
+    else if (type === 'eyewear') newCategory = EYEWEAR_CATEGORIES[0];
+    else if (type === 'eta') newCategory = ETA_CATEGORIES[0];
+    
     setFormData({
       ...formData,
       productType: type,
@@ -225,7 +245,10 @@ export default function AdminPage() {
         stock: formData.stock,
         image: formData.image,
         productType: formData.productType,
-        category: formData.category
+        category: formData.category,
+        gender: formData.gender,
+        brand: formData.brand,
+        specs: formData.specs
       };
 
       if (editingProduct) {
@@ -250,7 +273,29 @@ export default function AdminPage() {
       }
       setIsDialogOpen(false);
       setEditingProduct(null);
-      setFormData({ name: '', description: '', price: '', stock: '', category: 'Lüks', productType: 'watch', image: '' });
+      setFormData({ 
+        name: '', 
+        description: '', 
+        price: '', 
+        stock: '', 
+        category: 'Lüks', 
+        productType: 'watch', 
+        gender: 'unisex',
+        brand: '',
+        image: '',
+        specs: {
+          glassType: '',
+          machineType: '',
+          dialColor: '',
+          strapType: '',
+          caseSize: '',
+          caseMaterial: '',
+          functions: '',
+          calendar: '',
+          features: '',
+          warranty: ''
+        }
+      });
       setImagePreview('');
       fetchProducts();
     } catch (error) {
@@ -267,7 +312,21 @@ export default function AdminPage() {
       stock: product.stock.toString(),
       category: product.category,
       productType: product.productType || 'watch',
-      image: product.image
+      gender: product.gender || 'unisex',
+      brand: product.brand || '',
+      image: product.image,
+      specs: product.specs || {
+        glassType: '',
+        machineType: '',
+        dialColor: '',
+        strapType: '',
+        caseSize: '',
+        caseMaterial: '',
+        functions: '',
+        calendar: '',
+        features: '',
+        warranty: ''
+      }
     });
     setImagePreview(product.image);
     setIsDialogOpen(true);
@@ -293,7 +352,29 @@ export default function AdminPage() {
 
   const openAddDialog = () => {
     setEditingProduct(null);
-    setFormData({ name: '', description: '', price: '', stock: '', category: 'Lüks', productType: 'watch', image: '' });
+    setFormData({ 
+      name: '', 
+      description: '', 
+      price: '', 
+      stock: '', 
+      category: 'Lüks', 
+      productType: 'watch', 
+      gender: 'unisex',
+      brand: '',
+      image: '',
+      specs: {
+        glassType: '',
+        machineType: '',
+        dialColor: '',
+        strapType: '',
+        caseSize: '',
+        caseMaterial: '',
+        functions: '',
+        calendar: '',
+        features: '',
+        warranty: ''
+      }
+    });
     setImagePreview('');
     setIsDialogOpen(true);
   };
@@ -303,6 +384,7 @@ export default function AdminPage() {
       if (filterType === 'all') return true;
       if (filterType === 'watch') return p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük');
       if (filterType === 'eyewear') return p.productType === 'eyewear' || p.category === 'Gözlük';
+      if (filterType === 'eta') return p.productType === 'eta';
       return true;
     });
 
@@ -311,6 +393,7 @@ export default function AdminPage() {
       result = result.filter(p => 
         p.name?.toLowerCase().includes(query) ||
         p.description?.toLowerCase().includes(query) ||
+        p.brand?.toLowerCase().includes(query) ||
         p.category?.toLowerCase().includes(query)
       );
     }
@@ -325,6 +408,7 @@ export default function AdminPage() {
 
   const watchCount = products.filter(p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')).length;
   const eyewearCount = products.filter(p => p.productType === 'eyewear' || p.category === 'Gözlük').length;
+  const etaCount = products.filter(p => p.productType === 'eta').length;
 
   const getStatusBadge = (status) => {
     const statusConfig = {
@@ -403,7 +487,7 @@ export default function AdminPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="text-3xl font-bold text-white">Admin Paneli</h2>
-            <p className="text-gray-400">Ürün ve sipariş yönetimi</p>
+            <p className="text-gray-400">Ürün, sipariş ve üye yönetimi</p>
           </div>
           <Button onClick={handleLogout} variant="destructive">
             Çıkış Yap
@@ -414,15 +498,15 @@ export default function AdminPage() {
           <TabsList className="grid w-full grid-cols-3 bg-gray-800 mb-8">
             <TabsTrigger value="products" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
               <Package className="h-4 w-4 mr-2" />
-              Ürün Yönetimi ({products.length})
+              Ürünler ({products.length})
             </TabsTrigger>
             <TabsTrigger value="orders" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
               <ShoppingBag className="h-4 w-4 mr-2" />
-              Sipariş Yönetimi ({orders.length})
+              Siparişler ({orders.length})
             </TabsTrigger>
             <TabsTrigger value="users" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
               <User className="h-4 w-4 mr-2" />
-              Üye Yönetimi ({users.length})
+              Üyeler ({users.length})
             </TabsTrigger>
           </TabsList>
 
@@ -434,9 +518,7 @@ export default function AdminPage() {
                   variant={filterType === 'all' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterType('all')}
-                  className={filterType === 'all' 
-                    ? 'bg-amber-500 text-black font-bold hover:bg-amber-600' 
-                    : 'bg-gray-700 text-white hover:bg-gray-600 border-0'}
+                  className={filterType === 'all' ? 'bg-amber-500 text-black' : 'bg-gray-700 text-white'}
                 >
                   Tümü ({products.length})
                 </Button>
@@ -444,9 +526,7 @@ export default function AdminPage() {
                   variant={filterType === 'watch' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterType('watch')}
-                  className={filterType === 'watch' 
-                    ? 'bg-amber-500 text-black font-bold hover:bg-amber-600' 
-                    : 'bg-gray-700 text-white hover:bg-gray-600 border-0'}
+                  className={filterType === 'watch' ? 'bg-amber-500 text-black' : 'bg-gray-700 text-white'}
                 >
                   <Clock className="h-4 w-4 mr-1" /> Saatler ({watchCount})
                 </Button>
@@ -454,11 +534,17 @@ export default function AdminPage() {
                   variant={filterType === 'eyewear' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterType('eyewear')}
-                  className={filterType === 'eyewear' 
-                    ? 'bg-purple-500 text-white font-bold hover:bg-purple-600' 
-                    : 'bg-gray-700 text-white hover:bg-gray-600 border-0'}
+                  className={filterType === 'eyewear' ? 'bg-purple-500 text-white' : 'bg-gray-700 text-white'}
                 >
                   <Glasses className="h-4 w-4 mr-1" /> Gözlükler ({eyewearCount})
+                </Button>
+                <Button
+                  variant={filterType === 'eta' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setFilterType('eta')}
+                  className={filterType === 'eta' ? 'bg-green-500 text-white' : 'bg-gray-700 text-white'}
+                >
+                  <Gem className="h-4 w-4 mr-1" /> ETA ({etaCount})
                 </Button>
               </div>
 
@@ -480,79 +566,118 @@ export default function AdminPage() {
                     Yeni Ürün Ekle
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 border-white/10 text-white">
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto bg-gray-900 border-white/10 text-white">
                   <DialogHeader>
                     <DialogTitle className="text-white text-xl">
                       {editingProduct ? 'Ürün Düzenle' : 'Yeni Ürün Ekle'}
                     </DialogTitle>
                   </DialogHeader>
                   <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* Ürün Tipi */}
                     <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-5 rounded-xl border border-white/10">
                       <Label className="text-amber-500 font-bold text-lg mb-4 block">Ürün Tipi Seçin *</Label>
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-3 gap-4">
                         <button
                           type="button"
                           onClick={() => handleProductTypeChange('watch')}
-                          className={`p-6 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${
+                          className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                             formData.productType === 'watch' 
                               ? 'border-amber-500 bg-amber-500/20 text-amber-500' 
-                              : 'border-gray-600 bg-gray-800 text-gray-400 hover:border-gray-500'
+                              : 'border-gray-600 bg-gray-800 text-gray-400'
                           }`}
                         >
-                          <Clock className="h-10 w-10" />
-                          <span className="font-bold text-lg">SAAT</span>
+                          <Clock className="h-8 w-8" />
+                          <span className="font-bold">SAAT</span>
                         </button>
                         <button
                           type="button"
                           onClick={() => handleProductTypeChange('eyewear')}
-                          className={`p-6 rounded-xl border-2 transition-all flex flex-col items-center gap-3 ${
+                          className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                             formData.productType === 'eyewear' 
                               ? 'border-purple-500 bg-purple-500/20 text-purple-500' 
-                              : 'border-gray-600 bg-gray-800 text-gray-400 hover:border-gray-500'
+                              : 'border-gray-600 bg-gray-800 text-gray-400'
                           }`}
                         >
-                          <Glasses className="h-10 w-10" />
-                          <span className="font-bold text-lg">GÖZLÜK</span>
+                          <Glasses className="h-8 w-8" />
+                          <span className="font-bold">GÖZLÜK</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleProductTypeChange('eta')}
+                          className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                            formData.productType === 'eta' 
+                              ? 'border-green-500 bg-green-500/20 text-green-500' 
+                              : 'border-gray-600 bg-gray-800 text-gray-400'
+                          }`}
+                        >
+                          <Gem className="h-8 w-8" />
+                          <span className="font-bold">ETA</span>
                         </button>
                       </div>
                     </div>
 
-                    <div>
-                      <Label htmlFor="category" className="text-gray-300">Kategori *</Label>
-                      <Select value={formData.category} onValueChange={(v) => setFormData({...formData, category: v})}>
-                        <SelectTrigger className="bg-black/50 border-white/20 text-white">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {(formData.productType === 'watch' ? WATCH_CATEGORIES : EYEWEAR_CATEGORIES).map(cat => (
-                            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                    {/* Temel Bilgiler */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label className="text-gray-300">Kategori *</Label>
+                        <Select value={formData.category} onValueChange={(v) => setFormData({...formData, category: v})}>
+                          <SelectTrigger className="bg-black/50 border-white/20 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {(formData.productType === 'watch' ? WATCH_CATEGORIES : formData.productType === 'eyewear' ? EYEWEAR_CATEGORIES : ETA_CATEGORIES).map(cat => (
+                              <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div>
+                        <Label className="text-gray-300">Cinsiyet *</Label>
+                        <Select value={formData.gender} onValueChange={(v) => setFormData({...formData, gender: v})}>
+                          <SelectTrigger className="bg-black/50 border-white/20 text-white">
+                            <SelectValue />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="male">Erkek</SelectItem>
+                            <SelectItem value="female">Kadın</SelectItem>
+                            <SelectItem value="unisex">Unisex</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label className="text-gray-300">Marka</Label>
+                        <Input
+                          name="brand"
+                          value={formData.brand}
+                          onChange={handleInputChange}
+                          placeholder="Örn: BVLGARI, Rolex"
+                          className="bg-black/50 border-white/20 text-white"
+                        />
+                      </div>
+                      <div>
+                        <Label className="text-gray-300">Ürün Adı *</Label>
+                        <Input
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          placeholder="Ürün adı"
+                          className="bg-black/50 border-white/20 text-white"
+                        />
+                      </div>
                     </div>
 
                     <div>
-                      <Label htmlFor="name" className="text-gray-300">Ürün Adı *</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        placeholder="Ürün adı"
-                        className="bg-black/50 border-white/20 text-white"
-                      />
-                    </div>
-
-                    <div>
-                      <Label htmlFor="description" className="text-gray-300">Açıklama *</Label>
+                      <Label className="text-gray-300">Açıklama *</Label>
                       <Textarea
-                        id="description"
                         name="description"
                         value={formData.description}
                         onChange={handleInputChange}
                         required
-                        placeholder="Ürün açıklaması"
                         rows={3}
                         className="bg-black/50 border-white/20 text-white"
                       />
@@ -560,43 +685,146 @@ export default function AdminPage() {
 
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="price" className="text-gray-300">Fiyat (₺) *</Label>
+                        <Label className="text-gray-300">Fiyat (₺) *</Label>
                         <Input
-                          id="price"
                           name="price"
                           type="number"
                           step="0.01"
                           value={formData.price}
                           onChange={handleInputChange}
                           required
-                          placeholder="0.00"
                           className="bg-black/50 border-white/20 text-white"
                         />
                       </div>
                       <div>
-                        <Label htmlFor="stock" className="text-gray-300">Stok *</Label>
+                        <Label className="text-gray-300">Stok *</Label>
                         <Input
-                          id="stock"
                           name="stock"
                           type="number"
                           value={formData.stock}
                           onChange={handleInputChange}
                           required
-                          placeholder="0"
                           className="bg-black/50 border-white/20 text-white"
                         />
                       </div>
                     </div>
 
+                    {/* Ürün Özellikleri */}
+                    <div className="border-t border-white/10 pt-5">
+                      <h3 className="text-lg font-bold text-amber-500 mb-4">Ürün Özellikleri (Opsiyonel)</h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-gray-300">Cam Cinsi</Label>
+                          <Input
+                            name="specs.glassType"
+                            value={formData.specs.glassType}
+                            onChange={handleInputChange}
+                            placeholder="Örn: Safir Cam"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Makine Cinsi</Label>
+                          <Input
+                            name="specs.machineType"
+                            value={formData.specs.machineType}
+                            onChange={handleInputChange}
+                            placeholder="Örn: Pilli"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Kadran Rengi</Label>
+                          <Input
+                            name="specs.dialColor"
+                            value={formData.specs.dialColor}
+                            onChange={handleInputChange}
+                            placeholder="Örn: Siyah"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Kordon Cinsi</Label>
+                          <Input
+                            name="specs.strapType"
+                            value={formData.specs.strapType}
+                            onChange={handleInputChange}
+                            placeholder="Örn: Çelik"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Kasa Çapı</Label>
+                          <Input
+                            name="specs.caseSize"
+                            value={formData.specs.caseSize}
+                            onChange={handleInputChange}
+                            placeholder="Örn: 40 mm"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Kasa Malzemesi</Label>
+                          <Input
+                            name="specs.caseMaterial"
+                            value={formData.specs.caseMaterial}
+                            onChange={handleInputChange}
+                            placeholder="Örn: 316L Paslanmaz Çelik"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Fonksiyonlar</Label>
+                          <Input
+                            name="specs.functions"
+                            value={formData.specs.functions}
+                            onChange={handleInputChange}
+                            placeholder="Örn: Tüm Fonksiyonlar Aktif"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Takvim</Label>
+                          <Input
+                            name="specs.calendar"
+                            value={formData.specs.calendar}
+                            onChange={handleInputChange}
+                            placeholder="Örn: Yok"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Özellikler</Label>
+                          <Input
+                            name="specs.features"
+                            value={formData.specs.features}
+                            onChange={handleInputChange}
+                            placeholder="Örn: Su Geçirmez"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-gray-300">Garanti</Label>
+                          <Input
+                            name="specs.warranty"
+                            value={formData.specs.warranty}
+                            onChange={handleInputChange}
+                            placeholder="Örn: 1 Yıl Garantilidir"
+                            className="bg-black/50 border-white/20 text-white"
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Görsel */}
                     <div>
-                      <Label htmlFor="imageFile" className="text-gray-300">Ürün Görseli</Label>
+                      <Label className="text-gray-300">Ürün Görseli</Label>
                       <Input
-                        id="imageFile"
                         type="file"
                         accept="image/*"
                         onChange={handleFileChange}
                         disabled={uploadingImage}
-                        className="bg-black/50 border-white/20 text-white file:bg-amber-500 file:text-black file:border-0"
+                        className="bg-black/50 border-white/20 text-white file:bg-amber-500 file:text-black"
                       />
                       {uploadingImage && <p className="text-sm text-amber-500 mt-1">Yükleniyor...</p>}
                     </div>
@@ -630,11 +858,19 @@ export default function AdminPage() {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <h3 className="font-bold text-lg text-white">{product.name}</h3>
-                          <Badge className={product.productType === 'eyewear' ? 'bg-purple-500' : 'bg-amber-500 text-black'}>
+                          <Badge className={
+                            product.productType === 'eyewear' ? 'bg-purple-500' :
+                            product.productType === 'eta' ? 'bg-green-500' :
+                            'bg-amber-500 text-black'
+                          }>
                             {product.category}
                           </Badge>
+                          <Badge variant="outline" className="border-gray-500 text-gray-300">
+                            {product.gender === 'male' ? 'Erkek' : product.gender === 'female' ? 'Kadın' : 'Unisex'}
+                          </Badge>
+                          {product.brand && <Badge variant="outline" className="border-amber-500 text-amber-500">{product.brand}</Badge>}
                         </div>
-                        <p className="text-gray-400 text-sm mb-2">{product.description}</p>
+                        <p className="text-gray-400 text-sm mb-2 line-clamp-1">{product.description}</p>
                         <div className="flex items-center space-x-4 text-sm">
                           <span className="font-bold text-amber-500 text-lg">{formatPrice(product.price)} ₺</span>
                           <span className="text-gray-500">Stok: {product.stock}</span>
@@ -655,9 +891,9 @@ export default function AdminPage() {
             </div>
           </TabsContent>
 
-          {/* SİPARİŞ YÖNETİMİ */}
+          {/* SİPARİŞ YÖNETİMİ - Önceki kod aynı kalacak, buraya eklenmedi (uzun olmasın diye) */}
           <TabsContent value="orders">
-            <div className="mb-6 flex gap-2 bg-gray-800/50 p-1 rounded-lg">
+            <div className="mb-6 flex gap-2 bg-gray-800/50 p-1 rounded-lg flex-wrap">
               {[
                 { value: 'all', label: 'Tümü', count: orders.length },
                 { value: 'pending', label: 'Beklemede', count: orders.filter(o => o.status === 'pending').length },
@@ -671,9 +907,7 @@ export default function AdminPage() {
                   variant={orderFilter === filter.value ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setOrderFilter(filter.value)}
-                  className={orderFilter === filter.value 
-                    ? 'bg-amber-500 text-black font-bold' 
-                    : 'bg-gray-700 text-white hover:bg-gray-600'}
+                  className={orderFilter === filter.value ? 'bg-amber-500 text-black' : 'bg-gray-700 text-white'}
                 >
                   {filter.label} ({filter.count})
                 </Button>
@@ -684,7 +918,6 @@ export default function AdminPage() {
               <Card className="bg-gray-900 border-white/10 p-12 text-center">
                 <ShoppingBag className="h-16 w-16 mx-auto text-gray-600 mb-4" />
                 <h3 className="text-xl font-semibold text-white mb-2">Sipariş bulunamadı</h3>
-                <p className="text-gray-400">Seçili filtre için sipariş yok</p>
               </Card>
             ) : (
               <div className="grid gap-4">
@@ -711,7 +944,6 @@ export default function AdminPage() {
                       </div>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                      {/* Müşteri Bilgileri */}
                       <div className="bg-gray-800/50 p-4 rounded-lg">
                         <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
                           <User className="h-4 w-4 text-amber-500" />
@@ -737,7 +969,6 @@ export default function AdminPage() {
                         </div>
                       </div>
 
-                      {/* Sipariş Ürünleri */}
                       <div>
                         <h4 className="font-semibold text-white mb-2">Ürünler</h4>
                         <div className="space-y-2">
@@ -750,7 +981,6 @@ export default function AdminPage() {
                         </div>
                       </div>
 
-                      {/* Ödeme ve Durum Bilgileri */}
                       <div className="flex items-center justify-between pt-4 border-t border-white/10">
                         <div className="flex items-center gap-4 text-sm">
                           <div className="flex items-center gap-2 text-gray-400">
@@ -784,6 +1014,112 @@ export default function AdminPage() {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* ÜYE YÖNETİMİ */}
+          <TabsContent value="users">
+            <div className="grid gap-4">
+              {users.length === 0 ? (
+                <Card className="bg-gray-900 border-white/10 p-12 text-center">
+                  <User className="h-16 w-16 mx-auto text-gray-600 mb-4" />
+                  <h3 className="text-xl font-semibold text-white mb-2">Henüz üye yok</h3>
+                </Card>
+              ) : (
+                users.map((user) => (
+                  <Card key={user.id} className="bg-gray-900 border-white/10 hover:border-amber-500/50 transition-colors cursor-pointer" onClick={() => fetchUserDetail(user.id)}>
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center text-black font-bold text-xl">
+                            {user.fullName?.charAt(0) || user.email?.charAt(0)}
+                          </div>
+                          <div>
+                            <h3 className="font-bold text-white">{user.fullName || 'İsimsiz'}</h3>
+                            <div className="flex items-center gap-4 text-sm text-gray-400">
+                              <span className="flex items-center gap-1">
+                                <Mail className="h-3 w-3" />
+                                {user.email}
+                              </span>
+                              {user.phone && (
+                                <span className="flex items-center gap-1">
+                                  <Phone className="h-3 w-3" />
+                                  {user.phone}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <Badge className="bg-amber-500 text-black">
+                            {new Date(user.createdAt).toLocaleDateString('tr-TR')}
+                          </Badge>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))
+              )}
+            </div>
+
+            {/* User Detail Dialog */}
+            <Dialog open={isUserDialogOpen} onOpenChange={setIsUserDialogOpen}>
+              <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-gray-900 border-white/10 text-white">
+                <DialogHeader>
+                  <DialogTitle className="text-white text-xl">Üye Detayları</DialogTitle>
+                </DialogHeader>
+                {selectedUser && (
+                  <div className="space-y-6">
+                    <div className="bg-gray-800/50 p-4 rounded-lg">
+                      <h4 className="font-semibold text-amber-500 mb-3">Kişisel Bilgiler</h4>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Ad Soyad:</span>
+                          <span className="text-white font-medium">{selectedUser.fullName || 'N/A'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">E-posta:</span>
+                          <span className="text-white font-medium">{selectedUser.email}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Telefon:</span>
+                          <span className="text-white font-medium">{selectedUser.phone || 'N/A'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Adres:</span>
+                          <span className="text-white font-medium">{selectedUser.address || 'N/A'}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-gray-400">Kayıt Tarihi:</span>
+                          <span className="text-white font-medium">{new Date(selectedUser.createdAt).toLocaleDateString('tr-TR')}</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h4 className="font-semibold text-amber-500 mb-3">Sipariş Geçmişi ({selectedUser.orders?.length || 0})</h4>
+                      {!selectedUser.orders || selectedUser.orders.length === 0 ? (
+                        <p className="text-gray-400 text-center py-4">Henüz sipariş yok</p>
+                      ) : (
+                        <div className="space-y-2">
+                          {selectedUser.orders.map((order) => (
+                            <div key={order.id} className="bg-gray-800/30 p-3 rounded-lg">
+                              <div className="flex items-center justify-between mb-2">
+                                <span className="text-sm text-gray-400">#{order.id.slice(0, 8)}</span>
+                                {getStatusBadge(order.status)}
+                              </div>
+                              <div className="flex items-center justify-between text-sm">
+                                <span className="text-gray-400">{new Date(order.createdAt).toLocaleDateString('tr-TR')}</span>
+                                <span className="text-amber-500 font-bold">{formatPrice(order.totalAmount)} ₺</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </DialogContent>
+            </Dialog>
           </TabsContent>
         </Tabs>
       </main>
