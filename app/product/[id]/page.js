@@ -246,13 +246,27 @@ export default function ProductDetail() {
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   Sepete Ekle - {formatPrice(product.price * quantity)} ₺
                 </Button>
-                <Button
-                  onClick={() => router.push('/cart')}
-                  variant="outline"
-                  className="w-full h-12 text-lg border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black"
-                >
-                  Sepete Git
-                </Button>
+                <div className="grid grid-cols-2 gap-3">
+                  <Button
+                    onClick={() => router.push('/cart')}
+                    variant="outline"
+                    className="h-12 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black"
+                  >
+                    Sepete Git
+                  </Button>
+                  <Button
+                    onClick={toggleFavorite}
+                    variant="outline"
+                    className={`h-12 ${
+                      isFavorite 
+                        ? 'border-red-500 text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-white' 
+                        : 'border-gray-500 text-gray-400 hover:border-red-500 hover:text-red-500'
+                    }`}
+                  >
+                    <Heart className={`h-5 w-5 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
+                    {isFavorite ? 'Favorilerde' : 'Favorilere Ekle'}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
