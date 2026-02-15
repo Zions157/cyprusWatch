@@ -404,9 +404,38 @@ export default function AdminPage() {
   }, [products, filterType, searchQuery]);
 
   const filteredOrders = useMemo(() => {
-    if (orderFilter === 'all') return orders;
-    return orders.filter(o => o.status === orderFilter);
-  }, [orders, orderFilter]);
+    let result = orders;
+    
+    // Status filter
+    if (orderFilter !== 'all') {
+      result = result.filter(o => o.status === orderFilter);
+    }
+    
+    // Search filter
+    if (orderSearchQuery.trim()) {
+      const query = orderSearchQuery.toLowerCase();
+      result = result.filter(o => 
+        o.id?.toLowerCase().includes(query) ||
+        o.customerInfo?.fullName?.toLowerCase().includes(query) ||
+        o.customerInfo?.email?.toLowerCase().includes(query) ||
+        o.customerInfo?.phone?.toLowerCase().includes(query)
+      );
+    }
+    
+    return result;
+  }, [orders, orderFilter, orderSearchQuery]);
+
+  // Filtered users with search
+  const filteredUsers = useMemo(() => {
+    if (!userSearchQuery.trim()) return users;
+    
+    const query = userSearchQuery.toLowerCase();
+    return users.filter(u => 
+      u.fullName?.toLowerCase().includes(query) ||
+      u.email?.toLowerCase().includes(query) ||
+      u.phone?.toLowerCase().includes(query)
+    );
+  }, [users, userSearchQuery]);
 
   const watchCount = products.filter(p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')).length;
   const eyewearCount = products.filter(p => p.productType === 'eyewear' || p.category === 'Gözlük').length;
