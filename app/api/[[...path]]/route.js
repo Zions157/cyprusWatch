@@ -641,6 +641,20 @@ export async function PUT(request) {
         stock: parseInt(body.stock),
         category: body.category,
         productType: body.productType || 'watch',
+        gender: body.gender || 'unisex',
+        brand: body.brand || '',
+        specs: {
+          glassType: body.specs?.glassType || '',
+          machineType: body.specs?.machineType || '',
+          dialColor: body.specs?.dialColor || '',
+          strapType: body.specs?.strapType || '',
+          caseSize: body.specs?.caseSize || '',
+          caseMaterial: body.specs?.caseMaterial || '',
+          functions: body.specs?.functions || '',
+          calendar: body.specs?.calendar || '',
+          features: body.specs?.features || '',
+          warranty: body.specs?.warranty || ''
+        },
         updatedAt: new Date().toISOString()
       };
 
