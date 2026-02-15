@@ -68,6 +68,8 @@ export default function AdminPage() {
   const [filterType, setFilterType] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [orderFilter, setOrderFilter] = useState('all');
+  const [orderSearchQuery, setOrderSearchQuery] = useState('');
+  const [userSearchQuery, setUserSearchQuery] = useState('');
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('adminLoggedIn');
