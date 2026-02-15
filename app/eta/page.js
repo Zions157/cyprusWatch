@@ -36,6 +36,7 @@ export default function WatchesPage() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [genderFilter, setGenderFilter] = useState('all');
   const [sortBy, setSortBy] = useState('default');
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -70,7 +71,10 @@ export default function WatchesPage() {
   }, [products]);
 
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    // Saatleri filtrele
+    let result = products.filter(p => 
+      p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')
+    );
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -78,12 +82,17 @@ export default function WatchesPage() {
         p =>
           p.name?.toLowerCase().includes(query) ||
           p.description?.toLowerCase().includes(query) ||
+          p.brand?.toLowerCase().includes(query) ||
           p.category?.toLowerCase().includes(query)
       );
     }
 
     if (selectedCategory !== 'all') {
       result = result.filter(p => p.category === selectedCategory);
+    }
+
+    if (genderFilter !== 'all') {
+      result = result.filter(p => p.gender === genderFilter || p.gender === 'unisex');
     }
 
     switch (sortBy) {
@@ -211,6 +220,21 @@ export default function WatchesPage() {
                       {cat === 'all' ? 'Tüm Kategoriler' : cat}
                     </SelectItem>
                   ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex items-center gap-2 w-full lg:w-auto">
+              <Filter className="h-5 w-5 text-gray-400" />
+              <Select value={genderFilter} onValueChange={setGenderFilter}>
+                <SelectTrigger className="w-full lg:w-[150px] bg-black/50 border-white/20 text-white">
+                  <SelectValue placeholder="Cinsiyet" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-900 border-white/20">
+                  <SelectItem value="all">Tümü</SelectItem>
+                  <SelectItem value="male">Erkek</SelectItem>
+                  <SelectItem value="female">Kadın</SelectItem>
+                  <SelectItem value="unisex">Unisex</SelectItem>
                 </SelectContent>
               </Select>
             </div>
