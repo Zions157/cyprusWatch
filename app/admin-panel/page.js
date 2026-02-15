@@ -100,6 +100,34 @@ export default function AdminPage() {
     }
   };
 
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch('/api/admin/orders');
+      const data = await response.json();
+      setOrders(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Siparişler yüklenemedi:', error);
+    }
+  };
+
+  const updateOrderStatus = async (orderId, newStatus) => {
+    try {
+      const response = await fetch(`/api/admin/orders/${orderId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: newStatus })
+      });
+
+      const data = await response.json();
+      if (data.success) {
+        alert('Sipariş durumu güncellendi!');
+        fetchOrders();
+      }
+    } catch (error) {
+      alert('Güncelleme hatası: ' + error.message);
+    }
+  };
+
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
