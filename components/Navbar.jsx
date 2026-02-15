@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package } from 'lucide-react';
+import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package, Gem } from 'lucide-react';
 import Logo from '@/components/Logo';
 import {
   DropdownMenu,
@@ -21,6 +21,7 @@ const navItems = [
   { name: 'Anasayfa', href: '/', icon: Home },
   { name: 'Saatler', href: '/watches', icon: Clock },
   { name: 'Gözlükler', href: '/eyewear', icon: Glasses },
+  { name: 'ETA', href: '/eta', icon: Gem },
   { name: 'Hakkımızda', href: '/about', icon: Info },
   { name: 'İletişim', href: '/contact', icon: Phone },
 ];
