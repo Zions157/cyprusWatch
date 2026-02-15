@@ -215,12 +215,19 @@ class CyprusWatchAPITester:
             data = response.json()
             if data.get("id") and data.get("name"):
                 self.test_product_id = data["id"]
-                self.log_test("Create Product", True, "Product created successfully", 
-                            f"Product ID: {self.test_product_id}, Name: {data['name']}")
+                # Verify NEW FIELDS are properly saved
+                has_new_fields = (
+                    data.get("gender") == "male" and 
+                    data.get("brand") == "Rolex" and
+                    data.get("specs") and 
+                    data.get("specs", {}).get("glassType") == "Sapphire Crystal"
+                )
+                self.log_test("Create Product with NEW FIELDS", True, 
+                            f"Product created with new fields - ID: {self.test_product_id}, Gender: {data.get('gender')}, Brand: {data.get('brand')}, Specs: {bool(data.get('specs'))}")
             else:
-                self.log_test("Create Product", False, "Missing product data", data)
+                self.log_test("Create Product with NEW FIELDS", False, "Missing product data", data)
         else:
-            self.log_test("Create Product", False, f"HTTP {response.status_code}: {response.text}")
+            self.log_test("Create Product with NEW FIELDS", False, f"HTTP {response.status_code}: {response.text}")
 
     def test_get_products(self):
         """Test GET /api/products"""
