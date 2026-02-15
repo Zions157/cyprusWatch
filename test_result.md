@@ -104,6 +104,42 @@ backend:
         agent: "testing"
         comment: "All product CRUD operations work perfectly. Create, read, update, and delete functionality all tested successfully"
 
+  - task: "Product Schema NEW FIELDS"
+    implemented: true
+    working: false
+    file: "app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: NEW FIELDS (gender, brand, specs) are defined in backend code but NOT being saved/returned by API. productType field works correctly (can create 'eta' type). Backend code shows correct implementation but deployment seems outdated."
+
+  - task: "Users Management ADMIN API"
+    implemented: true
+    working: false
+    file: "app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "CRITICAL: GET /api/users returns 'Endpoint bulunamadı' (endpoint not found) despite being implemented in code. Indicates deployment/sync issue between local code and live API."
+
+  - task: "Reviews System API"
+    implemented: true
+    working: false
+    file: "app/api/[[...path]]/route.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: false
+        agent: "testing"
+        comment: "Cannot test reviews system due to auth endpoints being inaccessible and deployment sync issues. Code shows proper implementation for POST/GET /api/reviews/:productId."
+
 frontend:
   - task: "Frontend UI Testing"
     implemented: true
