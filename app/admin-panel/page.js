@@ -33,7 +33,10 @@ export default function AdminPage() {
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isUserDialogOpen, setIsUserDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -42,7 +45,21 @@ export default function AdminPage() {
     stock: '',
     category: 'Lüks',
     productType: 'watch',
-    image: ''
+    gender: 'unisex',
+    brand: '',
+    image: '',
+    specs: {
+      glassType: '',
+      machineType: '',
+      dialColor: '',
+      strapType: '',
+      caseSize: '',
+      caseMaterial: '',
+      functions: '',
+      calendar: '',
+      features: '',
+      warranty: ''
+    }
   });
   const [uploadingImage, setUploadingImage] = useState(false);
   const [imagePreview, setImagePreview] = useState('');
@@ -56,6 +73,7 @@ export default function AdminPage() {
       setIsLoggedIn(true);
       fetchProducts();
       fetchOrders();
+      fetchUsers();
     }
   }, []);
 
