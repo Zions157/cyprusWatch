@@ -1,0 +1,64 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Testing
+coverage
+
+# Next.js
+.next
+out
+
+# Production
+build
+
+# Misc
+.DS_Store
+*.pem
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Test files
+*.test.js
+*.spec.js
+__tests__
+
+# Git
+.git
+.gitignore
+
+# IDE
+.idea
+.vscode
+
+# Memory/docs
+memory
+*.md
+!README.md
+
+# Python test files
+*.py
+
+# Supervisor logs
+/var/log
