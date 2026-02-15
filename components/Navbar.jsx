@@ -126,8 +126,50 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* Cart & Mobile Menu */}
+          {/* Cart & User Menu */}
           <div className="flex items-center space-x-3">
+            {/* User Menu or Login Button */}
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
+                    <User className="h-5 w-5 mr-2" />
+                    <span className="hidden md:inline">{user.fullName?.split(' ')[0] || 'Hesabım'}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56 bg-gray-900 border-white/20">
+                  <DropdownMenuLabel className="text-white">{user.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-white/20" />
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-300 hover:text-white hover:bg-white/10 cursor-pointer">
+                    <Package className="h-4 w-4 mr-2" />
+                    Siparişlerim
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-300 hover:text-white hover:bg-white/10 cursor-pointer">
+                    <Heart className="h-4 w-4 mr-2" />
+                    Favorilerim
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-300 hover:text-white hover:bg-white/10 cursor-pointer">
+                    <User className="h-4 w-4 mr-2" />
+                    Profil Ayarları
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-white/20" />
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer">
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Çıkış Yap
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button
+                onClick={() => router.push('/login')}
+                variant="ghost"
+                className="text-gray-300 hover:text-white hover:bg-white/10"
+              >
+                <User className="h-5 w-5 mr-2" />
+                <span className="hidden md:inline">Giriş Yap</span>
+              </Button>
+            )}
+
             <Link href="/cart">
               <Button className="relative bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black">
                 <ShoppingCart className="h-5 w-5" />
