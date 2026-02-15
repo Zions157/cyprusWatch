@@ -1062,14 +1062,29 @@ export default function AdminPage() {
 
           {/* ÜYE YÖNETİMİ */}
           <TabsContent value="users">
+            {/* Arama Kutusu */}
+            <div className="mb-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="İsim, email veya telefon ile ara..."
+                  value={userSearchQuery}
+                  onChange={(e) => setUserSearchQuery(e.target.value)}
+                  className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
+                />
+              </div>
+            </div>
+
             <div className="grid gap-4">
-              {users.length === 0 ? (
+              {filteredUsers.length === 0 ? (
                 <Card className="bg-gray-900 border-white/10 p-12 text-center">
                   <User className="h-16 w-16 mx-auto text-gray-600 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">Henüz üye yok</h3>
+                  <h3 className="text-xl font-semibold text-white mb-2">
+                    {userSearchQuery ? 'Sonuç bulunamadı' : 'Henüz üye yok'}
+                  </h3>
                 </Card>
               ) : (
-                users.map((user) => (
+                filteredUsers.map((user) => (
                   <Card key={user.id} className="bg-gray-900 border-white/10 hover:border-amber-500/50 transition-colors cursor-pointer" onClick={() => fetchUserDetail(user.id)}>
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
