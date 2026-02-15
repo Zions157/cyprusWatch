@@ -58,6 +58,7 @@ export default function AdminPage() {
     if (loggedIn === 'true') {
       setIsLoggedIn(true);
       fetchProducts();
+      fetchOrders();
     }
   }, []);
 
