@@ -24,11 +24,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
-import { ShoppingCart, Search, Filter, SlidersHorizontal, X, Clock } from 'lucide-react';
+import { ShoppingCart, Search, Filter, SlidersHorizontal, X, Gem } from 'lucide-react';
 
 const ITEMS_PER_PAGE = 10;
 
-export default function WatchesPage() {
+export default function ETAPage() {
   const router = useRouter();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
