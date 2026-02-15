@@ -71,10 +71,8 @@ export default function ETAPage() {
   }, [products]);
 
   const filteredProducts = useMemo(() => {
-    // Saatleri filtrele
-    let result = products.filter(p => 
-      p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')
-    );
+    // ETA ürünlerini filtrele
+    let result = products.filter(p => p.productType === 'eta');
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
