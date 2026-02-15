@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
+import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { ArrowLeft, ShoppingCart, Package, Minus, Plus, Clock, Glasses, Heart, Star, Truck, RefreshCw, CreditCard, Shield, Gem } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
