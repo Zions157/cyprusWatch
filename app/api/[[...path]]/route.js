@@ -158,6 +158,12 @@ async function sendInvoiceEmail(order, user) {
       return { success: false, error: 'No recipient email' };
     }
 
+    const resend = getResendClient();
+    if (!resend) {
+      console.error('Resend client not configured');
+      return { success: false, error: 'Email service not configured' };
+    }
+
     const { data, error } = await resend.emails.send({
       from: SENDER_EMAIL,
       to: [recipientEmail],
