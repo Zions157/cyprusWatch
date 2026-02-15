@@ -31,12 +31,37 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     loadCart();
+    loadUserInfo();
   }, []);
 
   const loadCart = () => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       setCart(JSON.parse(savedCart));
+    }
+  };
+
+  const loadUserInfo = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (response.ok) {
+        const user = await response.json();
+        setFormData(prevData => ({
+          ...prevData,
+          fullName: user.fullName || '',
+          email: user.email || '',
+          phone: user.phone || '',
+          address: user.address || ''
+        }));
+      }
+    } catch (error) {
+      console.error('Kullanıcı bilgileri yüklenemedi:', error);
     }
   };
 
