@@ -37,6 +37,76 @@ export default function ProductDetail() {
     }
   };
 
+  const checkFavoriteStatus = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setIsLoggedIn(false);
+      return;
+    }
+    
+    setIsLoggedIn(true);
+    
+    try {
+      const response = await fetch('/api/favorites', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (response.ok) {
+        const favorites = await response.json();
+        const isFav = favorites.some(f => f.id === params.id);
+        setIsFavorite(isFav);
+      }
+    } catch (error) {
+      console.error('Favori kontrolü hatası:', error);
+    }
+  };
+
+  const toggleFavorite = async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      alert('Favori eklemek için giriş yapmalısınız!');
+      router.push('/login');
+      return;
+    }
+
+    try {
+      if (isFavorite) {
+        // Favoriden çıkar
+        const response = await fetch('/api/favorites/remove', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ productId: product.id })
+        });
+
+        if (response.ok) {
+          setIsFavorite(false);
+          alert('Favorilerden çıkarıldı!');
+        }
+      } else {
+        // Favoriye ekle
+        const response = await fetch('/api/favorites/add', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({ productId: product.id })
+        });
+
+        if (response.ok) {
+          setIsFavorite(true);
+          alert('Favorilere eklendi!');
+        }
+      }
+    } catch (error) {
+      console.error('Favori işlemi hatası:', error);
+      alert('Bir hata oluştu!');
+    }
+  };
+
   const addToCart = () => {
     const savedCart = localStorage.getItem('cart');
     let cart = savedCart ? JSON.parse(savedCart) : [];
