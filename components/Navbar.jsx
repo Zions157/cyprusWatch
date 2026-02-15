@@ -27,14 +27,22 @@ const navItems = [
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
     if (savedCart) {
       setCart(JSON.parse(savedCart));
+    }
+
+    // Check if user is logged in
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      setUser(JSON.parse(userData));
     }
 
     const handleScroll = () => {
@@ -46,6 +54,12 @@ export default function Navbar() {
       if (updatedCart) {
         setCart(JSON.parse(updatedCart));
       }
+      const updatedUser = localStorage.getItem('user');
+      if (updatedUser) {
+        setUser(JSON.parse(updatedUser));
+      } else {
+        setUser(null);
+      }
     };
 
     window.addEventListener('storage', handleStorageChange);
@@ -55,6 +69,12 @@ export default function Navbar() {
       if (updatedCart) {
         setCart(JSON.parse(updatedCart));
       }
+      const updatedUser = localStorage.getItem('user');
+      if (updatedUser) {
+        setUser(JSON.parse(updatedUser));
+      } else {
+        setUser(null);
+      }
     }, 500);
 
     return () => {
@@ -63,6 +83,13 @@ export default function Navbar() {
       clearInterval(interval);
     };
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    router.push('/');
+  };
 
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
