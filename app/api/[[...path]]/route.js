@@ -549,6 +549,40 @@ export async function POST(request) {
       return NextResponse.json({ success: true, message: 'Favorilere eklendi' });
     }
 
+    // POST /api/reviews/:productId - Değerlendirme ekle
+    if (path.startsWith('reviews/') && path.split('/').length === 2) {
+      const productId = path.split('/')[1];
+      const userData = verifyToken(request);
+      
+      if (!userData) {
+        return NextResponse.json({ error: 'Değerlendirme yapmak için giriş yapmalısınız' }, { status: 401 });
+      }
+
+      const { rating, comment } = body;
+      
+      if (!rating || rating < 1 || rating > 5) {
+        return NextResponse.json({ error: 'Geçersiz puan (1-5 arası)' }, { status: 400 });
+      }
+
+      const user = await db.collection('users').findOne({ id: userData.userId });
+      
+      const review = {
+        id: uuidv4(),
+        userId: userData.userId,
+        userName: user.fullName || user.email,
+        rating: parseInt(rating),
+        comment: comment || '',
+        createdAt: new Date().toISOString()
+      };
+
+      await db.collection('products').updateOne(
+        { id: productId },
+        { $push: { reviews: review } }
+      );
+
+      return NextResponse.json({ success: true, review });
+    }
+
     return NextResponse.json({ error: 'Endpoint bulunamadı' }, { status: 404 });
   } catch (error) {
     console.error('POST Error:', error);
