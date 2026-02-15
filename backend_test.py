@@ -181,7 +181,7 @@ class CyprusWatchAPITester:
             self.log_test("Update User Profile", False, f"HTTP {response.status_code}: {response.text}")
 
     def test_create_product(self):
-        """Test POST /api/products - Create a test product for favorites/orders"""
+        """Test POST /api/products - Create a test product with NEW FIELDS for favorites/orders"""
         product_data = {
             "name": "Test Rolex Submariner",
             "description": "Luxury diving watch with automatic movement",
@@ -189,7 +189,21 @@ class CyprusWatchAPITester:
             "image": "https://via.placeholder.com/400x300?text=Rolex+Submariner",
             "stock": 5,
             "category": "Luxury",
-            "productType": "watch"
+            "productType": "watch",  # NEW: can be 'watch', 'eyewear', 'eta'
+            "gender": "male",        # NEW: 'male', 'female', 'unisex'
+            "brand": "Rolex",       # NEW: brand field
+            "specs": {              # NEW: specs object with all sub-fields
+                "glassType": "Sapphire Crystal",
+                "machineType": "Automatic",
+                "dialColor": "Black",
+                "strapType": "Metal Bracelet",
+                "caseSize": "40mm",
+                "caseMaterial": "Stainless Steel",
+                "functions": "Date, GMT",
+                "calendar": "Date Display",
+                "features": "Water Resistant 300m",
+                "warranty": "2 Years International"
+            }
         }
         
         response = self.make_request("POST", "/products", product_data)
