@@ -9,6 +9,10 @@ import json
 import uuid
 from datetime import datetime
 import time
+import urllib3
+
+# Suppress SSL warnings for testing
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class CyprusWatchAPITester:
