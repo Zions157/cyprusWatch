@@ -193,6 +193,21 @@ export default function EyewearPage() {
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
+              <Filter className="h-5 w-5 text-gray-400" />
+              <Select value={genderFilter} onValueChange={setGenderFilter}>
+                <SelectTrigger className="w-full lg:w-[150px] bg-black/50 border-white/20 text-white">
+                  <SelectValue placeholder="Cinsiyet" />
+                </SelectTrigger>
+                <SelectContent className="bg-gray-900 border-white/20">
+                  <SelectItem value="all">Tümü</SelectItem>
+                  <SelectItem value="male">Erkek</SelectItem>
+                  <SelectItem value="female">Kadın</SelectItem>
+                  <SelectItem value="unisex">Unisex</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex items-center gap-2 w-full lg:w-auto">
               <SlidersHorizontal className="h-5 w-5 text-gray-400" />
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-full lg:w-[200px] bg-black/50 border-white/20 text-white">
