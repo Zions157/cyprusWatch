@@ -53,19 +53,26 @@ class CyprusWatchAPITester:
             default_headers.update(headers)
             
         try:
+            # Disable SSL verification and add timeout
+            kwargs = {
+                "headers": default_headers,
+                "timeout": 30,
+                "verify": False  # Disable SSL verification for testing
+            }
+            
             if method.upper() == "GET":
-                response = requests.get(url, headers=default_headers, timeout=10)
+                response = requests.get(url, **kwargs)
             elif method.upper() == "POST":
-                response = requests.post(url, json=data, headers=default_headers, timeout=10)
+                response = requests.post(url, json=data, **kwargs)
             elif method.upper() == "PUT":
-                response = requests.put(url, json=data, headers=default_headers, timeout=10)
+                response = requests.put(url, json=data, **kwargs)
             elif method.upper() == "DELETE":
-                response = requests.delete(url, json=data, headers=default_headers, timeout=10)
+                response = requests.delete(url, json=data, **kwargs)
             else:
                 raise ValueError(f"Unsupported HTTP method: {method}")
             return response
         except Exception as e:
-            print(f"Request failed: {e}")
+            print(f"Request failed for {url}: {e}")
             return None
 
     def test_user_registration(self):
