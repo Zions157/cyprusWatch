@@ -35,6 +35,7 @@ export default function EyewearPage() {
   const [cart, setCart] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [genderFilter, setGenderFilter] = useState('all');
   const [sortBy, setSortBy] = useState('default');
   const [currentPage, setCurrentPage] = useState(1);
 
