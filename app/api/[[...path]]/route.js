@@ -268,6 +268,8 @@ export async function POST(request) {
   const url = new URL(request.url);
   const path = url.pathname.replace('/api/', '');
 
+  console.log(`POST request path: '${path}'`);
+  
   try {
     // POST /api/upload - Dosya yükleme (FormData kullanır, JSON değil)
     if (path === 'upload' || path === 'upload/') {
