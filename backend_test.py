@@ -587,6 +587,186 @@ class CyprusWatchAPITester:
         else:
             self.log_test("Delete Product", False, f"HTTP {response.status_code}: {response.text}")
 
+    def test_create_eta_product(self):
+        """Test creating ETA product type (NEW FEATURE)"""
+        eta_product_data = {
+            "name": "Test ETA Swiss Movement",
+            "description": "Premium ETA movement for watch assembly",
+            "price": 5000,
+            "image": "https://via.placeholder.com/400x300?text=ETA+Movement",
+            "stock": 10,
+            "category": "Components",
+            "productType": "eta",  # NEW: ETA product type
+            "gender": "unisex",
+            "brand": "ETA",
+            "specs": {
+                "glassType": "N/A",
+                "machineType": "Swiss Automatic",
+                "dialColor": "N/A", 
+                "strapType": "N/A",
+                "caseSize": "N/A",
+                "caseMaterial": "N/A",
+                "functions": "Hours, Minutes, Seconds",
+                "calendar": "N/A",
+                "features": "Certified Swiss Movement",
+                "warranty": "5 Years Manufacturer"
+            }
+        }
+        
+        response = self.make_request("POST", "/products", eta_product_data)
+        if not response:
+            self.log_test("Create ETA Product", False, "Request failed")
+            return
+            
+        if response.status_code == 200:
+            data = response.json()
+            if data.get("productType") == "eta" and data.get("brand") == "ETA":
+                self.log_test("Create ETA Product", True, 
+                            f"ETA product created successfully - Type: {data.get('productType')}, Brand: {data.get('brand')}")
+            else:
+                self.log_test("Create ETA Product", False, "ETA product creation failed", data)
+        else:
+            self.log_test("Create ETA Product", False, f"HTTP {response.status_code}: {response.text}")
+
+    def test_get_all_users(self):
+        """Test GET /api/users - Get all registered users (ADMIN NEW FEATURE)"""
+        response = self.make_request("GET", "/users")
+        if not response:
+            self.log_test("Get All Users (ADMIN)", False, "Request failed")
+            return
+            
+        if response.status_code == 200:
+            data = response.json()
+            if isinstance(data, list):
+                users_count = len(data)
+                # Check if our test user is in the list and has no password field
+                test_user = next((u for u in data if u.get("email") == self.test_user_email), None)
+                has_test_user = test_user is not None
+                password_hidden = test_user and "password" not in test_user if test_user else True
+                
+                self.log_test("Get All Users (ADMIN)", True, 
+                            f"Retrieved {users_count} users successfully - Test user found: {has_test_user}, Password hidden: {password_hidden}")
+            else:
+                self.log_test("Get All Users (ADMIN)", False, "Response is not a list", data)
+        else:
+            self.log_test("Get All Users (ADMIN)", False, f"HTTP {response.status_code}: {response.text}")
+
+    def test_get_user_detail(self):
+        """Test GET /api/users/:id - Get specific user with orders (ADMIN NEW FEATURE)"""
+        if not self.user_id:
+            self.log_test("Get User Detail (ADMIN)", False, "No user ID available")
+            return
+            
+        response = self.make_request("GET", f"/users/{self.user_id}")
+        if not response:
+            self.log_test("Get User Detail (ADMIN)", False, "Request failed")
+            return
+            
+        if response.status_code == 200:
+            data = response.json()
+            if (data.get("id") == self.user_id and 
+                data.get("email") == self.test_user_email and 
+                "password" not in data and
+                "orders" in data):
+                
+                orders_count = len(data.get("orders", []))
+                self.log_test("Get User Detail (ADMIN)", True, 
+                            f"User detail retrieved - Email: {data.get('email')}, Orders: {orders_count}, Password hidden: True")
+            else:
+                self.log_test("Get User Detail (ADMIN)", False, "Invalid user detail response", data)
+        else:
+            self.log_test("Get User Detail (ADMIN)", False, f"HTTP {response.status_code}: {response.text}")
+
+    def test_add_review(self):
+        """Test POST /api/reviews/:productId - Add product review (NEW FEATURE)"""
+        if not self.jwt_token or not self.test_product_id:
+            self.log_test("Add Product Review", False, "Missing JWT token or product ID")
+            return
+            
+        review_data = {
+            "rating": 5,
+            "comment": "Excellent Rolex watch! The craftsmanship is outstanding and the automatic movement is very precise. Highly recommended!"
+        }
+        
+        headers = {"Authorization": f"Bearer {self.jwt_token}"}
+        response = self.make_request("POST", f"/reviews/{self.test_product_id}", review_data, headers)
+        
+        if not response:
+            self.log_test("Add Product Review", False, "Request failed")
+            return
+            
+        if response.status_code == 200:
+            data = response.json()
+            if data.get("success") and data.get("review"):
+                review = data["review"]
+                is_valid_review = (
+                    review.get("rating") == 5 and
+                    review.get("userId") == self.user_id and
+                    "id" in review and
+                    "createdAt" in review
+                )
+                self.log_test("Add Product Review", True, 
+                            f"Review added successfully - Rating: {review.get('rating')}, User: {review.get('userName')}")
+            else:
+                self.log_test("Add Product Review", False, "Review addition failed", data)
+        else:
+            self.log_test("Add Product Review", False, f"HTTP {response.status_code}: {response.text}")
+
+    def test_get_product_reviews(self):
+        """Test GET /api/reviews/:productId - Get product reviews (NEW FEATURE)"""
+        if not self.test_product_id:
+            self.log_test("Get Product Reviews", False, "No test product ID available")
+            return
+            
+        response = self.make_request("GET", f"/reviews/{self.test_product_id}")
+        if not response:
+            self.log_test("Get Product Reviews", False, "Request failed")
+            return
+            
+        if response.status_code == 200:
+            data = response.json()
+            if isinstance(data, list):
+                reviews_count = len(data)
+                # Check if our test review is included
+                test_review = next((r for r in data if r.get("userId") == self.user_id), None)
+                has_test_review = test_review is not None
+                
+                self.log_test("Get Product Reviews", True, 
+                            f"Retrieved {reviews_count} reviews - Test review found: {has_test_review}")
+            else:
+                self.log_test("Get Product Reviews", False, "Response is not a list", data)
+        else:
+            self.log_test("Get Product Reviews", False, f"HTTP {response.status_code}: {response.text}")
+
+    def test_product_fields_verification(self):
+        """Test that products have all NEW FIELDS when retrieved"""
+        if not self.test_product_id:
+            self.log_test("Verify Product NEW FIELDS", False, "No test product ID available")
+            return
+            
+        response = self.make_request("GET", f"/products/{self.test_product_id}")
+        if not response:
+            self.log_test("Verify Product NEW FIELDS", False, "Request failed")
+            return
+            
+        if response.status_code == 200:
+            data = response.json()
+            required_fields = ["gender", "brand", "productType", "specs"]
+            required_specs = ["glassType", "machineType", "dialColor", "strapType", 
+                            "caseSize", "caseMaterial", "functions", "calendar", "features", "warranty"]
+            
+            missing_fields = [field for field in required_fields if field not in data]
+            missing_specs = [spec for spec in required_specs if spec not in data.get("specs", {})]
+            
+            if not missing_fields and not missing_specs:
+                self.log_test("Verify Product NEW FIELDS", True, 
+                            f"All new fields present - Gender: {data.get('gender')}, Brand: {data.get('brand')}, ProductType: {data.get('productType')}")
+            else:
+                self.log_test("Verify Product NEW FIELDS", False, 
+                            f"Missing fields: {missing_fields}, Missing specs: {missing_specs}")
+        else:
+            self.log_test("Verify Product NEW FIELDS", False, f"HTTP {response.status_code}: {response.text}")
+
     def run_all_tests(self):
         """Run all backend API tests in sequence"""
         print(f"\n🚀 Starting Cyprus Watch Backend API Tests")
