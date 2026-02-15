@@ -126,6 +126,27 @@ export default function AdminPage() {
     }
   };
 
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch('/api/users');
+      const data = await response.json();
+      setUsers(Array.isArray(data) ? data : []);
+    } catch (error) {
+      console.error('Kullanıcılar yüklenemedi:', error);
+    }
+  };
+
+  const fetchUserDetail = async (userId) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`);
+      const data = await response.json();
+      setSelectedUser(data);
+      setIsUserDialogOpen(true);
+    } catch (error) {
+      console.error('Kullanıcı detayı yüklenemedi:', error);
+    }
+  };
+
   const updateOrderStatus = async (orderId, newStatus) => {
     try {
       const response = await fetch(`/api/admin/orders/${orderId}`, {
