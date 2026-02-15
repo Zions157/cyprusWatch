@@ -429,7 +429,22 @@ export async function POST(request) {
         image: body.image || 'https://via.placeholder.com/400x300?text=Ürün+Görseli',
         stock: parseInt(body.stock) || 100,
         category: body.category || 'Genel',
-        productType: body.productType || 'watch',
+        productType: body.productType || 'watch', // 'watch', 'eyewear', 'eta'
+        gender: body.gender || 'unisex', // 'male', 'female', 'unisex'
+        brand: body.brand || '',
+        specs: {
+          glassType: body.specs?.glassType || '',
+          machineType: body.specs?.machineType || '',
+          dialColor: body.specs?.dialColor || '',
+          strapType: body.specs?.strapType || '',
+          caseSize: body.specs?.caseSize || '',
+          caseMaterial: body.specs?.caseMaterial || '',
+          functions: body.specs?.functions || '',
+          calendar: body.specs?.calendar || '',
+          features: body.specs?.features || '',
+          warranty: body.specs?.warranty || ''
+        },
+        reviews: [],
         createdAt: new Date().toISOString()
       };
       await db.collection('products').insertOne(product);
