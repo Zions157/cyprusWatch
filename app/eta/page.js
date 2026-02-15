@@ -182,10 +182,10 @@ export default function ETAPage() {
       <div className="pt-24 pb-12 bg-gradient-to-b from-gray-900 to-black">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3">
-            <Clock className="h-10 w-10 text-amber-500" />
+            <Gem className="h-10 w-10 text-green-500" />
             <div>
-              <h1 className="text-4xl font-bold text-white">Saatler</h1>
-              <p className="text-gray-400">Lüks saat koleksiyonumuzu keşfedin</p>
+              <h1 className="text-4xl font-bold text-white">ETA</h1>
+              <p className="text-gray-400">Premium ETA koleksiyonumuzu keşfedin</p>
             </div>
           </div>
         </div>
@@ -199,7 +199,7 @@ export default function ETAPage() {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <Input
                 type="text"
-                placeholder="Saat ara..."
+                placeholder="ETA ara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 w-full bg-black/50 border-white/20 text-white placeholder:text-gray-500"
