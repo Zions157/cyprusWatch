@@ -33,6 +33,8 @@ export default function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginForm, setLoginForm] = useState({ username: '', password: '' });
   const [products, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [activeTab, setActiveTab] = useState('products');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [formData, setFormData] = useState({
@@ -49,6 +51,7 @@ export default function AdminPage() {
   const [filterType, setFilterType] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [orderFilter, setOrderFilter] = useState('all');
 
   useEffect(() => {
     const loggedIn = localStorage.getItem('adminLoggedIn');
