@@ -175,6 +175,8 @@ export async function GET(request) {
   const url = new URL(request.url);
   const path = url.pathname.replace('/api/', '');
 
+  console.log(`GET request path: '${path}'`);
+  
   try {
     const db = await getDB();
 
