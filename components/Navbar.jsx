@@ -132,30 +132,94 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2 group">
             <Logo size={32} className="group-hover:scale-105 transition-transform" />
-            <span className="text-lg font-semibold text-white">Cyprus Watch</span>
+            <span className="text-xl font-bold bg-gradient-to-r from-amber-400 via-yellow-500 to-amber-600 bg-clip-text text-transparent drop-shadow-lg tracking-wide">
+              Cyprus Watch
+            </span>
           </Link>
 
-          {/* Desktop Navigation - Moved left */}
+          {/* Desktop Navigation - with hover dropdowns */}
           <nav className="hidden md:flex items-center space-x-1 ml-8 flex-1">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              const isActive = pathname === item.href;
+            {/* Anasayfa - Simple link */}
+            <Link href="/">
+              <Button
+                variant="ghost"
+                className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
+                  pathname === '/'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Home className="h-4 w-4" />
+                <span>Anasayfa</span>
+              </Button>
+            </Link>
+
+            {/* Category Dropdowns */}
+            {Object.entries(categoryDropdowns).map(([key, category]) => {
+              const Icon = category.icon;
+              const isActive = pathname === category.href || pathname.startsWith(category.href);
               return (
-                <Link key={item.href} href={item.href}>
-                  <Button
-                    variant="ghost"
-                    className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
-                      isActive
-                        ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
-                        : 'text-gray-300 hover:text-white hover:bg-white/10'
-                    }`}
-                  >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.name}</span>
-                  </Button>
-                </Link>
+                <div key={key} className="relative group">
+                  <Link href={category.href}>
+                    <Button
+                      variant="ghost"
+                      className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
+                        isActive
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{category.name}</span>
+                      <ChevronDown className="h-3 w-3 ml-1 transition-transform group-hover:rotate-180" />
+                    </Button>
+                  </Link>
+                  
+                  {/* Hover Dropdown */}
+                  <div className="absolute top-full left-0 mt-1 w-48 bg-gray-900/95 backdrop-blur-md border border-white/10 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-2">
+                      {category.subItems.map((subItem) => (
+                        <Link key={subItem.href} href={subItem.href}>
+                          <div className="px-4 py-2 text-gray-300 hover:text-white hover:bg-amber-500/20 transition-colors cursor-pointer">
+                            {subItem.name}
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
               );
             })}
+
+            {/* Hakkımızda - Simple link */}
+            <Link href="/about">
+              <Button
+                variant="ghost"
+                className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
+                  pathname === '/about'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Info className="h-4 w-4" />
+                <span>Hakkımızda</span>
+              </Button>
+            </Link>
+
+            {/* İletişim - Simple link */}
+            <Link href="/contact">
+              <Button
+                variant="ghost"
+                className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
+                  pathname === '/contact'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
+                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                <Phone className="h-4 w-4" />
+                <span>İletişim</span>
+              </Button>
+            </Link>
           </nav>
 
           {/* Cart & User Menu */}
