@@ -411,7 +411,7 @@ export default function AdminPage() {
         </div>
 
         <Tabs defaultValue="products" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-800 mb-8">
+          <TabsList className="grid w-full grid-cols-3 bg-gray-800 mb-8">
             <TabsTrigger value="products" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
               <Package className="h-4 w-4 mr-2" />
               Ürün Yönetimi ({products.length})
@@ -419,6 +419,10 @@ export default function AdminPage() {
             <TabsTrigger value="orders" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
               <ShoppingBag className="h-4 w-4 mr-2" />
               Sipariş Yönetimi ({orders.length})
+            </TabsTrigger>
+            <TabsTrigger value="users" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+              <User className="h-4 w-4 mr-2" />
+              Üye Yönetimi ({users.length})
             </TabsTrigger>
           </TabsList>
 
