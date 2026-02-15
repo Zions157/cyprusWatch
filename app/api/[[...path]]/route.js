@@ -256,6 +256,48 @@ export async function GET(request) {
       return NextResponse.json(orders);
     }
 
+    // GET /api/users - Tüm kullanıcıları listele (Admin)
+    if (path === 'users' || path === 'users/') {
+      const users = await db.collection('users')
+        .find({})
+        .sort({ createdAt: -1 })
+        .toArray();
+      // Şifreleri kaldır
+      const usersWithoutPasswords = users.map(({ password, ...user }) => user);
+      return NextResponse.json(usersWithoutPasswords);
+    }
+
+    // GET /api/users/:id - Kullanıcı detayı (Admin)
+    if (path.startsWith('users/') && path.split('/').length === 2) {
+      const id = path.split('/')[1];
+      const user = await db.collection('users').findOne({ id });
+      if (!user) {
+        return NextResponse.json({ error: 'Kullanıcı bulunamadı' }, { status: 404 });
+      }
+      const { password, ...userWithoutPassword } = user;
+      
+      // Kullanıcının siparişlerini de getir
+      const userOrders = await db.collection('orders')
+        .find({ userId: id })
+        .sort({ createdAt: -1 })
+        .toArray();
+      
+      return NextResponse.json({
+        ...userWithoutPassword,
+        orders: userOrders
+      });
+    }
+
+    // GET /api/reviews/:productId - Ürün değerlendirmelerini getir
+    if (path.startsWith('reviews/') && path.split('/').length === 2) {
+      const productId = path.split('/')[1];
+      const product = await db.collection('products').findOne({ id: productId });
+      if (!product) {
+        return NextResponse.json({ error: 'Ürün bulunamadı' }, { status: 404 });
+      }
+      return NextResponse.json(product.reviews || []);
+    }
+
     return NextResponse.json({ error: 'Endpoint bulunamadı' }, { status: 404 });
   } catch (error) {
     console.error('GET Error:', error);
