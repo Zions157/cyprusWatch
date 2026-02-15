@@ -65,15 +65,22 @@ export default function EyewearPage() {
   };
 
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    let result = products.filter(p => 
+      p.productType === 'eyewear' || p.category === 'Gözlük'
+    );
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       result = result.filter(
         p =>
           p.name?.toLowerCase().includes(query) ||
-          p.description?.toLowerCase().includes(query)
+          p.description?.toLowerCase().includes(query) ||
+          p.brand?.toLowerCase().includes(query)
       );
+    }
+
+    if (genderFilter !== 'all') {
+      result = result.filter(p => p.gender === genderFilter || p.gender === 'unisex');
     }
 
     switch (sortBy) {
