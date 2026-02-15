@@ -285,30 +285,86 @@ export default function Navbar() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-[280px] bg-black border-l border-amber-500/20">
-                <div className="flex flex-col space-y-4 mt-8">
-                  {navItems.map((item) => {
-                    const Icon = item.icon;
-                    const isActive = pathname === item.href;
+                <div className="flex flex-col space-y-2 mt-8">
+                  {/* Anasayfa */}
+                  <Link href="/" onClick={() => setIsOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      className={`w-full justify-start space-x-3 ${
+                        pathname === '/'
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <Home className="h-5 w-5" />
+                      <span>Anasayfa</span>
+                    </Button>
+                  </Link>
+
+                  {/* Category Items with Sub-links */}
+                  {Object.entries(categoryDropdowns).map(([key, category]) => {
+                    const Icon = category.icon;
                     return (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        <Button
-                          variant="ghost"
-                          className={`w-full justify-start space-x-3 ${
-                            isActive
-                              ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
-                              : 'text-gray-300 hover:text-white hover:bg-white/10'
-                          }`}
-                        >
-                          <Icon className="h-5 w-5" />
-                          <span>{item.name}</span>
-                        </Button>
-                      </Link>
+                      <div key={key} className="space-y-1">
+                        <Link href={category.href} onClick={() => setIsOpen(false)}>
+                          <Button
+                            variant="ghost"
+                            className={`w-full justify-start space-x-3 ${
+                              pathname === category.href
+                                ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
+                                : 'text-gray-300 hover:text-white hover:bg-white/10'
+                            }`}
+                          >
+                            <Icon className="h-5 w-5" />
+                            <span>{category.name}</span>
+                          </Button>
+                        </Link>
+                        <div className="pl-8 space-y-1">
+                          {category.subItems.slice(1).map((subItem) => (
+                            <Link key={subItem.href} href={subItem.href} onClick={() => setIsOpen(false)}>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/10"
+                              >
+                                <span>{subItem.name}</span>
+                              </Button>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
                     );
                   })}
+
+                  {/* Hakkımızda */}
+                  <Link href="/about" onClick={() => setIsOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      className={`w-full justify-start space-x-3 ${
+                        pathname === '/about'
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <Info className="h-5 w-5" />
+                      <span>Hakkımızda</span>
+                    </Button>
+                  </Link>
+
+                  {/* İletişim */}
+                  <Link href="/contact" onClick={() => setIsOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      className={`w-full justify-start space-x-3 ${
+                        pathname === '/contact'
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
+                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                      }`}
+                    >
+                      <Phone className="h-5 w-5" />
+                      <span>İletişim</span>
+                    </Button>
+                  </Link>
                 </div>
               </SheetContent>
             </Sheet>
