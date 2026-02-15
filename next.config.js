@@ -7,6 +7,9 @@ const nextConfig = {
   
   // Diğer ayarlar
   reactStrictMode: true,
+  
+  // Standalone output for Docker
+  output: 'standalone',
 }
 
 module.exports = nextConfig
