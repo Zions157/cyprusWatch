@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { ArrowLeft, ShoppingCart, Package, Minus, Plus, Clock, Glasses } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Package, Minus, Plus, Clock, Glasses, Heart } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { formatPrice } from '@/lib/utils';
 
