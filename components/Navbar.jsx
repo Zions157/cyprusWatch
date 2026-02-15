@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package, Gem } from 'lucide-react';
+import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package, Gem, ChevronDown } from 'lucide-react';
 import Logo from '@/components/Logo';
 import {
   DropdownMenu,
@@ -17,11 +17,42 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-const navItems = [
+// Dropdown menü olan kategoriler
+const categoryDropdowns = {
+  watches: {
+    name: 'Saatler',
+    href: '/watches',
+    icon: Clock,
+    subItems: [
+      { name: 'Tüm Saatler', href: '/watches' },
+      { name: 'Erkek Saatleri', href: '/watches?gender=male' },
+      { name: 'Kadın Saatleri', href: '/watches?gender=female' },
+    ]
+  },
+  eyewear: {
+    name: 'Gözlükler',
+    href: '/eyewear',
+    icon: Glasses,
+    subItems: [
+      { name: 'Tüm Gözlükler', href: '/eyewear' },
+      { name: 'Erkek Gözlükleri', href: '/eyewear?gender=male' },
+      { name: 'Kadın Gözlükleri', href: '/eyewear?gender=female' },
+    ]
+  },
+  eta: {
+    name: 'ETA',
+    href: '/eta',
+    icon: Gem,
+    subItems: [
+      { name: 'Tüm ETA', href: '/eta' },
+      { name: 'Erkek ETA', href: '/eta?gender=male' },
+      { name: 'Kadın ETA', href: '/eta?gender=female' },
+    ]
+  }
+};
+
+const simpleNavItems = [
   { name: 'Anasayfa', href: '/', icon: Home },
-  { name: 'Saatler', href: '/watches', icon: Clock },
-  { name: 'Gözlükler', href: '/eyewear', icon: Glasses },
-  { name: 'ETA', href: '/eta', icon: Gem },
   { name: 'Hakkımızda', href: '/about', icon: Info },
   { name: 'İletişim', href: '/contact', icon: Phone },
 ];
