@@ -71,7 +71,10 @@ export default function WatchesPage() {
   }, [products]);
 
   const filteredProducts = useMemo(() => {
-    let result = [...products];
+    // Saatleri filtrele
+    let result = products.filter(p => 
+      p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')
+    );
 
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
@@ -79,12 +82,17 @@ export default function WatchesPage() {
         p =>
           p.name?.toLowerCase().includes(query) ||
           p.description?.toLowerCase().includes(query) ||
+          p.brand?.toLowerCase().includes(query) ||
           p.category?.toLowerCase().includes(query)
       );
     }
 
     if (selectedCategory !== 'all') {
       result = result.filter(p => p.category === selectedCategory);
+    }
+
+    if (genderFilter !== 'all') {
+      result = result.filter(p => p.gender === genderFilter || p.gender === 'unisex');
     }
 
     switch (sortBy) {
