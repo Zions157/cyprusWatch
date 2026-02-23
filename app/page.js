@@ -129,27 +129,27 @@ export default function Home() {
             <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/60 to-transparent" />
             <div className="absolute inset-0 flex items-center">
               <div className="container mx-auto px-4">
-                <div className="max-w-2xl">
-                  <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4 animate-fade-in">
+                <div className="max-w-xl">
+                  <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2 animate-fade-in">
                     {slide.title}
                   </h1>
-                  <p className="text-lg md:text-xl text-gray-600 mb-6">
+                  <p className="text-sm md:text-base text-gray-600 mb-4">
                     {slide.subtitle}
                   </p>
-                  <div className="flex gap-4">
+                  <div className="flex gap-3">
                     <Button
                       onClick={() => router.push('/watches')}
-                      size="lg"
-                      className="bg-[#006039] hover:bg-[#004d2d] text-white font-bold px-8"
+                      size="sm"
+                      className="bg-[#006039] hover:bg-[#004d2d] text-white font-bold px-6"
                     >
                       Saatleri Keşfet
-                      <ChevronRight className="ml-2 h-5 w-5" />
+                      <ChevronRight className="ml-1 h-4 w-4" />
                     </Button>
                     <Button
                       onClick={() => router.push('/eyewear')}
-                      size="lg"
+                      size="sm"
                       variant="outline"
-                      className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white px-8"
+                      className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white px-6"
                     >
                       Gözlükleri Gör
                     </Button>
@@ -161,14 +161,14 @@ export default function Home() {
         ))}
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 flex space-x-2">
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all ${
+              className={`w-2 h-2 rounded-full transition-all ${
                 index === currentSlide
-                  ? 'bg-[#006039] w-8'
+                  ? 'bg-[#006039] w-6'
                   : 'bg-gray-400/50 hover:bg-gray-400'
               }`}
             />
