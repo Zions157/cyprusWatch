@@ -113,8 +113,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Slider - 30% smaller, starts below navbar */}
-      <section className="relative h-[55vh] mt-16 overflow-hidden">
+      {/* Hero Slider - 50% smaller, starts below navbar */}
+      <section className="relative h-[28vh] mt-16 overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
