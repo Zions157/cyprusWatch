@@ -18,39 +18,39 @@ import { ShoppingCart, ChevronRight, Star, Clock, Award, Truck, Sparkles } from 
 
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1657012434887-036bfbee1596?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
+    image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/c_limit,w_1920/v1/catalogue/2025/upright-c/m136668lb-0001.jpg',
     title: 'Rolex Deepsea',
-    subtitle: 'Derinliklerin efendisi, kusursuz mühendislik',
+    subtitle: 'M136668LB-0001 - 18 karat sarı altın',
   },
   {
-    image: 'https://images.unsplash.com/photo-1599989850406-3c8de3edf0ef?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
+    image: 'https://patek-res.cloudinary.com/dfsmedia/0906caea301d42b3b8bd23bd656d1711/202222-51887',
     title: 'Patek Philippe Nautilus',
-    subtitle: 'Beyaz altının zarafeti',
+    subtitle: '5726/1A-014 - Annual Calendar',
   },
   {
-    image: 'https://images.pexels.com/photos/16886383/pexels-photo-16886383.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    image: 'https://images.bobswatches.com/images/Used-Rolex-Yacht-Master-II-116680-SKU185896.jpg?q=50&ef=2&h=950&sh=true&dpr=2',
     title: 'Rolex Yacht-Master II',
-    subtitle: 'Denizlerin altın kralı',
+    subtitle: '116680 - Çelik, Beyaz Kadran',
   },
   {
-    image: 'https://images.pexels.com/photos/28296247/pexels-photo-28296247.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    image: 'https://dynamicmedia.audemarspiguet.com/is/image/audemarspiguet/watch-1031?size=1920,0&wid=1920&fmt=avif-alpha&dpr=off',
     title: 'Audemars Piguet Royal Oak',
-    subtitle: 'Efsanevi tasarım, benzersiz detaylar',
+    subtitle: '26730ST - Selfwinding Flying Tourbillon',
   },
   {
-    image: 'https://images.unsplash.com/photo-1584036553516-bf83210aa16c?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
+    image: 'https://static.ticimax.cloud/cdn-cgi/image/width=1888,quality=85/49839/uploads/urunresimleri/buyuk/gucci-1869s-001-53-erkek-gunes-gozlugu--9062-.png',
     title: 'Gucci Eyewear',
-    subtitle: 'İkonik stil, zamansız şıklık',
+    subtitle: 'GG 1869S 001 - Erkek Güneş Gözlüğü',
   },
   {
-    image: 'https://images.pexels.com/photos/3656125/pexels-photo-3656125.jpeg?auto=compress&cs=tinysrgb&w=1920',
-    title: 'Prada Sunglasses',
-    subtitle: 'Lüksün yeni tanımı',
+    image: 'https://www.prada.com/content/dam/pradanux/common_assets/brand/products/F/SPS/B07/M1BO/FE70U/SPSB07_M1BO_FE70U_S_000_SLF.jpg',
+    title: 'Prada Linea Rossa',
+    subtitle: 'Active - Erkek Güneş Gözlüğü',
   },
   {
-    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
-    title: 'Ray-Ban Collection',
-    subtitle: 'Klasik tasarım, modern dokunuş',
+    image: 'https://stn-atasun.mncdn.com/mnresize/1500/1500/Content/media/ProductImg/original/gu032087-rb-3548n-001-5121145-638755903607437429.jpg',
+    title: 'Ray-Ban Hexagonal',
+    subtitle: 'RB 3548N - Klasik Altın Çerçeve',
   },
 ];
 
