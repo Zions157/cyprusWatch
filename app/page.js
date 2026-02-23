@@ -302,54 +302,54 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-4">Özel Fırsatları Kaçırmayın</h2>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-[#006039]/80 text-lg mb-8 max-w-2xl mx-auto">
             Yeni ürünler ve kampanyalardan ilk siz haberdar olun
           </p>
           <Button
             onClick={() => router.push('/watches')}
             size="lg"
-            className="bg-gray-900 text-white hover:bg-gray-800 px-12"
+            className="bg-[#006039] text-white hover:bg-[#004d2d] px-12"
           >
             Alışverişe Başla
           </Button>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-16 border-t border-gray-800">
+      {/* Footer - White Theme */}
+      <footer className="bg-white text-gray-900 py-16 border-t border-gray-200">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4 text-amber-500">Cyprus Watch</h3>
-              <p className="text-gray-400">Lüks saat ve gözlüklerin adresi</p>
+              <h3 className="text-xl font-bold mb-4 text-[#006039]">Cyprus Watch</h3>
+              <p className="text-gray-600">Lüks saat ve gözlüklerin adresi</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-white">Hızlı Linkler</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="/" className="hover:text-amber-500 transition-colors">Anasayfa</a></li>
-                <li><a href="/watches" className="hover:text-amber-500 transition-colors">Saatler</a></li>
-                <li><a href="/eyewear" className="hover:text-amber-500 transition-colors">Gözlükler</a></li>
-                <li><a href="/about" className="hover:text-amber-500 transition-colors">Hakkımızda</a></li>
+              <h4 className="font-semibold mb-4 text-gray-900">Hızlı Linkler</h4>
+              <ul className="space-y-2 text-gray-600">
+                <li><a href="/" className="hover:text-[#006039] transition-colors">Anasayfa</a></li>
+                <li><a href="/watches" className="hover:text-[#006039] transition-colors">Saatler</a></li>
+                <li><a href="/eyewear" className="hover:text-[#006039] transition-colors">Gözlükler</a></li>
+                <li><a href="/about" className="hover:text-[#006039] transition-colors">Hakkımızda</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-white">İletişim</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-4 text-gray-900">İletişim</h4>
+              <ul className="space-y-2 text-gray-600">
                 <li>info@cypruswatch.com</li>
                 <li>+90 533 123 4123</li>
                 <li>Kıbrıs, Lefkoşa</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-white">Çalışma Saatleri</h4>
-              <ul className="space-y-2 text-gray-400">
+              <h4 className="font-semibold mb-4 text-gray-900">Çalışma Saatleri</h4>
+              <ul className="space-y-2 text-gray-600">
                 <li>Pazartesi - Cuma: 09:00 - 18:00</li>
                 <li>Cumartesi: 10:00 - 16:00</li>
                 <li>Pazar: Kapalı</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-white/10 mt-12 pt-8 text-center text-gray-500">
+          <div className="border-t border-gray-200 mt-12 pt-8 text-center text-gray-500">
             <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
           </div>
         </div>
