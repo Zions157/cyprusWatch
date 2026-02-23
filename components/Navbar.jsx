@@ -145,8 +145,8 @@ export default function Navbar() {
                 variant="ghost"
                 className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                   pathname === '/'
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
-                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
+                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
                 <Home className="h-4 w-4" />
@@ -165,8 +165,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                         isActive
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -176,11 +176,11 @@ export default function Navbar() {
                   </Link>
                   
                   {/* Hover Dropdown */}
-                  <div className="absolute top-full left-0 mt-1 w-48 bg-gray-900/95 backdrop-blur-md border border-white/10 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div className="py-2">
                       {category.subItems.map((subItem) => (
                         <Link key={subItem.href} href={subItem.href}>
-                          <div className="px-4 py-2 text-gray-300 hover:text-white hover:bg-amber-500/20 transition-colors cursor-pointer">
+                          <div className="px-4 py-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 transition-colors cursor-pointer">
                             {subItem.name}
                           </div>
                         </Link>
@@ -197,8 +197,8 @@ export default function Navbar() {
                 variant="ghost"
                 className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                   pathname === '/about'
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
-                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
+                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
                 <Info className="h-4 w-4" />
@@ -212,8 +212,8 @@ export default function Navbar() {
                 variant="ghost"
                 className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                   pathname === '/contact'
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black hover:from-amber-600 hover:to-yellow-600'
-                    : 'text-gray-300 hover:text-white hover:bg-white/10'
+                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
+                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                 }`}
               >
                 <Phone className="h-4 w-4" />
