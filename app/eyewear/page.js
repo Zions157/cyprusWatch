@@ -262,7 +262,7 @@ export default function EyewearPage() {
               {paginatedProducts.map((product) => (
                 <Card
                   key={product.id}
-                  className="bg-white/5 border-gray-200 hover:border-amber-500/50 transition-all duration-300 cursor-pointer group"
+                  className="bg-white/5 border-gray-200 hover:border-[#006039]/50 transition-all duration-300 cursor-pointer group"
                 >
                   <CardHeader className="p-0">
                     <div
@@ -284,14 +284,14 @@ export default function EyewearPage() {
                   <CardContent className="p-3">
                     <CardTitle
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="text-sm font-semibold mb-1 line-clamp-1 text-gray-900 group-hover:text-amber-500 transition-colors"
+                      className="text-sm font-semibold mb-1 line-clamp-1 text-gray-900 group-hover:text-[#006039] transition-colors"
                     >
                       {product.name}
                     </CardTitle>
                     <p className="text-xs text-gray-600 line-clamp-2 mb-2">
                       {product.description}
                     </p>
-                    <span className="text-lg font-bold text-amber-500">
+                    <span className="text-lg font-bold text-[#006039]">
                       {formatPrice(product.price)} ₺
                     </span>
                   </CardContent>
@@ -300,7 +300,7 @@ export default function EyewearPage() {
                       onClick={() => addToCart(product)}
                       disabled={product.stock === 0}
                       size="sm"
-                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black text-sm"
+                      className="w-full bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black text-sm"
                     >
                       <ShoppingCart className="h-3 w-3 mr-1" />
                       Sepete Ekle
@@ -337,7 +337,7 @@ export default function EyewearPage() {
                               setCurrentPage(item);
                             }}
                             isActive={currentPage === item}
-                            className={`cursor-pointer ${currentPage === item ? 'bg-amber-500 text-black' : 'text-gray-600 hover:text-gray-900'}`}
+                            className={`cursor-pointer ${currentPage === item ? 'bg-[#006039] text-black' : 'text-gray-600 hover:text-gray-900'}`}
                           >
                             {item}
                           </PaginationLink>
@@ -365,7 +365,7 @@ export default function EyewearPage() {
             <Glasses className="h-16 w-16 mx-auto text-gray-600 mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Gözlük Bulunamadı</h3>
             <p className="text-gray-600 mb-4">Henüz gözlük ürünü eklenmemiş.</p>
-            <Button onClick={() => router.push('/')} variant="outline" className="border-amber-500 text-amber-500">
+            <Button onClick={() => router.push('/')} variant="outline" className="border-[#006039] text-[#006039]">
               Anasayfaya Dön
             </Button>
           </div>

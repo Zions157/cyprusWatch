@@ -67,7 +67,7 @@ export default function CartPage() {
             <ShoppingCart className="h-16 w-16 mx-auto text-gray-600 mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">Sepetiniz boş</h3>
             <p className="text-gray-400 mb-4">Ürün eklemek için alışverişe başlayın</p>
-            <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-amber-500 to-yellow-500 text-black">
+            <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-[#006039] to-[#007a47] text-black">
               Ürünlere Git
             </Button>
           </Card>
@@ -86,7 +86,7 @@ export default function CartPage() {
                       <div className="flex-1">
                         <h3 className="font-semibold text-lg mb-1 text-white">{item.name}</h3>
                         <p className="text-gray-500 text-sm mb-2 line-clamp-1">{item.description}</p>
-                        <p className="text-amber-500 font-bold text-xl">{formatPrice(item.price)} ₺</p>
+                        <p className="text-[#006039] font-bold text-xl">{formatPrice(item.price)} ₺</p>
                       </div>
                       <div className="flex items-center space-x-3">
                         <Button
@@ -100,7 +100,7 @@ export default function CartPage() {
                         <Button
                           size="icon"
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="h-9 w-9 bg-amber-500 hover:bg-amber-600 text-black border-0"
+                          className="h-9 w-9 bg-[#006039] hover:bg-amber-600 text-black border-0"
                         >
                           <Plus className="h-5 w-5" />
                         </Button>
@@ -146,12 +146,12 @@ export default function CartPage() {
 
                   <div className="flex justify-between text-xl font-bold pt-2">
                     <span className="text-white">Toplam:</span>
-                    <span className="text-amber-500">{formatPrice(totalAmount)} ₺</span>
+                    <span className="text-[#006039]">{formatPrice(totalAmount)} ₺</span>
                   </div>
 
                   <Button
                     onClick={() => router.push('/checkout')}
-                    className="w-full h-12 text-lg bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
+                    className="w-full h-12 text-lg bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black"
                   >
                     Ödemeye Geç
                   </Button>

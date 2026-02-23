@@ -298,7 +298,7 @@ export default function ETAPage() {
               {paginatedProducts.map((product) => (
                 <Card
                   key={product.id}
-                  className="bg-white/5 border-gray-200 hover:border-amber-500/50 transition-all duration-300 cursor-pointer group"
+                  className="bg-white/5 border-gray-200 hover:border-[#006039]/50 transition-all duration-300 cursor-pointer group"
                 >
                   <CardHeader className="p-0">
                     <div
@@ -320,7 +320,7 @@ export default function ETAPage() {
                   <CardContent className="p-3">
                     <CardTitle
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="text-sm font-semibold mb-1 line-clamp-1 text-gray-900 group-hover:text-amber-500 transition-colors"
+                      className="text-sm font-semibold mb-1 line-clamp-1 text-gray-900 group-hover:text-[#006039] transition-colors"
                     >
                       {product.name}
                     </CardTitle>
@@ -328,7 +328,7 @@ export default function ETAPage() {
                       {product.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-lg font-bold text-amber-500">
+                      <span className="text-lg font-bold text-[#006039]">
                         {formatPrice(product.price)} ₺
                       </span>
                       <Badge variant="secondary" className="text-xs bg-white/10 text-gray-300">
@@ -341,7 +341,7 @@ export default function ETAPage() {
                       onClick={() => addToCart(product)}
                       disabled={product.stock === 0}
                       size="sm"
-                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black text-sm"
+                      className="w-full bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black text-sm"
                     >
                       <ShoppingCart className="h-3 w-3 mr-1" />
                       Sepete Ekle
@@ -378,7 +378,7 @@ export default function ETAPage() {
                               setCurrentPage(item);
                             }}
                             isActive={currentPage === item}
-                            className={`cursor-pointer ${currentPage === item ? 'bg-amber-500 text-black' : 'text-gray-600 hover:text-gray-900'}`}
+                            className={`cursor-pointer ${currentPage === item ? 'bg-[#006039] text-black' : 'text-gray-600 hover:text-gray-900'}`}
                           >
                             {item}
                           </PaginationLink>
@@ -408,7 +408,7 @@ export default function ETAPage() {
             </div>
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Ürün Bulunamadı</h3>
             <p className="text-gray-600 mb-4">Arama kriterlerinize uygun ürün bulunamadı.</p>
-            <Button onClick={clearFilters} variant="outline" className="border-amber-500 text-amber-500">
+            <Button onClick={clearFilters} variant="outline" className="border-[#006039] text-[#006039]">
               Filtreleri Temizle
             </Button>
           </div>

@@ -103,11 +103,11 @@ export default function LoginPage() {
 
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-gray-800">
-              <TabsTrigger value="login" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+              <TabsTrigger value="login" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
                 <LogIn className="h-4 w-4 mr-2" />
                 Giriş Yap
               </TabsTrigger>
-              <TabsTrigger value="register" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+              <TabsTrigger value="register" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
                 <UserPlus className="h-4 w-4 mr-2" />
                 Kayıt Ol
               </TabsTrigger>
@@ -164,7 +164,7 @@ export default function LoginPage() {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold"
+                      className="w-full bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black font-bold"
                     >
                       {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
                     </Button>
@@ -273,7 +273,7 @@ export default function LoginPage() {
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold"
+                      className="w-full bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black font-bold"
                     >
                       {loading ? 'Kayıt yapılıyor...' : 'Kayıt Ol'}
                     </Button>

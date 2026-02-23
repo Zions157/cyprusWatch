@@ -210,8 +210,8 @@ export default function Home() {
               { icon: Clock, title: '7/24 Destek', desc: 'Her zaman yanınızdayız' },
               { icon: Star, title: 'Premium Kalite', desc: '10.000+ Mutlu Müşteri' },
             ].map((item, index) => (
-              <div key={index} className="flex items-center space-x-4 p-6 rounded-xl bg-gray-50 border border-gray-200 hover:border-amber-500 transition-colors">
-                <div className="bg-gradient-to-br from-amber-500 to-yellow-500 p-3 rounded-lg">
+              <div key={index} className="flex items-center space-x-4 p-6 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#006039] transition-colors">
+                <div className="bg-gradient-to-br from-[#006039] to-[#007a47] p-3 rounded-lg">
                   <item.icon className="h-6 w-6 text-white" />
                 </div>
                 <div>
@@ -230,7 +230,7 @@ export default function Home() {
           <div className="flex items-center justify-between mb-10">
             <div>
               <h2 className="text-4xl font-bold text-gray-900 flex items-center gap-3">
-                <Sparkles className="h-8 w-8 text-amber-500" />
+                <Sparkles className="h-8 w-8 text-[#006039]" />
                 Öne Çıkan Ürünler
               </h2>
               <p className="text-gray-500 mt-2">En çok tercih edilen saat ve gözlükler</p>
@@ -238,7 +238,7 @@ export default function Home() {
             <Button
               onClick={() => router.push('/watches')}
               variant="outline"
-              className="border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white"
+              className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white"
             >
               Tümünü Gör
               <ChevronRight className="h-4 w-4 ml-1" />
@@ -262,7 +262,7 @@ export default function Home() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.slice(0, 8).map((product) => (
-                <Card key={product.id} className="bg-white border-gray-200 hover:border-amber-500 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden">
+                <Card key={product.id} className="bg-white border-gray-200 hover:border-[#006039] hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden">
                   <CardHeader className="p-0">
                     <div
                       onClick={() => router.push(`/product/${product.id}`)}
@@ -277,7 +277,7 @@ export default function Home() {
                       {product.stock < 10 && (
                         <Badge className="absolute top-2 right-2 bg-red-500">Son {product.stock} adet</Badge>
                       )}
-                      <Badge className="absolute top-2 left-2 bg-amber-500 text-white">
+                      <Badge className="absolute top-2 left-2 bg-[#006039] text-white">
                         {product.category === 'Gözlük' ? 'Gözlük' : 'Saat'}
                       </Badge>
                     </div>
@@ -285,7 +285,7 @@ export default function Home() {
                   <CardContent className="p-4">
                     <CardTitle
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="text-lg mb-2 line-clamp-1 text-gray-900 group-hover:text-amber-600 transition-colors"
+                      className="text-lg mb-2 line-clamp-1 text-gray-900 group-hover:text-[#006039] transition-colors"
                     >
                       {product.name}
                     </CardTitle>
@@ -293,7 +293,7 @@ export default function Home() {
                       {product.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-amber-600">
+                      <span className="text-xl font-bold text-[#006039]">
                         {formatPrice(product.price)} ₺
                       </span>
                     </div>
@@ -302,14 +302,14 @@ export default function Home() {
                     <Button
                       onClick={() => router.push(`/product/${product.id}`)}
                       variant="outline"
-                      className="flex-1 border-gray-300 text-gray-700 hover:border-amber-500 hover:text-amber-600"
+                      className="flex-1 border-gray-300 text-gray-700 hover:border-[#006039] hover:text-[#006039]"
                     >
                       Detay
                     </Button>
                     <Button
                       onClick={() => addToCart(product)}
                       disabled={product.stock === 0}
-                      className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white"
+                      className="flex-1 bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-white"
                     >
                       <ShoppingCart className="h-4 w-4 mr-1" />
                       Ekle

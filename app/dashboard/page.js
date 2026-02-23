@@ -164,19 +164,19 @@ export default function DashboardPage() {
 
         <Tabs defaultValue="orders" className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-gray-800 mb-8">
-            <TabsTrigger value="orders" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="orders" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <Package className="h-4 w-4 mr-2" />
               Siparişlerim
             </TabsTrigger>
-            <TabsTrigger value="favorites" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="favorites" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <Heart className="h-4 w-4 mr-2" />
               Favorilerim
             </TabsTrigger>
-            <TabsTrigger value="profile" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="profile" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <Settings className="h-4 w-4 mr-2" />
               Profil
             </TabsTrigger>
-            <TabsTrigger value="account" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="account" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <User className="h-4 w-4 mr-2" />
               Hesap
             </TabsTrigger>
@@ -187,7 +187,7 @@ export default function DashboardPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-white">Sipariş Geçmişi</h2>
-                <Badge className="bg-amber-500 text-black">{orders.length} Sipariş</Badge>
+                <Badge className="bg-[#006039] text-black">{orders.length} Sipariş</Badge>
               </div>
               
               {orders.length === 0 ? (
@@ -195,18 +195,18 @@ export default function DashboardPage() {
                   <ShoppingBag className="h-16 w-16 mx-auto text-gray-600 mb-4" />
                   <h3 className="text-xl font-semibold text-white mb-2">Henüz siparişiniz yok</h3>
                   <p className="text-gray-400 mb-4">Alışverişe başlayın ve siparişlerinizi burada takip edin</p>
-                  <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black">
+                  <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black">
                     Alışverişe Başla
                   </Button>
                 </Card>
               ) : (
                 orders.map((order) => (
-                  <Card key={order.id} className="bg-gray-900 border-white/10 hover:border-amber-500/50 transition-colors">
+                  <Card key={order.id} className="bg-gray-900 border-white/10 hover:border-[#006039]/50 transition-colors">
                     <CardHeader>
                       <div className="flex items-center justify-between">
                         <div>
                           <CardTitle className="text-white flex items-center gap-2">
-                            <Package className="h-5 w-5 text-amber-500" />
+                            <Package className="h-5 w-5 text-[#006039]" />
                             Sipariş #{order.id.slice(0, 8)}
                           </CardTitle>
                           <div className="flex items-center gap-2 mt-2 text-sm text-gray-400">
@@ -216,7 +216,7 @@ export default function DashboardPage() {
                         </div>
                         <div className="text-right">
                           {getStatusBadge(order.status)}
-                          <div className="text-2xl font-bold text-amber-500 mt-2">
+                          <div className="text-2xl font-bold text-[#006039] mt-2">
                             {formatPrice(order.totalAmount)} ₺
                           </div>
                         </div>
@@ -253,7 +253,7 @@ export default function DashboardPage() {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-white">Favori Ürünlerim</h2>
-                <Badge className="bg-amber-500 text-black">{favorites.length} Ürün</Badge>
+                <Badge className="bg-[#006039] text-black">{favorites.length} Ürün</Badge>
               </div>
 
               {favorites.length === 0 ? (
@@ -261,14 +261,14 @@ export default function DashboardPage() {
                   <Heart className="h-16 w-16 mx-auto text-gray-600 mb-4" />
                   <h3 className="text-xl font-semibold text-white mb-2">Favori ürününüz yok</h3>
                   <p className="text-gray-400 mb-4">Beğendiğiniz ürünleri favorilere ekleyin</p>
-                  <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black">
+                  <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black">
                     Ürünleri Keşfet
                   </Button>
                 </Card>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {favorites.map((product) => (
-                    <Card key={product.id} className="bg-gray-900 border-white/10 hover:border-amber-500/50 transition-colors overflow-hidden group">
+                    <Card key={product.id} className="bg-gray-900 border-white/10 hover:border-[#006039]/50 transition-colors overflow-hidden group">
                       <div className="relative h-48 bg-gray-800">
                         <img
                           src={product.image}
@@ -280,12 +280,12 @@ export default function DashboardPage() {
                         <h3 className="font-bold text-white mb-2 line-clamp-1">{product.name}</h3>
                         <p className="text-sm text-gray-400 mb-3 line-clamp-2">{product.description}</p>
                         <div className="flex items-center justify-between">
-                          <span className="text-xl font-bold text-amber-500">{formatPrice(product.price)} ₺</span>
+                          <span className="text-xl font-bold text-[#006039]">{formatPrice(product.price)} ₺</span>
                         </div>
                         <div className="flex gap-2 mt-4">
                           <Button
                             onClick={() => router.push(`/product/${product.id}`)}
-                            className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
+                            className="flex-1 bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black"
                           >
                             İncele
                           </Button>
@@ -360,7 +360,7 @@ export default function DashboardPage() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold"
+                    className="w-full bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black font-bold"
                   >
                     Güncelle
                   </Button>
@@ -381,7 +381,7 @@ export default function DashboardPage() {
                     <p className="text-gray-400 text-sm">E-posta</p>
                     <p className="text-white font-medium">{user?.email}</p>
                   </div>
-                  <Mail className="h-5 w-5 text-amber-500" />
+                  <Mail className="h-5 w-5 text-[#006039]" />
                 </div>
 
                 <div className="flex items-center justify-between py-3 border-b border-white/10">
@@ -391,7 +391,7 @@ export default function DashboardPage() {
                       {new Date(user?.createdAt).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
                   </div>
-                  <Calendar className="h-5 w-5 text-amber-500" />
+                  <Calendar className="h-5 w-5 text-[#006039]" />
                 </div>
 
                 <div className="flex items-center justify-between py-3 border-b border-white/10">
@@ -399,7 +399,7 @@ export default function DashboardPage() {
                     <p className="text-gray-400 text-sm">Toplam Sipariş</p>
                     <p className="text-white font-medium">{orders.length} sipariş</p>
                   </div>
-                  <Package className="h-5 w-5 text-amber-500" />
+                  <Package className="h-5 w-5 text-[#006039]" />
                 </div>
 
                 <div className="pt-4">

@@ -237,14 +237,14 @@ export default function ProductDetail() {
               <Badge className={
                 isETA ? 'bg-green-500 text-gray-900' :
                 isEyewear ? 'bg-purple-500 text-gray-900' : 
-                'bg-amber-500 text-black'
+                'bg-[#006039] text-black'
               }>
                 {product.category}
               </Badge>
               <Badge variant="outline" className="border-gray-500 text-gray-300">
                 {product.gender === 'male' ? 'Erkek' : product.gender === 'female' ? 'Kadın' : 'Unisex'}
               </Badge>
-              {product.brand && <Badge variant="outline" className="border-amber-500 text-amber-500">{product.brand}</Badge>}
+              {product.brand && <Badge variant="outline" className="border-[#006039] text-[#006039]">{product.brand}</Badge>}
             </div>
 
             <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
@@ -263,8 +263,8 @@ export default function ProductDetail() {
 
             <p className="text-gray-300 text-lg mb-6">{product.description}</p>
 
-            <div className="bg-gradient-to-r from-amber-500/20 to-yellow-500/20 p-6 rounded-xl border border-amber-500/30 mb-6">
-              <div className="text-4xl font-bold text-amber-500">
+            <div className="bg-gradient-to-r from-amber-500/20 to-yellow-500/20 p-6 rounded-xl border border-[#006039]/30 mb-6">
+              <div className="text-4xl font-bold text-[#006039]">
                 {formatPrice(product.price)} ₺
               </div>
               <p className="text-gray-600 text-sm mt-1">KDV Dahil</p>
@@ -350,7 +350,7 @@ export default function ProductDetail() {
                   disabled={quantity <= 1}
                   variant="outline"
                   size="icon"
-                  className="border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black"
+                  className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-black"
                 >
                   <Minus className="h-5 w-5" />
                 </Button>
@@ -362,7 +362,7 @@ export default function ProductDetail() {
                   disabled={quantity >= product.stock}
                   variant="outline"
                   size="icon"
-                  className="border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black"
+                  className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-black"
                 >
                   <Plus className="h-5 w-5" />
                 </Button>
@@ -374,7 +374,7 @@ export default function ProductDetail() {
               <Button
                 onClick={addToCart}
                 disabled={product.stock === 0}
-                className="w-full h-12 text-lg bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
+                className="w-full h-12 text-lg bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black"
               >
                 <ShoppingCart className="h-5 w-5 mr-2" />
                 Sepete Ekle - {formatPrice(product.price * quantity)} ₺
@@ -383,7 +383,7 @@ export default function ProductDetail() {
                 <Button
                   onClick={() => router.push('/cart')}
                   variant="outline"
-                  className="h-12 border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black"
+                  className="h-12 border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-black"
                 >
                   Sepete Git
                 </Button>
@@ -407,19 +407,19 @@ export default function ProductDetail() {
         {/* Tabs: Açıklama, Değerlendirmeler, Ödeme, İade */}
         <Tabs defaultValue="description" className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-gray-100">
-            <TabsTrigger value="description" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="description" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <Package className="h-4 w-4 mr-2" />
               AÇIKLAMA
             </TabsTrigger>
-            <TabsTrigger value="reviews" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="reviews" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <Star className="h-4 w-4 mr-2" />
               DEĞERLENDİRMELER ({reviews.length})
             </TabsTrigger>
-            <TabsTrigger value="payment" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="payment" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <CreditCard className="h-4 w-4 mr-2" />
               ÖDEME SEÇENEKLERİ
             </TabsTrigger>
-            <TabsTrigger value="return" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="return" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <RefreshCw className="h-4 w-4 mr-2" />
               İADE & DEĞİŞİM
             </TabsTrigger>
@@ -432,8 +432,8 @@ export default function ProductDetail() {
                 <p className="text-gray-300 leading-relaxed text-lg">{product.description}</p>
                 
                 {product.brand && (
-                  <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
-                    <h4 className="font-bold text-amber-500 mb-2">Marka</h4>
+                  <div className="mt-6 p-4 bg-[#006039]/10 border border-[#006039]/30 rounded-lg">
+                    <h4 className="font-bold text-[#006039] mb-2">Marka</h4>
                     <p className="text-gray-900">{product.brand}</p>
                   </div>
                 )}
@@ -480,7 +480,7 @@ export default function ProductDetail() {
                       </div>
                       <Button
                         onClick={submitReview}
-                        className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
+                        className="bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black"
                       >
                         Değerlendirmeyi Gönder
                       </Button>
@@ -496,7 +496,7 @@ export default function ProductDetail() {
                     {reviews.map((review) => (
                       <div key={review.id} className="border-b border-gray-200 pb-4">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center text-black font-bold">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#006039] to-[#007a47] flex items-center justify-center text-black font-bold">
                             {review.userName?.charAt(0)}
                           </div>
                           <div>
@@ -532,7 +532,7 @@ export default function ProductDetail() {
                 
                 <div className="space-y-4">
                   <div className="flex items-start gap-4 p-4 bg-gray-100/50 rounded-lg">
-                    <CreditCard className="h-8 w-8 text-amber-500 flex-shrink-0" />
+                    <CreditCard className="h-8 w-8 text-[#006039] flex-shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">Kredi Kartı / Banka Kartı</h4>
                       <p className="text-gray-600 text-sm">Tüm kredi kartları ve banka kartlarıyla güvenli ödeme. Tek çekim veya taksit seçenekleriyle.</p>
@@ -566,7 +566,7 @@ export default function ProductDetail() {
                 
                 <div className="space-y-6">
                   <div>
-                    <h4 className="font-bold text-amber-500 mb-2 flex items-center gap-2">
+                    <h4 className="font-bold text-[#006039] mb-2 flex items-center gap-2">
                       <RefreshCw className="h-5 w-5" />
                       İade Süresi
                     </h4>
@@ -576,7 +576,7 @@ export default function ProductDetail() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-amber-500 mb-2 flex items-center gap-2">
+                    <h4 className="font-bold text-[#006039] mb-2 flex items-center gap-2">
                       <Package className="h-5 w-5" />
                       İade Koşulları
                     </h4>
@@ -589,7 +589,7 @@ export default function ProductDetail() {
                   </div>
 
                   <div>
-                    <h4 className="font-bold text-amber-500 mb-2">Değişim</h4>
+                    <h4 className="font-bold text-[#006039] mb-2">Değişim</h4>
                     <p className="text-gray-300">
                       Satın aldığınız ürünü aynı kategorideki başka bir ürünle değiştirebilirsiniz. Kargo ücreti tarafımızca karşılanır.
                     </p>

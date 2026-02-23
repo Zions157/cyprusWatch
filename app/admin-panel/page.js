@@ -463,7 +463,7 @@ export default function AdminPage() {
               <Logo size={60} />
             </div>
             <CardTitle className="text-2xl flex items-center justify-center text-white">
-              <Lock className="h-6 w-6 mr-2 text-amber-500" />
+              <Lock className="h-6 w-6 mr-2 text-[#006039]" />
               Admin Girişi
             </CardTitle>
           </CardHeader>
@@ -492,7 +492,7 @@ export default function AdminPage() {
                   className="bg-black/50 border-white/20 text-white"
                 />
               </div>
-              <Button type="submit" className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black">
+              <Button type="submit" className="w-full bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black">
                 Giriş Yap
               </Button>
               <Button
@@ -527,15 +527,15 @@ export default function AdminPage() {
 
         <Tabs defaultValue="products" className="w-full">
           <TabsList className="grid w-full grid-cols-3 bg-gray-800 mb-8">
-            <TabsTrigger value="products" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="products" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <Package className="h-4 w-4 mr-2" />
               Ürünler ({products.length})
             </TabsTrigger>
-            <TabsTrigger value="orders" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="orders" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <ShoppingBag className="h-4 w-4 mr-2" />
               Siparişler ({orders.length})
             </TabsTrigger>
-            <TabsTrigger value="users" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
+            <TabsTrigger value="users" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
               <User className="h-4 w-4 mr-2" />
               Üyeler ({users.length})
             </TabsTrigger>
@@ -549,7 +549,7 @@ export default function AdminPage() {
                   variant={filterType === 'all' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterType('all')}
-                  className={filterType === 'all' ? 'bg-amber-500 text-black' : 'bg-gray-700 text-white'}
+                  className={filterType === 'all' ? 'bg-[#006039] text-black' : 'bg-gray-700 text-white'}
                 >
                   Tümü ({products.length})
                 </Button>
@@ -557,7 +557,7 @@ export default function AdminPage() {
                   variant={filterType === 'watch' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterType('watch')}
-                  className={filterType === 'watch' ? 'bg-amber-500 text-black' : 'bg-gray-700 text-white'}
+                  className={filterType === 'watch' ? 'bg-[#006039] text-black' : 'bg-gray-700 text-white'}
                 >
                   <Clock className="h-4 w-4 mr-1" /> Saatler ({watchCount})
                 </Button>
@@ -592,7 +592,7 @@ export default function AdminPage() {
 
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button onClick={openAddDialog} className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black">
+                  <Button onClick={openAddDialog} className="bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black">
                     <Plus className="h-4 w-4 mr-2" />
                     Yeni Ürün Ekle
                   </Button>
@@ -606,14 +606,14 @@ export default function AdminPage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Ürün Tipi */}
                     <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-5 rounded-xl border border-white/10">
-                      <Label className="text-amber-500 font-bold text-lg mb-4 block">Ürün Tipi Seçin *</Label>
+                      <Label className="text-[#006039] font-bold text-lg mb-4 block">Ürün Tipi Seçin *</Label>
                       <div className="grid grid-cols-3 gap-4">
                         <button
                           type="button"
                           onClick={() => handleProductTypeChange('watch')}
                           className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
                             formData.productType === 'watch' 
-                              ? 'border-amber-500 bg-amber-500/20 text-amber-500' 
+                              ? 'border-[#006039] bg-[#006039]/20 text-[#006039]' 
                               : 'border-gray-600 bg-gray-800 text-gray-400'
                           }`}
                         >
@@ -742,7 +742,7 @@ export default function AdminPage() {
 
                     {/* Ürün Özellikleri */}
                     <div className="border-t border-white/10 pt-5">
-                      <h3 className="text-lg font-bold text-amber-500 mb-4">Ürün Özellikleri (Opsiyonel)</h3>
+                      <h3 className="text-lg font-bold text-[#006039] mb-4">Ürün Özellikleri (Opsiyonel)</h3>
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label className="text-gray-300">Cam Cinsi</Label>
@@ -855,9 +855,9 @@ export default function AdminPage() {
                         accept="image/*"
                         onChange={handleFileChange}
                         disabled={uploadingImage}
-                        className="bg-black/50 border-white/20 text-white file:bg-amber-500 file:text-black"
+                        className="bg-black/50 border-white/20 text-white file:bg-[#006039] file:text-black"
                       />
-                      {uploadingImage && <p className="text-sm text-amber-500 mt-1">Yükleniyor...</p>}
+                      {uploadingImage && <p className="text-sm text-[#006039] mt-1">Yükleniyor...</p>}
                     </div>
 
                     {imagePreview && (
@@ -868,7 +868,7 @@ export default function AdminPage() {
                     )}
 
                     <div className="flex gap-3 pt-4">
-                      <Button type="submit" className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold">
+                      <Button type="submit" className="flex-1 bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black font-bold">
                         {editingProduct ? 'Güncelle' : 'Ekle'}
                       </Button>
                       <Button type="button" variant="outline" onClick={() => setIsDialogOpen(false)} className="flex-1 border-white/20 text-gray-300">
@@ -882,7 +882,7 @@ export default function AdminPage() {
 
             <div className="grid gap-4">
               {filteredProducts.map((product) => (
-                <Card key={product.id} className="bg-gray-900 border-white/10 hover:border-amber-500/50 transition-colors">
+                <Card key={product.id} className="bg-gray-900 border-white/10 hover:border-[#006039]/50 transition-colors">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-4">
                       <img src={product.image} alt={product.name} className="w-24 h-24 object-cover rounded-lg" />
@@ -892,18 +892,18 @@ export default function AdminPage() {
                           <Badge className={
                             product.productType === 'eyewear' ? 'bg-purple-500' :
                             product.productType === 'eta' ? 'bg-green-500' :
-                            'bg-amber-500 text-black'
+                            'bg-[#006039] text-black'
                           }>
                             {product.category}
                           </Badge>
                           <Badge variant="outline" className="border-gray-500 text-gray-300">
                             {product.gender === 'male' ? 'Erkek' : product.gender === 'female' ? 'Kadın' : 'Unisex'}
                           </Badge>
-                          {product.brand && <Badge variant="outline" className="border-amber-500 text-amber-500">{product.brand}</Badge>}
+                          {product.brand && <Badge variant="outline" className="border-[#006039] text-[#006039]">{product.brand}</Badge>}
                         </div>
                         <p className="text-gray-400 text-sm mb-2 line-clamp-1">{product.description}</p>
                         <div className="flex items-center space-x-4 text-sm">
-                          <span className="font-bold text-amber-500 text-lg">{formatPrice(product.price)} ₺</span>
+                          <span className="font-bold text-[#006039] text-lg">{formatPrice(product.price)} ₺</span>
                           <span className="text-gray-500">Stok: {product.stock}</span>
                         </div>
                       </div>
@@ -951,7 +951,7 @@ export default function AdminPage() {
                   variant={orderFilter === filter.value ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setOrderFilter(filter.value)}
-                  className={orderFilter === filter.value ? 'bg-amber-500 text-black' : 'bg-gray-700 text-white'}
+                  className={orderFilter === filter.value ? 'bg-[#006039] text-black' : 'bg-gray-700 text-white'}
                 >
                   {filter.label} ({filter.count})
                 </Button>
@@ -971,7 +971,7 @@ export default function AdminPage() {
                       <div className="flex items-center justify-between">
                         <div>
                           <CardTitle className="text-white flex items-center gap-2">
-                            <Package className="h-5 w-5 text-amber-500" />
+                            <Package className="h-5 w-5 text-[#006039]" />
                             Sipariş #{order.id.slice(0, 8)}
                           </CardTitle>
                           <div className="flex items-center gap-2 mt-2 text-sm text-gray-400">
@@ -981,7 +981,7 @@ export default function AdminPage() {
                         </div>
                         <div className="text-right">
                           {getStatusBadge(order.status)}
-                          <div className="text-2xl font-bold text-amber-500 mt-2">
+                          <div className="text-2xl font-bold text-[#006039] mt-2">
                             {formatPrice(order.totalAmount)} ₺
                           </div>
                         </div>
@@ -990,7 +990,7 @@ export default function AdminPage() {
                     <CardContent className="space-y-4">
                       <div className="bg-gray-800/50 p-4 rounded-lg">
                         <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
-                          <User className="h-4 w-4 text-amber-500" />
+                          <User className="h-4 w-4 text-[#006039]" />
                           Müşteri Bilgileri
                         </h4>
                         <div className="grid grid-cols-2 gap-2 text-sm">
@@ -1085,11 +1085,11 @@ export default function AdminPage() {
                 </Card>
               ) : (
                 filteredUsers.map((user) => (
-                  <Card key={user.id} className="bg-gray-900 border-white/10 hover:border-amber-500/50 transition-colors cursor-pointer" onClick={() => fetchUserDetail(user.id)}>
+                  <Card key={user.id} className="bg-gray-900 border-white/10 hover:border-[#006039]/50 transition-colors cursor-pointer" onClick={() => fetchUserDetail(user.id)}>
                     <CardContent className="p-4">
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center text-black font-bold text-xl">
+                          <div className="w-12 h-12 rounded-full bg-gradient-to-r from-[#006039] to-[#007a47] flex items-center justify-center text-black font-bold text-xl">
                             {user.fullName?.charAt(0) || user.email?.charAt(0)}
                           </div>
                           <div>
@@ -1109,7 +1109,7 @@ export default function AdminPage() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <Badge className="bg-amber-500 text-black">
+                          <Badge className="bg-[#006039] text-black">
                             {new Date(user.createdAt).toLocaleDateString('tr-TR')}
                           </Badge>
                         </div>
@@ -1129,7 +1129,7 @@ export default function AdminPage() {
                 {selectedUser && (
                   <div className="space-y-6">
                     <div className="bg-gray-800/50 p-4 rounded-lg">
-                      <h4 className="font-semibold text-amber-500 mb-3">Kişisel Bilgiler</h4>
+                      <h4 className="font-semibold text-[#006039] mb-3">Kişisel Bilgiler</h4>
                       <div className="space-y-2 text-sm">
                         <div className="flex justify-between">
                           <span className="text-gray-400">Ad Soyad:</span>
@@ -1155,7 +1155,7 @@ export default function AdminPage() {
                     </div>
 
                     <div>
-                      <h4 className="font-semibold text-amber-500 mb-3">Sipariş Geçmişi ({selectedUser.orders?.length || 0})</h4>
+                      <h4 className="font-semibold text-[#006039] mb-3">Sipariş Geçmişi ({selectedUser.orders?.length || 0})</h4>
                       {!selectedUser.orders || selectedUser.orders.length === 0 ? (
                         <p className="text-gray-400 text-center py-4">Henüz sipariş yok</p>
                       ) : (
@@ -1168,7 +1168,7 @@ export default function AdminPage() {
                               </div>
                               <div className="flex items-center justify-between text-sm">
                                 <span className="text-gray-400">{new Date(order.createdAt).toLocaleDateString('tr-TR')}</span>
-                                <span className="text-amber-500 font-bold">{formatPrice(order.totalAmount)} ₺</span>
+                                <span className="text-[#006039] font-bold">{formatPrice(order.totalAmount)} ₺</span>
                               </div>
                             </div>
                           ))}
