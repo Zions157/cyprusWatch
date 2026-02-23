@@ -165,10 +165,10 @@ export default function EyewearPage() {
       <Navbar />
 
       {/* Page Header */}
-      <div className="pt-24 pb-12 bg-gradient-to-b from-amber-500 to-amber-600">
+      <div className="pt-24 pb-12 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3">
-            <Glasses className="h-10 w-10 text-amber-500" />
+            <Glasses className="h-10 w-10 text-[#006039]" />
             <div>
               <h1 className="text-4xl font-bold text-gray-900">Gözlükler</h1>
               <p className="text-gray-600">Premium gözlük koleksiyonumuzu keşfedin</p>
