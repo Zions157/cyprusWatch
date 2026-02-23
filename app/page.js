@@ -177,18 +177,26 @@ export default function Home() {
 
         {/* Left Arrow */}
         <button
-          onClick={() => setCurrentSlide(currentSlide === 0 ? heroSlides.length - 1 : currentSlide - 1)}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-[#006039] p-2 rounded-full shadow-lg transition-all hover:scale-110"
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentSlide(currentSlide === 0 ? heroSlides.length - 1 : currentSlide - 1);
+          }}
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 z-30 bg-[#006039] hover:bg-[#004d2d] text-white p-3 rounded-full shadow-lg transition-all hover:scale-110"
+          aria-label="Önceki"
         >
-          <ChevronLeft className="h-6 w-6" />
+          <ChevronLeft className="h-5 w-5" />
         </button>
 
         {/* Right Arrow */}
         <button
-          onClick={() => setCurrentSlide(currentSlide === heroSlides.length - 1 ? 0 : currentSlide + 1)}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-white/80 hover:bg-white text-[#006039] p-2 rounded-full shadow-lg transition-all hover:scale-110"
+          onClick={(e) => {
+            e.stopPropagation();
+            setCurrentSlide(currentSlide === heroSlides.length - 1 ? 0 : currentSlide + 1);
+          }}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 z-30 bg-[#006039] hover:bg-[#004d2d] text-white p-3 rounded-full shadow-lg transition-all hover:scale-110"
+          aria-label="Sonraki"
         >
-          <ChevronRight className="h-6 w-6" />
+          <ChevronRight className="h-5 w-5" />
         </button>
       </section>
 
