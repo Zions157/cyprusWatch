@@ -179,7 +179,7 @@ export default function ETAPage() {
       <Navbar />
 
       {/* Page Header */}
-      <div className="pt-24 pb-12 bg-gradient-to-b from-gray-900 to-black">
+      <div className="pt-24 pb-12 bg-gradient-to-b from-amber-500 to-amber-600">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3">
             <Gem className="h-10 w-10 text-green-500" />
