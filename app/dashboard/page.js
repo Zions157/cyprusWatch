@@ -146,37 +146,37 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Yükleniyor...</div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-gray-900 text-xl">Yükleniyor...</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
       
       <main className="container mx-auto px-4 py-24">
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">Hesabım</h1>
-          <p className="text-gray-400">Hoş geldiniz, {user?.fullName || user?.email}</p>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">Hesabım</h1>
+          <p className="text-gray-600">Hoş geldiniz, {user?.fullName || user?.email}</p>
         </div>
 
         <Tabs defaultValue="orders" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-gray-800 mb-8">
-            <TabsTrigger value="orders" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+          <TabsList className="grid w-full grid-cols-4 bg-gray-100 mb-8">
+            <TabsTrigger value="orders" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <Package className="h-4 w-4 mr-2" />
               Siparişlerim
             </TabsTrigger>
-            <TabsTrigger value="favorites" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+            <TabsTrigger value="favorites" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <Heart className="h-4 w-4 mr-2" />
               Favorilerim
             </TabsTrigger>
-            <TabsTrigger value="profile" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+            <TabsTrigger value="profile" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <Settings className="h-4 w-4 mr-2" />
               Profil
             </TabsTrigger>
-            <TabsTrigger value="account" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+            <TabsTrigger value="account" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <User className="h-4 w-4 mr-2" />
               Hesap
             </TabsTrigger>
@@ -186,30 +186,30 @@ export default function DashboardPage() {
           <TabsContent value="orders">
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-white">Sipariş Geçmişi</h2>
+                <h2 className="text-2xl font-bold text-gray-900">Sipariş Geçmişi</h2>
                 <Badge className="bg-[#006039] text-white">{orders.length} Sipariş</Badge>
               </div>
               
               {orders.length === 0 ? (
-                <Card className="bg-gray-900 border-white/10 p-12 text-center">
-                  <ShoppingBag className="h-16 w-16 mx-auto text-gray-600 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">Henüz siparişiniz yok</h3>
-                  <p className="text-gray-400 mb-4">Alışverişe başlayın ve siparişlerinizi burada takip edin</p>
-                  <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black">
+                <Card className="bg-white border-gray-200 p-12 text-center shadow-sm">
+                  <ShoppingBag className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Henüz siparişiniz yok</h3>
+                  <p className="text-gray-600 mb-4">Alışverişe başlayın ve siparişlerinizi burada takip edin</p>
+                  <Button onClick={() => router.push('/watches')} className="bg-[#006039] hover:bg-[#004d2d] text-white">
                     Alışverişe Başla
                   </Button>
                 </Card>
               ) : (
                 orders.map((order) => (
-                  <Card key={order.id} className="bg-gray-900 border-white/10 hover:border-[#006039]/50 transition-colors">
+                  <Card key={order.id} className="bg-white border-gray-200 hover:border-[#006039]/50 transition-colors shadow-sm">
                     <CardHeader>
                       <div className="flex items-center justify-between">
                         <div>
-                          <CardTitle className="text-white flex items-center gap-2">
+                          <CardTitle className="text-gray-900 flex items-center gap-2">
                             <Package className="h-5 w-5 text-[#006039]" />
                             Sipariş #{order.id.slice(0, 8)}
                           </CardTitle>
-                          <div className="flex items-center gap-2 mt-2 text-sm text-gray-400">
+                          <div className="flex items-center gap-2 mt-2 text-sm text-gray-600">
                             <Calendar className="h-4 w-4" />
                             {new Date(order.createdAt).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}
                           </div>
@@ -226,16 +226,16 @@ export default function DashboardPage() {
                       <div className="space-y-2">
                         {order.items?.map((item, idx) => (
                           <div key={idx} className="flex items-center justify-between text-sm">
-                            <span className="text-gray-300">{item.name} x {item.quantity}</span>
-                            <span className="text-gray-400">{formatPrice(item.price * item.quantity)} ₺</span>
+                            <span className="text-gray-700">{item.name} x {item.quantity}</span>
+                            <span className="text-gray-600">{formatPrice(item.price * item.quantity)} ₺</span>
                           </div>
                         ))}
                       </div>
-                      <div className="flex items-center gap-2 mt-4 text-sm text-gray-400">
+                      <div className="flex items-center gap-2 mt-4 text-sm text-gray-600">
                         <CreditCard className="h-4 w-4" />
                         {order.paymentMethod === 'bank' ? 'Kredi/Banka Kartı' : 'IBAN/Havale'}
                         {order.emailSent && (
-                          <Badge variant="outline" className="ml-auto border-green-500 text-green-500">
+                          <Badge variant="outline" className="ml-auto border-green-500 text-green-600">
                             <Mail className="h-3 w-3 mr-1" />
                             Fatura Gönderildi
                           </Badge>
@@ -252,24 +252,24 @@ export default function DashboardPage() {
           <TabsContent value="favorites">
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-2xl font-bold text-white">Favori Ürünlerim</h2>
+                <h2 className="text-2xl font-bold text-gray-900">Favori Ürünlerim</h2>
                 <Badge className="bg-[#006039] text-white">{favorites.length} Ürün</Badge>
               </div>
 
               {favorites.length === 0 ? (
-                <Card className="bg-gray-900 border-white/10 p-12 text-center">
-                  <Heart className="h-16 w-16 mx-auto text-gray-600 mb-4" />
-                  <h3 className="text-xl font-semibold text-white mb-2">Favori ürününüz yok</h3>
-                  <p className="text-gray-400 mb-4">Beğendiğiniz ürünleri favorilere ekleyin</p>
-                  <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black">
+                <Card className="bg-white border-gray-200 p-12 text-center shadow-sm">
+                  <Heart className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Favori ürününüz yok</h3>
+                  <p className="text-gray-600 mb-4">Beğendiğiniz ürünleri favorilere ekleyin</p>
+                  <Button onClick={() => router.push('/watches')} className="bg-[#006039] hover:bg-[#004d2d] text-white">
                     Ürünleri Keşfet
                   </Button>
                 </Card>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {favorites.map((product) => (
-                    <Card key={product.id} className="bg-gray-900 border-white/10 hover:border-[#006039]/50 transition-colors overflow-hidden group">
-                      <div className="relative h-48 bg-gray-800">
+                    <Card key={product.id} className="bg-white border-gray-200 hover:border-[#006039]/50 transition-colors overflow-hidden group shadow-sm">
+                      <div className="relative h-48 bg-gray-100">
                         <img
                           src={product.image}
                           alt={product.name}
@@ -277,15 +277,15 @@ export default function DashboardPage() {
                         />
                       </div>
                       <CardContent className="p-4">
-                        <h3 className="font-bold text-white mb-2 line-clamp-1">{product.name}</h3>
-                        <p className="text-sm text-gray-400 mb-3 line-clamp-2">{product.description}</p>
+                        <h3 className="font-bold text-gray-900 mb-2 line-clamp-1">{product.name}</h3>
+                        <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
                         <div className="flex items-center justify-between">
                           <span className="text-xl font-bold text-[#006039]">{formatPrice(product.price)} ₺</span>
                         </div>
                         <div className="flex gap-2 mt-4">
                           <Button
                             onClick={() => router.push(`/product/${product.id}`)}
-                            className="flex-1 bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black"
+                            className="flex-1 bg-[#006039] hover:bg-[#004d2d] text-white"
                           >
                             İncele
                           </Button>
@@ -307,20 +307,20 @@ export default function DashboardPage() {
 
           {/* Profil Ayarları */}
           <TabsContent value="profile">
-            <Card className="bg-gray-900 border-white/10 max-w-2xl">
+            <Card className="bg-white border-gray-200 max-w-2xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-white">Profil Bilgileri</CardTitle>
+                <CardTitle className="text-gray-900">Profil Bilgileri</CardTitle>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleProfileUpdate} className="space-y-4">
                   {updateSuccess && (
-                    <Alert className="bg-green-500/20 border-green-500 text-green-500">
+                    <Alert className="bg-green-50 border-green-500 text-green-700">
                       <AlertDescription>Profil başarıyla güncellendi!</AlertDescription>
                     </Alert>
                   )}
 
                   <div>
-                    <Label htmlFor="fullName" className="text-gray-300">
+                    <Label htmlFor="fullName" className="text-gray-700">
                       <User className="h-4 w-4 inline mr-2" />
                       Ad Soyad
                     </Label>
@@ -328,12 +328,12 @@ export default function DashboardPage() {
                       id="fullName"
                       value={profileForm.fullName}
                       onChange={(e) => setProfileForm({ ...profileForm, fullName: e.target.value })}
-                      className="bg-black/50 border-white/20 text-white"
+                      className="bg-gray-50 border-gray-300 text-gray-900"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="phone" className="text-gray-300">
+                    <Label htmlFor="phone" className="text-gray-700">
                       <Phone className="h-4 w-4 inline mr-2" />
                       Telefon
                     </Label>
@@ -341,12 +341,12 @@ export default function DashboardPage() {
                       id="phone"
                       value={profileForm.phone}
                       onChange={(e) => setProfileForm({ ...profileForm, phone: e.target.value })}
-                      className="bg-black/50 border-white/20 text-white"
+                      className="bg-gray-50 border-gray-300 text-gray-900"
                     />
                   </div>
 
                   <div>
-                    <Label htmlFor="address" className="text-gray-300">
+                    <Label htmlFor="address" className="text-gray-700">
                       <MapPin className="h-4 w-4 inline mr-2" />
                       Adres
                     </Label>
@@ -354,13 +354,13 @@ export default function DashboardPage() {
                       id="address"
                       value={profileForm.address}
                       onChange={(e) => setProfileForm({ ...profileForm, address: e.target.value })}
-                      className="bg-black/50 border-white/20 text-white"
+                      className="bg-gray-50 border-gray-300 text-gray-900"
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black font-bold"
+                    className="w-full bg-[#006039] hover:bg-[#004d2d] text-white font-bold"
                   >
                     Güncelle
                   </Button>
@@ -371,33 +371,33 @@ export default function DashboardPage() {
 
           {/* Hesap Bilgileri */}
           <TabsContent value="account">
-            <Card className="bg-gray-900 border-white/10 max-w-2xl">
+            <Card className="bg-white border-gray-200 max-w-2xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-white">Hesap Bilgileri</CardTitle>
+                <CardTitle className="text-gray-900">Hesap Bilgileri</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <div className="flex items-center justify-between py-3 border-b border-gray-200">
                   <div>
-                    <p className="text-gray-400 text-sm">E-posta</p>
-                    <p className="text-white font-medium">{user?.email}</p>
+                    <p className="text-gray-500 text-sm">E-posta</p>
+                    <p className="text-gray-900 font-medium">{user?.email}</p>
                   </div>
                   <Mail className="h-5 w-5 text-[#006039]" />
                 </div>
 
-                <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <div className="flex items-center justify-between py-3 border-b border-gray-200">
                   <div>
-                    <p className="text-gray-400 text-sm">Kayıt Tarihi</p>
-                    <p className="text-white font-medium">
+                    <p className="text-gray-500 text-sm">Kayıt Tarihi</p>
+                    <p className="text-gray-900 font-medium">
                       {new Date(user?.createdAt).toLocaleDateString('tr-TR', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </p>
                   </div>
                   <Calendar className="h-5 w-5 text-[#006039]" />
                 </div>
 
-                <div className="flex items-center justify-between py-3 border-b border-white/10">
+                <div className="flex items-center justify-between py-3 border-b border-gray-200">
                   <div>
-                    <p className="text-gray-400 text-sm">Toplam Sipariş</p>
-                    <p className="text-white font-medium">{orders.length} sipariş</p>
+                    <p className="text-gray-500 text-sm">Toplam Sipariş</p>
+                    <p className="text-gray-900 font-medium">{orders.length} sipariş</p>
                   </div>
                   <Package className="h-5 w-5 text-[#006039]" />
                 </div>

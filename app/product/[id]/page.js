@@ -212,7 +212,7 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {/* Sol: Görsel */}
           <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm">
               <img
                 src={product.image}
                 alt={product.name}
@@ -220,12 +220,12 @@ export default function ProductDetail() {
               />
             </div>
             {product.stock < 10 && product.stock > 0 && (
-              <Badge className="absolute top-4 left-4 bg-red-500 text-gray-900">
+              <Badge className="absolute top-4 left-4 bg-red-500 text-white">
                 Son {product.stock} Adet!
               </Badge>
             )}
             {product.stock === 0 && (
-              <Badge className="absolute top-4 left-4 bg-gray-600 text-gray-900">
+              <Badge className="absolute top-4 left-4 bg-gray-500 text-white">
                 Stokta Yok
               </Badge>
             )}
@@ -235,13 +235,13 @@ export default function ProductDetail() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Badge className={
-                isETA ? 'bg-green-500 text-gray-900' :
-                isEyewear ? 'bg-purple-500 text-gray-900' : 
+                isETA ? 'bg-green-500 text-white' :
+                isEyewear ? 'bg-purple-500 text-white' : 
                 'bg-[#006039] text-white'
               }>
                 {product.category}
               </Badge>
-              <Badge variant="outline" className="border-gray-500 text-gray-300">
+              <Badge variant="outline" className="border-gray-400 text-gray-600">
                 {product.gender === 'male' ? 'Erkek' : product.gender === 'female' ? 'Kadın' : 'Unisex'}
               </Badge>
               {product.brand && <Badge variant="outline" className="border-[#006039] text-[#006039]">{product.brand}</Badge>}
@@ -254,16 +254,16 @@ export default function ProductDetail() {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star
                     key={star}
-                    className={`h-5 w-5 ${star <= avgRating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-600'}`}
+                    className={`h-5 w-5 ${star <= avgRating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
                   />
                 ))}
               </div>
               <span className="text-gray-600">({reviews.length} değerlendirme)</span>
             </div>
 
-            <p className="text-gray-300 text-lg mb-6">{product.description}</p>
+            <p className="text-gray-600 text-lg mb-6">{product.description}</p>
 
-            <div className="bg-gradient-to-r from-[#006039]/20 to-yellow-500/20 p-6 rounded-xl border border-[#006039]/30 mb-6">
+            <div className="bg-gradient-to-r from-[#006039]/10 to-green-500/10 p-6 rounded-xl border border-[#006039]/30 mb-6">
               <div className="text-4xl font-bold text-[#006039]">
                 {formatPrice(product.price)} ₺
               </div>
@@ -272,67 +272,67 @@ export default function ProductDetail() {
 
             {/* Özellikler Tablosu */}
             {product.specs && Object.values(product.specs).some(v => v) && (
-              <Card className="bg-white border-gray-200 mb-6">
+              <Card className="bg-white border-gray-200 mb-6 shadow-sm">
                 <CardContent className="p-4">
                   <h3 className="font-bold text-gray-900 mb-3 text-lg">Ürün Özellikleri</h3>
                   <div className="space-y-2">
                     {product.specs.glassType && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">CAM CİNSİ</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">CAM CİNSİ</span>
                         <span className="text-gray-900 font-medium">{product.specs.glassType}</span>
                       </div>
                     )}
                     {product.specs.machineType && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">MAKİNE CİNSİ</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">MAKİNE CİNSİ</span>
                         <span className="text-gray-900 font-medium">{product.specs.machineType}</span>
                       </div>
                     )}
                     {product.specs.dialColor && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">KADRAN RENGİ</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">KADRAN RENGİ</span>
                         <span className="text-gray-900 font-medium">{product.specs.dialColor}</span>
                       </div>
                     )}
                     {product.specs.strapType && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">KORDON CİNSİ</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">KORDON CİNSİ</span>
                         <span className="text-gray-900 font-medium">{product.specs.strapType}</span>
                       </div>
                     )}
                     {product.specs.caseSize && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">KASA ÇAPI</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">KASA ÇAPI</span>
                         <span className="text-gray-900 font-medium">{product.specs.caseSize}</span>
                       </div>
                     )}
                     {product.specs.caseMaterial && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">KASA</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">KASA</span>
                         <span className="text-gray-900 font-medium">{product.specs.caseMaterial}</span>
                       </div>
                     )}
                     {product.specs.functions && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">FONKSİYONLAR</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">FONKSİYONLAR</span>
                         <span className="text-gray-900 font-medium">{product.specs.functions}</span>
                       </div>
                     )}
                     {product.specs.calendar && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">TAKVİM</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">TAKVİM</span>
                         <span className="text-gray-900 font-medium">{product.specs.calendar}</span>
                       </div>
                     )}
                     {product.specs.features && (
-                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
-                        <span className="text-gray-600">ÖZELLİKLER</span>
+                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
+                        <span className="text-gray-500">ÖZELLİKLER</span>
                         <span className="text-gray-900 font-medium">{product.specs.features}</span>
                       </div>
                     )}
                     {product.specs.warranty && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">GARANTİ</span>
+                        <span className="text-gray-500">GARANTİ</span>
                         <span className="text-gray-900 font-medium">{product.specs.warranty}</span>
                       </div>
                     )}
@@ -343,14 +343,14 @@ export default function ProductDetail() {
 
             {/* Adet Seçimi */}
             <div className="mb-6">
-              <Label className="text-gray-300 mb-2 block">Adet</Label>
+              <Label className="text-gray-700 mb-2 block">Adet</Label>
               <div className="flex items-center gap-3">
                 <Button
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   disabled={quantity <= 1}
                   variant="outline"
                   size="icon"
-                  className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-black"
+                  className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white"
                 >
                   <Minus className="h-5 w-5" />
                 </Button>
@@ -362,7 +362,7 @@ export default function ProductDetail() {
                   disabled={quantity >= product.stock}
                   variant="outline"
                   size="icon"
-                  className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-black"
+                  className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white"
                 >
                   <Plus className="h-5 w-5" />
                 </Button>
@@ -374,7 +374,7 @@ export default function ProductDetail() {
               <Button
                 onClick={addToCart}
                 disabled={product.stock === 0}
-                className="w-full h-12 text-lg bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black"
+                className="w-full h-12 text-lg bg-[#006039] hover:bg-[#004d2d] text-white"
               >
                 <ShoppingCart className="h-5 w-5 mr-2" />
                 Sepete Ekle - {formatPrice(product.price * quantity)} ₺
@@ -383,7 +383,7 @@ export default function ProductDetail() {
                 <Button
                   onClick={() => router.push('/cart')}
                   variant="outline"
-                  className="h-12 border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-black"
+                  className="h-12 border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white"
                 >
                   Sepete Git
                 </Button>
@@ -392,8 +392,8 @@ export default function ProductDetail() {
                   variant="outline"
                   className={`h-12 ${
                     isFavorite 
-                      ? 'border-red-500 text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-gray-900' 
-                      : 'border-gray-500 text-gray-600 hover:border-red-500 hover:text-red-500'
+                      ? 'border-red-500 text-red-500 bg-red-50 hover:bg-red-500 hover:text-white' 
+                      : 'border-gray-400 text-gray-600 hover:border-red-500 hover:text-red-500'
                   }`}
                 >
                   <Heart className={`h-5 w-5 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
@@ -407,29 +407,29 @@ export default function ProductDetail() {
         {/* Tabs: Açıklama, Değerlendirmeler, Ödeme, İade */}
         <Tabs defaultValue="description" className="w-full">
           <TabsList className="grid w-full grid-cols-4 bg-gray-100">
-            <TabsTrigger value="description" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+            <TabsTrigger value="description" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <Package className="h-4 w-4 mr-2" />
               AÇIKLAMA
             </TabsTrigger>
-            <TabsTrigger value="reviews" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+            <TabsTrigger value="reviews" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <Star className="h-4 w-4 mr-2" />
               DEĞERLENDİRMELER ({reviews.length})
             </TabsTrigger>
-            <TabsTrigger value="payment" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+            <TabsTrigger value="payment" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <CreditCard className="h-4 w-4 mr-2" />
               ÖDEME SEÇENEKLERİ
             </TabsTrigger>
-            <TabsTrigger value="return" className="data-[state=active]:bg-[#006039] data-[state=active]:text-black">
+            <TabsTrigger value="return" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
               <RefreshCw className="h-4 w-4 mr-2" />
               İADE & DEĞİŞİM
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="description">
-            <Card className="bg-white border-gray-200">
+            <Card className="bg-white border-gray-200 shadow-sm">
               <CardContent className="p-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Ürün Açıklaması</h3>
-                <p className="text-gray-300 leading-relaxed text-lg">{product.description}</p>
+                <p className="text-gray-600 leading-relaxed text-lg">{product.description}</p>
                 
                 {product.brand && (
                   <div className="mt-6 p-4 bg-[#006039]/10 border border-[#006039]/30 rounded-lg">
@@ -442,17 +442,17 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="reviews">
-            <Card className="bg-white border-gray-200">
+            <Card className="bg-white border-gray-200 shadow-sm">
               <CardContent className="p-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Müşteri Değerlendirmeleri</h3>
                 
                 {/* Değerlendirme Formu */}
                 {isLoggedIn && (
-                  <div className="mb-8 p-4 bg-gray-100/50 rounded-lg">
+                  <div className="mb-8 p-4 bg-gray-50 rounded-lg">
                     <h4 className="font-bold text-gray-900 mb-3">Değerlendirme Yap</h4>
                     <div className="space-y-3">
                       <div>
-                        <label className="text-gray-300 text-sm mb-2 block">Puan</label>
+                        <label className="text-gray-700 text-sm mb-2 block">Puan</label>
                         <div className="flex gap-2">
                           {[1, 2, 3, 4, 5].map((star) => (
                             <button
@@ -462,25 +462,25 @@ export default function ProductDetail() {
                               className="text-3xl"
                             >
                               <Star
-                                className={`h-8 w-8 ${star <= newReview.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-600'}`}
+                                className={`h-8 w-8 ${star <= newReview.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
                               />
                             </button>
                           ))}
                         </div>
                       </div>
                       <div>
-                        <label className="text-gray-300 text-sm mb-2 block">Yorumunuz</label>
+                        <label className="text-gray-700 text-sm mb-2 block">Yorumunuz</label>
                         <Textarea
                           value={newReview.comment}
                           onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                           placeholder="Ürün hakkındaki düşüncelerinizi paylaşın..."
                           rows={4}
-                          className="bg-gray-50/50 border-gray-300 text-gray-900"
+                          className="bg-white border-gray-300 text-gray-900"
                         />
                       </div>
                       <Button
                         onClick={submitReview}
-                        className="bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-black"
+                        className="bg-[#006039] hover:bg-[#004d2d] text-white"
                       >
                         Değerlendirmeyi Gönder
                       </Button>
@@ -490,13 +490,13 @@ export default function ProductDetail() {
 
                 {/* Değerlendirme Listesi */}
                 {reviews.length === 0 ? (
-                  <p className="text-gray-600 text-center py-8">Henüz değerlendirme yok. İlk değerlendirmeyi siz yapın!</p>
+                  <p className="text-gray-500 text-center py-8">Henüz değerlendirme yok. İlk değerlendirmeyi siz yapın!</p>
                 ) : (
                   <div className="space-y-4">
                     {reviews.map((review) => (
                       <div key={review.id} className="border-b border-gray-200 pb-4">
                         <div className="flex items-center gap-3 mb-2">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#006039] to-[#007a47] flex items-center justify-center text-black font-bold">
+                          <div className="w-10 h-10 rounded-full bg-[#006039] flex items-center justify-center text-white font-bold">
                             {review.userName?.charAt(0)}
                           </div>
                           <div>
@@ -506,17 +506,17 @@ export default function ProductDetail() {
                                 {[1, 2, 3, 4, 5].map((star) => (
                                   <Star
                                     key={star}
-                                    className={`h-4 w-4 ${star <= review.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-600'}`}
+                                    className={`h-4 w-4 ${star <= review.rating ? 'text-yellow-500 fill-yellow-500' : 'text-gray-300'}`}
                                   />
                                 ))}
                               </div>
-                              <span className="text-gray-600 text-xs">
+                              <span className="text-gray-500 text-xs">
                                 {new Date(review.createdAt).toLocaleDateString('tr-TR')}
                               </span>
                             </div>
                           </div>
                         </div>
-                        <p className="text-gray-300">{review.comment}</p>
+                        <p className="text-gray-600">{review.comment}</p>
                       </div>
                     ))}
                   </div>
@@ -526,12 +526,12 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="payment">
-            <Card className="bg-white border-gray-200">
+            <Card className="bg-white border-gray-200 shadow-sm">
               <CardContent className="p-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">Ödeme Seçenekleri</h3>
                 
                 <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 bg-gray-100/50 rounded-lg">
+                  <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                     <CreditCard className="h-8 w-8 text-[#006039] flex-shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">Kredi Kartı / Banka Kartı</h4>
@@ -539,7 +539,7 @@ export default function ProductDetail() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 bg-gray-100/50 rounded-lg">
+                  <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                     <Shield className="h-8 w-8 text-green-500 flex-shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">Havale / EFT</h4>
@@ -547,7 +547,7 @@ export default function ProductDetail() {
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 bg-gray-100/50 rounded-lg">
+                  <div className="flex items-start gap-4 p-4 bg-gray-50 rounded-lg">
                     <Truck className="h-8 w-8 text-blue-500 flex-shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-1">Güvenli Ödeme</h4>
@@ -560,7 +560,7 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="return">
-            <Card className="bg-white border-gray-200">
+            <Card className="bg-white border-gray-200 shadow-sm">
               <CardContent className="p-6">
                 <h3 className="text-2xl font-bold text-gray-900 mb-6">İade & Değişim Koşulları</h3>
                 
@@ -570,7 +570,7 @@ export default function ProductDetail() {
                       <RefreshCw className="h-5 w-5" />
                       İade Süresi
                     </h4>
-                    <p className="text-gray-300">
+                    <p className="text-gray-600">
                       Ürünü teslim aldığınız tarihten itibaren 14 gün içerisinde cayma hakkınızı kullanarak iade edebilirsiniz.
                     </p>
                   </div>
@@ -580,7 +580,7 @@ export default function ProductDetail() {
                       <Package className="h-5 w-5" />
                       İade Koşulları
                     </h4>
-                    <ul className="list-disc list-inside text-gray-300 space-y-1">
+                    <ul className="list-disc list-inside text-gray-600 space-y-1">
                       <li>Ürün kullanılmamış ve orijinal ambalajında olmalıdır</li>
                       <li>Ürünle birlikte gelen tüm aksesuarlar eksiksiz olmalıdır</li>
                       <li>Fatura ve garanti belgesi iade edilmelidir</li>
@@ -590,14 +590,14 @@ export default function ProductDetail() {
 
                   <div>
                     <h4 className="font-bold text-[#006039] mb-2">Değişim</h4>
-                    <p className="text-gray-300">
+                    <p className="text-gray-600">
                       Satın aldığınız ürünü aynı kategorideki başka bir ürünle değiştirebilirsiniz. Kargo ücreti tarafımızca karşılanır.
                     </p>
                   </div>
 
-                  <div className="p-4 bg-blue-500/10 border border-blue-500/30 rounded-lg">
-                    <h4 className="font-bold text-blue-500 mb-2">Garanti</h4>
-                    <p className="text-gray-300 text-sm">
+                  <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                    <h4 className="font-bold text-blue-700 mb-2">Garanti</h4>
+                    <p className="text-gray-600 text-sm">
                       Tüm ürünlerimiz {product.specs?.warranty || '1 yıl'} garanti kapsamındadır. Üretici garantisi geçerlidir.
                     </p>
                   </div>
