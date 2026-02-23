@@ -10,9 +10,11 @@ import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { User, Mail, Lock, Phone, MapPin, LogIn, UserPlus } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useLanguage } from '@/lib/LanguageContext';
 
 export default function LoginPage() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -49,10 +51,10 @@ export default function LoginPage() {
         localStorage.setItem('user', JSON.stringify(data.user));
         router.push('/dashboard');
       } else {
-        setError(data.error || 'Giriş başarısız');
+        setError(data.error || t('common.error'));
       }
     } catch (error) {
-      setError('Bir hata oluştu: ' + error.message);
+      setError(t('common.error') + ': ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -76,15 +78,15 @@ export default function LoginPage() {
       if (data.success) {
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
-        setSuccess('Kayıt başarılı! Yönlendiriliyorsunuz...');
+        setSuccess(t('login.registerSuccess'));
         setTimeout(() => {
           router.push('/dashboard');
         }, 1000);
       } else {
-        setError(data.error || 'Kayıt başarısız');
+        setError(data.error || t('common.error'));
       }
     } catch (error) {
-      setError('Bir hata oluştu: ' + error.message);
+      setError(t('common.error') + ': ' + error.message);
     } finally {
       setLoading(false);
     }
@@ -97,28 +99,28 @@ export default function LoginPage() {
       <main className="container mx-auto px-4 py-24">
         <div className="max-w-md mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">Hoş Geldiniz</h1>
-            <p className="text-gray-600">Hesabınıza giriş yapın veya yeni hesap oluşturun</p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">{t('login.welcome')}</h1>
+            <p className="text-gray-600">{t('login.welcomeDesc')}</p>
           </div>
 
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-gray-100">
               <TabsTrigger value="login" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
                 <LogIn className="h-4 w-4 mr-2" />
-                Giriş Yap
+                {t('login.login')}
               </TabsTrigger>
               <TabsTrigger value="register" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
                 <UserPlus className="h-4 w-4 mr-2" />
-                Kayıt Ol
+                {t('login.register')}
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
               <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-gray-900">Giriş Yap</CardTitle>
+                  <CardTitle className="text-gray-900">{t('login.loginTitle')}</CardTitle>
                   <CardDescription className="text-gray-600">
-                    Hesabınıza giriş yaparak siparişlerinizi takip edin
+                    {t('login.loginDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -132,7 +134,7 @@ export default function LoginPage() {
                     <div>
                       <Label htmlFor="login-email" className="text-gray-700">
                         <Mail className="h-4 w-4 inline mr-2" />
-                        E-posta
+                        {t('login.email')}
                       </Label>
                       <Input
                         id="login-email"
@@ -140,7 +142,7 @@ export default function LoginPage() {
                         value={loginForm.email}
                         onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
                         required
-                        placeholder="ornek@email.com"
+                        placeholder="example@email.com"
                         className="bg-gray-50 border-gray-300 text-gray-900"
                       />
                     </div>
@@ -148,7 +150,7 @@ export default function LoginPage() {
                     <div>
                       <Label htmlFor="login-password" className="text-gray-700">
                         <Lock className="h-4 w-4 inline mr-2" />
-                        Şifre
+                        {t('login.password')}
                       </Label>
                       <Input
                         id="login-password"
@@ -166,7 +168,7 @@ export default function LoginPage() {
                       disabled={loading}
                       className="w-full bg-[#006039] hover:bg-[#004d2d] text-white font-bold"
                     >
-                      {loading ? 'Giriş yapılıyor...' : 'Giriş Yap'}
+                      {loading ? t('login.loggingIn') : t('login.login')}
                     </Button>
                   </form>
                 </CardContent>
@@ -176,9 +178,9 @@ export default function LoginPage() {
             <TabsContent value="register">
               <Card className="bg-white border-gray-200 shadow-sm">
                 <CardHeader>
-                  <CardTitle className="text-gray-900">Kayıt Ol</CardTitle>
+                  <CardTitle className="text-gray-900">{t('login.registerTitle')}</CardTitle>
                   <CardDescription className="text-gray-600">
-                    Yeni hesap oluşturarak alışverişe başlayın
+                    {t('login.registerDesc')}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -197,14 +199,14 @@ export default function LoginPage() {
                     <div>
                       <Label htmlFor="register-fullName" className="text-gray-700">
                         <User className="h-4 w-4 inline mr-2" />
-                        Ad Soyad *
+                        {t('login.fullName')} *
                       </Label>
                       <Input
                         id="register-fullName"
                         value={registerForm.fullName}
                         onChange={(e) => setRegisterForm({ ...registerForm, fullName: e.target.value })}
                         required
-                        placeholder="Adınız ve soyadınız"
+                        placeholder={t('login.fullName')}
                         className="bg-gray-50 border-gray-300 text-gray-900"
                       />
                     </div>
@@ -212,7 +214,7 @@ export default function LoginPage() {
                     <div>
                       <Label htmlFor="register-email" className="text-gray-700">
                         <Mail className="h-4 w-4 inline mr-2" />
-                        E-posta *
+                        {t('login.email')} *
                       </Label>
                       <Input
                         id="register-email"
@@ -220,7 +222,7 @@ export default function LoginPage() {
                         value={registerForm.email}
                         onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
                         required
-                        placeholder="ornek@email.com"
+                        placeholder="example@email.com"
                         className="bg-gray-50 border-gray-300 text-gray-900"
                       />
                     </div>
@@ -228,7 +230,7 @@ export default function LoginPage() {
                     <div>
                       <Label htmlFor="register-password" className="text-gray-700">
                         <Lock className="h-4 w-4 inline mr-2" />
-                        Şifre *
+                        {t('login.password')} *
                       </Label>
                       <Input
                         id="register-password"
@@ -245,7 +247,7 @@ export default function LoginPage() {
                     <div>
                       <Label htmlFor="register-phone" className="text-gray-700">
                         <Phone className="h-4 w-4 inline mr-2" />
-                        Telefon
+                        {t('login.phone')}
                       </Label>
                       <Input
                         id="register-phone"
@@ -259,13 +261,13 @@ export default function LoginPage() {
                     <div>
                       <Label htmlFor="register-address" className="text-gray-700">
                         <MapPin className="h-4 w-4 inline mr-2" />
-                        Adres
+                        {t('login.address')}
                       </Label>
                       <Input
                         id="register-address"
                         value={registerForm.address}
                         onChange={(e) => setRegisterForm({ ...registerForm, address: e.target.value })}
-                        placeholder="Teslimat adresiniz"
+                        placeholder={t('login.deliveryAddress')}
                         className="bg-gray-50 border-gray-300 text-gray-900"
                       />
                     </div>
@@ -275,7 +277,7 @@ export default function LoginPage() {
                       disabled={loading}
                       className="w-full bg-[#006039] hover:bg-[#004d2d] text-white font-bold"
                     >
-                      {loading ? 'Kayıt yapılıyor...' : 'Kayıt Ol'}
+                      {loading ? t('login.registering') : t('login.register')}
                     </Button>
                   </form>
                 </CardContent>
@@ -289,7 +291,7 @@ export default function LoginPage() {
               variant="ghost"
               className="text-gray-600 hover:text-gray-900"
             >
-              Ana Sayfaya Dön
+              {t('login.goHome')}
             </Button>
           </div>
         </div>
