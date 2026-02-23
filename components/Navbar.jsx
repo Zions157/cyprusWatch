@@ -228,28 +228,28 @@ export default function Navbar() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-white/10">
+                  <Button variant="ghost" className="text-gray-700 hover:text-gray-900 hover:bg-gray-100">
                     <User className="h-5 w-5 mr-2" />
                     <span className="hidden md:inline">{user.fullName?.split(' ')[0] || 'Hesabım'}</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 bg-gray-900 border-white/20">
-                  <DropdownMenuLabel className="text-white">{user.email}</DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-white/20" />
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-300 hover:text-white hover:bg-white/10 cursor-pointer">
+                <DropdownMenuContent className="w-56 bg-white border-gray-200">
+                  <DropdownMenuLabel className="text-gray-900">{user.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-gray-200" />
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-700 hover:text-amber-600 hover:bg-amber-50 cursor-pointer">
                     <Package className="h-4 w-4 mr-2" />
                     Siparişlerim
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-300 hover:text-white hover:bg-white/10 cursor-pointer">
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-700 hover:text-amber-600 hover:bg-amber-50 cursor-pointer">
                     <Heart className="h-4 w-4 mr-2" />
                     Favorilerim
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-300 hover:text-white hover:bg-white/10 cursor-pointer">
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-700 hover:text-amber-600 hover:bg-amber-50 cursor-pointer">
                     <User className="h-4 w-4 mr-2" />
                     Profil Ayarları
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-white/20" />
-                  <DropdownMenuItem onClick={handleLogout} className="text-red-400 hover:text-red-300 hover:bg-red-500/10 cursor-pointer">
+                  <DropdownMenuSeparator className="bg-gray-200" />
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-500 hover:text-red-600 hover:bg-red-50 cursor-pointer">
                     <LogOut className="h-4 w-4 mr-2" />
                     Çıkış Yap
                   </DropdownMenuItem>
@@ -259,7 +259,7 @@ export default function Navbar() {
               <Button
                 onClick={() => router.push('/login')}
                 variant="ghost"
-                className="text-gray-300 hover:text-white hover:bg-white/10"
+                className="text-gray-700 hover:text-gray-900 hover:bg-gray-100"
               >
                 <User className="h-5 w-5 mr-2" />
                 <span className="hidden md:inline">Giriş Yap</span>
@@ -267,7 +267,7 @@ export default function Navbar() {
             )}
 
             <Link href="/cart">
-              <Button className="relative bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black">
+              <Button className="relative bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white">
                 <ShoppingCart className="h-5 w-5" />
                 {cartItemCount > 0 && (
                   <Badge className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 text-xs">
@@ -280,11 +280,11 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
-                <Button variant="outline" size="icon" className="border-amber-500/50 text-amber-500 hover:bg-amber-500/10">
+                <Button variant="outline" size="icon" className="border-amber-500 text-amber-600 hover:bg-amber-50">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] bg-black border-l border-amber-500/20">
+              <SheetContent side="right" className="w-[280px] bg-white border-l border-gray-200">
                 <div className="flex flex-col space-y-2 mt-8">
                   {/* Anasayfa */}
                   <Link href="/" onClick={() => setIsOpen(false)}>
