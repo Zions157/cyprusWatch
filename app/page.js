@@ -178,11 +178,11 @@ export default function Home() {
             ].map((item, index) => (
               <div key={index} className="flex items-center space-x-4 p-6 rounded-xl bg-gray-50 border border-gray-200 hover:border-amber-500 transition-colors">
                 <div className="bg-gradient-to-br from-amber-500 to-yellow-500 p-3 rounded-lg">
-                  <item.icon className="h-6 w-6 text-black" />
+                  <item.icon className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-white">{item.title}</h3>
-                  <p className="text-sm text-gray-400">{item.desc}</p>
+                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                  <p className="text-sm text-gray-500">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -191,20 +191,20 @@ export default function Home() {
       </section>
 
       {/* Products Section */}
-      <section className="py-16 bg-gray-900">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-10">
             <div>
-              <h2 className="text-4xl font-bold text-white flex items-center gap-3">
+              <h2 className="text-4xl font-bold text-gray-900 flex items-center gap-3">
                 <Sparkles className="h-8 w-8 text-amber-500" />
                 Öne Çıkan Ürünler
               </h2>
-              <p className="text-gray-400 mt-2">En çok tercih edilen saat ve gözlükler</p>
+              <p className="text-gray-500 mt-2">En çok tercih edilen saat ve gözlükler</p>
             </div>
             <Button
               onClick={() => router.push('/watches')}
               variant="outline"
-              className="border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black"
+              className="border-amber-500 text-amber-600 hover:bg-amber-500 hover:text-white"
             >
               Tümünü Gör
               <ChevronRight className="h-4 w-4 ml-1" />
@@ -214,13 +214,13 @@ export default function Home() {
           {loading ? (
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-                <Card key={i} className="animate-pulse bg-white/5 border-white/10">
+                <Card key={i} className="animate-pulse bg-gray-100 border-gray-200">
                   <CardHeader>
-                    <div className="h-48 bg-gray-700 rounded"></div>
+                    <div className="h-48 bg-gray-200 rounded"></div>
                   </CardHeader>
                   <CardContent>
-                    <div className="h-4 bg-gray-700 rounded mb-2"></div>
-                    <div className="h-4 bg-gray-700 rounded w-2/3"></div>
+                    <div className="h-4 bg-gray-200 rounded mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-2/3"></div>
                   </CardContent>
                 </Card>
               ))}
@@ -228,11 +228,11 @@ export default function Home() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {products.slice(0, 8).map((product) => (
-                <Card key={product.id} className="bg-white/5 border-white/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer group overflow-hidden">
+                <Card key={product.id} className="bg-white border-gray-200 hover:border-amber-500 hover:shadow-lg transition-all duration-300 cursor-pointer group overflow-hidden">
                   <CardHeader className="p-0">
                     <div
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="relative h-52 bg-gray-800 overflow-hidden"
+                      className="relative h-52 bg-gray-100 overflow-hidden"
                     >
                       <img
                         src={product.image}
