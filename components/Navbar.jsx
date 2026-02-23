@@ -7,8 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
-import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package, Gem, ChevronDown, Search, X } from 'lucide-react';
+import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package, Gem, ChevronDown, Search, X, Globe } from 'lucide-react';
 import Logo from '@/components/Logo';
+import { useLanguage } from '@/lib/LanguageContext';
+import { languageFlags } from '@/lib/translations';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -24,49 +26,10 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
-// Dropdown menü olan kategoriler
-const categoryDropdowns = {
-  watches: {
-    name: 'Saatler',
-    href: '/watches',
-    icon: Clock,
-    subItems: [
-      { name: 'Tüm Saatler', href: '/watches' },
-      { name: 'Erkek Saatleri', href: '/watches?gender=male' },
-      { name: 'Kadın Saatleri', href: '/watches?gender=female' },
-    ]
-  },
-  eyewear: {
-    name: 'Gözlükler',
-    href: '/eyewear',
-    icon: Glasses,
-    subItems: [
-      { name: 'Tüm Gözlükler', href: '/eyewear' },
-      { name: 'Erkek Gözlükleri', href: '/eyewear?gender=male' },
-      { name: 'Kadın Gözlükleri', href: '/eyewear?gender=female' },
-    ]
-  },
-  eta: {
-    name: 'ETA',
-    href: '/eta',
-    icon: Gem,
-    subItems: [
-      { name: 'Tüm ETA', href: '/eta' },
-      { name: 'Erkek ETA', href: '/eta?gender=male' },
-      { name: 'Kadın ETA', href: '/eta?gender=female' },
-    ]
-  }
-};
-
-const simpleNavItems = [
-  { name: 'Anasayfa', href: '/', icon: Home },
-  { name: 'Hakkımızda', href: '/about', icon: Info },
-  { name: 'İletişim', href: '/contact', icon: Phone },
-];
-
 export default function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
+  const { language, changeLanguage, t } = useLanguage();
   const [cart, setCart] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -75,6 +38,40 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
+
+  // Dropdown menü olan kategoriler - with translations
+  const categoryDropdowns = {
+    watches: {
+      name: t('nav.watches'),
+      href: '/watches',
+      icon: Clock,
+      subItems: [
+        { name: t('nav.allWatches'), href: '/watches' },
+        { name: t('nav.menWatches'), href: '/watches?gender=male' },
+        { name: t('nav.womenWatches'), href: '/watches?gender=female' },
+      ]
+    },
+    eyewear: {
+      name: t('nav.eyewear'),
+      href: '/eyewear',
+      icon: Glasses,
+      subItems: [
+        { name: t('nav.allEyewear'), href: '/eyewear' },
+        { name: t('nav.menEyewear'), href: '/eyewear?gender=male' },
+        { name: t('nav.womenEyewear'), href: '/eyewear?gender=female' },
+      ]
+    },
+    eta: {
+      name: t('nav.eta'),
+      href: '/eta',
+      icon: Gem,
+      subItems: [
+        { name: t('nav.allEta'), href: '/eta' },
+        { name: t('nav.menEta'), href: '/eta?gender=male' },
+        { name: t('nav.womenEta'), href: '/eta?gender=female' },
+      ]
+    }
+  };
 
   useEffect(() => {
     const savedCart = localStorage.getItem('cart');
@@ -163,6 +160,16 @@ export default function Navbar() {
 
   const cartItemCount = cart.reduce((total, item) => total + item.quantity, 0);
 
+  // Available languages
+  const languages = [
+    { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+    { code: 'en', name: 'English', flag: '🇬🇧' },
+    { code: 'el', name: 'Ελληνικά', flag: '🇬🇷' },
+    { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  ];
+
+  const currentLang = languages.find(l => l.code === language) || languages[0];
+
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#006039]/95 backdrop-blur-md shadow-lg' : 'bg-[#006039]'}`}>
@@ -189,7 +196,7 @@ export default function Navbar() {
                   }`}
                 >
                   <Home className="h-4 w-4" />
-                  <span>Anasayfa</span>
+                  <span>{t('nav.home')}</span>
                 </Button>
               </Link>
 
@@ -241,7 +248,7 @@ export default function Navbar() {
                   }`}
                 >
                   <Info className="h-4 w-4" />
-                  <span>Hakkımızda</span>
+                  <span>{t('nav.about')}</span>
                 </Button>
               </Link>
 
@@ -256,13 +263,48 @@ export default function Navbar() {
                   }`}
                 >
                   <Phone className="h-4 w-4" />
-                  <span>İletişim</span>
+                  <span>{t('nav.contact')}</span>
                 </Button>
               </Link>
             </nav>
 
-            {/* Search, Cart & User Menu */}
+            {/* Language, Search, Cart & User Menu */}
             <div className="flex items-center space-x-2 md:space-x-3">
+              {/* Language Selector */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-white/80 hover:text-white hover:bg-white/10 px-2"
+                  >
+                    <span className="text-lg mr-1">{currentLang.flag}</span>
+                    <span className="hidden sm:inline text-sm">{currentLang.code.toUpperCase()}</span>
+                    <ChevronDown className="h-3 w-3 ml-1" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-40 bg-[#006039] border-white/20">
+                  <DropdownMenuLabel className="text-white/60 text-xs">
+                    {t('nav.search') === 'Search' ? 'Select Language' : 
+                     t('nav.search') === 'Αναζήτηση' ? 'Επιλέξτε γλώσσα' :
+                     t('nav.search') === 'Поиск' ? 'Выберите язык' : 'Dil Seçin'}
+                  </DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-white/20" />
+                  {languages.map((lang) => (
+                    <DropdownMenuItem
+                      key={lang.code}
+                      onClick={() => changeLanguage(lang.code)}
+                      className={`text-white/80 hover:text-white hover:bg-white/10 cursor-pointer ${
+                        language === lang.code ? 'bg-white/10 text-white' : ''
+                      }`}
+                    >
+                      <span className="text-lg mr-2">{lang.flag}</span>
+                      <span>{lang.name}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               {/* Search Button */}
               <Button
                 onClick={() => setSearchOpen(true)}
@@ -279,7 +321,7 @@ export default function Navbar() {
                   <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10">
                       <User className="h-5 w-5 mr-2" />
-                      <span className="hidden md:inline">{user.fullName?.split(' ')[0] || 'Hesabım'}</span>
+                      <span className="hidden md:inline">{user.fullName?.split(' ')[0] || t('nav.myAccount')}</span>
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56 bg-[#006039] border-white/20">
@@ -287,20 +329,20 @@ export default function Navbar() {
                     <DropdownMenuSeparator className="bg-white/20" />
                     <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-white/80 hover:text-white hover:bg-white/10 cursor-pointer">
                       <Package className="h-4 w-4 mr-2" />
-                      Siparişlerim
+                      {t('nav.myOrders')}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-white/80 hover:text-white hover:bg-white/10 cursor-pointer">
                       <Heart className="h-4 w-4 mr-2" />
-                      Favorilerim
+                      {t('nav.myFavorites')}
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-white/80 hover:text-white hover:bg-white/10 cursor-pointer">
                       <User className="h-4 w-4 mr-2" />
-                      Profil Ayarları
+                      {t('nav.profileSettings')}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator className="bg-white/20" />
                     <DropdownMenuItem onClick={handleLogout} className="text-red-300 hover:text-red-200 hover:bg-red-500/20 cursor-pointer">
                       <LogOut className="h-4 w-4 mr-2" />
-                      Çıkış Yap
+                      {t('nav.logout')}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -311,7 +353,7 @@ export default function Navbar() {
                   className="text-white/80 hover:text-white hover:bg-white/10"
                 >
                   <User className="h-5 w-5 md:mr-2" />
-                  <span className="hidden md:inline">Giriş Yap</span>
+                  <span className="hidden md:inline">{t('nav.login')}</span>
                 </Button>
               )}
 
@@ -335,6 +377,31 @@ export default function Navbar() {
                 </SheetTrigger>
                 <SheetContent side="right" className="w-[280px] bg-[#006039] border-l border-white/20">
                   <div className="flex flex-col space-y-2 mt-8">
+                    {/* Mobile Language Selector */}
+                    <div className="flex items-center justify-between px-3 py-2 mb-2">
+                      <span className="text-white/60 text-sm">
+                        {t('nav.search') === 'Search' ? 'Language' : 
+                         t('nav.search') === 'Αναζήτηση' ? 'Γλώσσα' :
+                         t('nav.search') === 'Поиск' ? 'Язык' : 'Dil'}
+                      </span>
+                      <div className="flex gap-1">
+                        {languages.map((lang) => (
+                          <button
+                            key={lang.code}
+                            onClick={() => changeLanguage(lang.code)}
+                            className={`text-xl p-1 rounded transition-all ${
+                              language === lang.code 
+                                ? 'bg-white/20 scale-110' 
+                                : 'opacity-60 hover:opacity-100'
+                            }`}
+                            title={lang.name}
+                          >
+                            {lang.flag}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
                     {/* Mobile Search */}
                     <Button
                       onClick={() => { setIsOpen(false); setSearchOpen(true); }}
@@ -342,7 +409,7 @@ export default function Navbar() {
                       className="w-full justify-start space-x-3 text-white/80 hover:text-white hover:bg-white/10"
                     >
                       <Search className="h-5 w-5" />
-                      <span>Ara</span>
+                      <span>{t('nav.search')}</span>
                     </Button>
 
                     {/* Anasayfa */}
@@ -356,7 +423,7 @@ export default function Navbar() {
                         }`}
                       >
                         <Home className="h-5 w-5" />
-                        <span>Anasayfa</span>
+                        <span>{t('nav.home')}</span>
                       </Button>
                     </Link>
 
@@ -406,7 +473,7 @@ export default function Navbar() {
                         }`}
                       >
                         <Info className="h-5 w-5" />
-                        <span>Hakkımızda</span>
+                        <span>{t('nav.about')}</span>
                       </Button>
                     </Link>
 
@@ -421,7 +488,7 @@ export default function Navbar() {
                         }`}
                       >
                         <Phone className="h-5 w-5" />
-                        <span>İletişim</span>
+                        <span>{t('nav.contact')}</span>
                       </Button>
                     </Link>
                   </div>
@@ -436,13 +503,13 @@ export default function Navbar() {
       <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogContent className="sm:max-w-[500px] bg-white">
           <DialogHeader>
-            <DialogTitle className="text-gray-900">Ürün Ara</DialogTitle>
+            <DialogTitle className="text-gray-900">{t('nav.searchTitle')}</DialogTitle>
           </DialogHeader>
           <div className="space-y-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               <Input
-                placeholder="Ürün adı yazın..."
+                placeholder={t('nav.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => handleSearch(e.target.value)}
                 className="pl-10 bg-gray-50 border-gray-300 text-gray-900"
@@ -460,7 +527,7 @@ export default function Navbar() {
 
             {/* Search Results */}
             {searchLoading && (
-              <div className="text-center py-4 text-gray-500">Aranıyor...</div>
+              <div className="text-center py-4 text-gray-500">{t('common.loading')}</div>
             )}
 
             {!searchLoading && searchResults.length > 0 && (
@@ -490,13 +557,13 @@ export default function Navbar() {
 
             {!searchLoading && searchQuery.length >= 2 && searchResults.length === 0 && (
               <div className="text-center py-4 text-gray-500">
-                "{searchQuery}" için sonuç bulunamadı
+                "{searchQuery}" {t('nav.noResults')}
               </div>
             )}
 
             {!searchLoading && searchQuery.length < 2 && searchQuery.length > 0 && (
               <div className="text-center py-4 text-gray-500">
-                En az 2 karakter yazın
+                {t('nav.minChars')}
               </div>
             )}
           </div>
