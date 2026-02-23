@@ -200,23 +200,23 @@ export default function Home() {
         </button>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 bg-white border-b border-gray-200">
+      {/* Features Section - Compact on mobile */}
+      <section className="py-4 md:py-10 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
             {[
-              { icon: Truck, title: 'Ücretsiz Kargo', desc: '500₺ üzeri siparişlerde' },
+              { icon: Truck, title: 'Ücretsiz Kargo', desc: '500₺ üzeri' },
               { icon: Award, title: 'Orijinal Ürün', desc: '%100 Garanti' },
-              { icon: Clock, title: '7/24 Destek', desc: 'Her zaman yanınızdayız' },
-              { icon: Star, title: 'Premium Kalite', desc: '10.000+ Mutlu Müşteri' },
+              { icon: Clock, title: '7/24 Destek', desc: 'Yanınızdayız' },
+              { icon: Star, title: 'Premium Kalite', desc: '10.000+ Müşteri' },
             ].map((item, index) => (
-              <div key={index} className="flex items-center space-x-4 p-6 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#006039] transition-colors">
-                <div className="bg-gradient-to-br from-[#006039] to-[#007a47] p-3 rounded-lg">
-                  <item.icon className="h-6 w-6 text-white" />
+              <div key={index} className="flex items-center space-x-2 md:space-x-4 p-2 md:p-6 rounded-lg md:rounded-xl bg-gray-50 border border-gray-200 hover:border-[#006039] transition-colors">
+                <div className="bg-gradient-to-br from-[#006039] to-[#007a47] p-2 md:p-3 rounded-lg flex-shrink-0">
+                  <item.icon className="h-4 w-4 md:h-6 md:w-6 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                  <p className="text-sm text-gray-500">{item.desc}</p>
+                <div className="min-w-0">
+                  <h3 className="font-semibold text-gray-900 text-xs md:text-base truncate">{item.title}</h3>
+                  <p className="text-xs text-gray-500 hidden md:block">{item.desc}</p>
                 </div>
               </div>
             ))}
