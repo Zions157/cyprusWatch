@@ -18,29 +18,39 @@ import { ShoppingCart, ChevronRight, Star, Clock, Award, Truck, Sparkles } from 
 
 const heroSlides = [
   {
-    image: 'https://images.unsplash.com/photo-1670177257750-9b47927f68eb?w=1920&q=80',
-    title: 'Lüks Saatlerin Adresi',
-    subtitle: 'Zamansız elegans, modern tasarım',
+    image: 'https://images.unsplash.com/photo-1657012434887-036bfbee1596?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
+    title: 'Rolex Deepsea',
+    subtitle: 'Derinliklerin efendisi, kusursuz mühendislik',
   },
   {
-    image: 'https://images.unsplash.com/photo-1600003014608-c2ccc1570a65?w=1920&q=80',
-    title: 'Premium Koleksiyon',
-    subtitle: 'Dünyanın en prestijli markaları',
+    image: 'https://images.unsplash.com/photo-1599989850406-3c8de3edf0ef?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
+    title: 'Patek Philippe Nautilus',
+    subtitle: 'Beyaz altının zarafeti',
   },
   {
-    image: 'https://images.unsplash.com/photo-1604242692760-2f7b0c26856d?w=1920&q=80',
-    title: 'Özel Seri Saatler',
-    subtitle: 'Sınırlı sayıda üretim',
+    image: 'https://images.pexels.com/photos/16886383/pexels-photo-16886383.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    title: 'Rolex Yacht-Master II',
+    subtitle: 'Denizlerin altın kralı',
   },
   {
-    image: 'https://images.unsplash.com/photo-1762706334838-ea8425b43116?w=1920&q=80',
-    title: 'Tasarım Gözlükler',
-    subtitle: 'Tarzınızı yansıtın',
+    image: 'https://images.pexels.com/photos/28296247/pexels-photo-28296247.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    title: 'Audemars Piguet Royal Oak',
+    subtitle: 'Efsanevi tasarım, benzersiz detaylar',
   },
   {
-    image: 'https://images.unsplash.com/photo-1642792539381-b9d9a32f6e1b?w=1920&q=80',
-    title: 'Yeni Sezon',
-    subtitle: '2026 koleksiyonu şimdi mağazada',
+    image: 'https://images.unsplash.com/photo-1584036553516-bf83210aa16c?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
+    title: 'Gucci Eyewear',
+    subtitle: 'İkonik stil, zamansız şıklık',
+  },
+  {
+    image: 'https://images.pexels.com/photos/3656125/pexels-photo-3656125.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    title: 'Prada Sunglasses',
+    subtitle: 'Lüksün yeni tanımı',
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?crop=entropy&cs=srgb&fm=jpg&w=1920&q=85',
+    title: 'Ray-Ban Collection',
+    subtitle: 'Klasik tasarım, modern dokunuş',
   },
 ];
 
