@@ -113,8 +113,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Slider */}
-      <section className="relative h-[80vh] overflow-hidden">
+      {/* Hero Slider - 30% smaller, starts below navbar */}
+      <section className="relative h-[55vh] mt-16 overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
@@ -126,21 +126,21 @@ export default function Home() {
               className="absolute inset-0 bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/60 to-transparent" />
             <div className="absolute inset-0 flex items-center">
               <div className="container mx-auto px-4">
                 <div className="max-w-2xl">
-                  <h1 className="text-5xl md:text-7xl font-bold text-white mb-4 animate-fade-in">
+                  <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4 animate-fade-in">
                     {slide.title}
                   </h1>
-                  <p className="text-xl md:text-2xl text-gray-300 mb-8">
+                  <p className="text-lg md:text-xl text-gray-600 mb-6">
                     {slide.subtitle}
                   </p>
                   <div className="flex gap-4">
                     <Button
                       onClick={() => router.push('/watches')}
                       size="lg"
-                      className="bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black font-bold px-8"
+                      className="bg-[#006039] hover:bg-[#004d2d] text-white font-bold px-8"
                     >
                       Saatleri Keşfet
                       <ChevronRight className="ml-2 h-5 w-5" />
@@ -149,7 +149,7 @@ export default function Home() {
                       onClick={() => router.push('/eyewear')}
                       size="lg"
                       variant="outline"
-                      className="border-amber-500 text-amber-500 hover:bg-amber-500 hover:text-black px-8"
+                      className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white px-8"
                     >
                       Gözlükleri Gör
                     </Button>
@@ -161,15 +161,15 @@ export default function Home() {
         ))}
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3">
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3">
           {heroSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentSlide(index)}
               className={`w-3 h-3 rounded-full transition-all ${
                 index === currentSlide
-                  ? 'bg-amber-500 w-8'
-                  : 'bg-white/50 hover:bg-white/80'
+                  ? 'bg-[#006039] w-8'
+                  : 'bg-gray-400/50 hover:bg-gray-400'
               }`}
             />
           ))}
