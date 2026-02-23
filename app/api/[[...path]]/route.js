@@ -32,14 +32,14 @@ async function connectToDatabase() {
   return client;
 }
 
-// Admin credentials (basit auth)
-const ADMIN_USERNAME = 'admin123';
-const ADMIN_PASSWORD = 'Zion157359_-_.?';
+// Admin credentials (basit auth) - env'den al veya varsayılan kullan
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin123';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Zion157359_-_.?';
 
 // Helper: Get DB
 async function getDB() {
   const client = await connectToDatabase();
-  return client.db('ecommerce');
+  return client.db(process.env.DB_NAME || 'ecommerce');
 }
 
 // Helper: Verify JWT Token
