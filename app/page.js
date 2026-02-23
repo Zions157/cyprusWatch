@@ -14,7 +14,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { ShoppingCart, ChevronRight, Star, Clock, Award, Truck, Sparkles } from 'lucide-react';
+import { ShoppingCart, ChevronRight, ChevronLeft, Star, Clock, Award, Truck, Sparkles } from 'lucide-react';
 
 const heroSlides = [
   {
