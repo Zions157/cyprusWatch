@@ -181,13 +181,13 @@ export default function WatchesPage() {
       <Navbar />
 
       {/* Page Header */}
-      <div className="pt-24 pb-12 bg-gradient-to-b from-amber-500 to-amber-600">
+      <div className="pt-24 pb-12 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3">
-            <Clock className="h-10 w-10 text-white" />
+            <Clock className="h-10 w-10 text-[#006039]" />
             <div>
-              <h1 className="text-4xl font-bold text-white">Saatler</h1>
-              <p className="text-white/80">Lüks saat koleksiyonumuzu keşfedin</p>
+              <h1 className="text-4xl font-bold text-gray-900">Saatler</h1>
+              <p className="text-gray-600">Lüks saat koleksiyonumuzu keşfedin</p>
             </div>
           </div>
         </div>
