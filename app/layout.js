@@ -5,8 +5,9 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata = {
-  title: 'Cyprus Watch',
-  description: 'Modern saat ve aksesuarlar - Lüks saatlerin adresi',
+  title: 'Cyprus Watch - Luxury Watches',
+  description: 'Premium luxury watches and accessories - Your destination for authentic timepieces',
+  keywords: 'luxury watches, premium watches, Cyprus Watch, saatler, lüks saatler',
   icons: {
     icon: [
       { url: '/favicon.svg', type: 'image/svg+xml' },
