@@ -175,16 +175,16 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Yükleniyor...</div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-gray-900 text-xl">Yükleniyor...</div>
       </div>
     );
   }
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-black flex items-center justify-center">
-        <div className="text-white text-xl">Ürün bulunamadı</div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-gray-900 text-xl">Ürün bulunamadı</div>
       </div>
     );
   }
@@ -196,14 +196,14 @@ export default function ProductDetail() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
 
       <main className="container mx-auto px-4 py-8 pt-24">
         <Button
           onClick={() => router.back()}
           variant="ghost"
-          className="mb-6 text-gray-400 hover:text-white"
+          className="mb-6 text-gray-600 hover:text-gray-900"
         >
           <ArrowLeft className="h-4 w-4 mr-2" />
           Geri Dön
@@ -212,7 +212,7 @@ export default function ProductDetail() {
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           {/* Sol: Görsel */}
           <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-gray-900 border border-white/10">
+            <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200">
               <img
                 src={product.image}
                 alt={product.name}
@@ -220,12 +220,12 @@ export default function ProductDetail() {
               />
             </div>
             {product.stock < 10 && product.stock > 0 && (
-              <Badge className="absolute top-4 left-4 bg-red-500 text-white">
+              <Badge className="absolute top-4 left-4 bg-red-500 text-gray-900">
                 Son {product.stock} Adet!
               </Badge>
             )}
             {product.stock === 0 && (
-              <Badge className="absolute top-4 left-4 bg-gray-600 text-white">
+              <Badge className="absolute top-4 left-4 bg-gray-600 text-gray-900">
                 Stokta Yok
               </Badge>
             )}
@@ -235,8 +235,8 @@ export default function ProductDetail() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Badge className={
-                isETA ? 'bg-green-500 text-white' :
-                isEyewear ? 'bg-purple-500 text-white' : 
+                isETA ? 'bg-green-500 text-gray-900' :
+                isEyewear ? 'bg-purple-500 text-gray-900' : 
                 'bg-amber-500 text-black'
               }>
                 {product.category}
@@ -247,7 +247,7 @@ export default function ProductDetail() {
               {product.brand && <Badge variant="outline" className="border-amber-500 text-amber-500">{product.brand}</Badge>}
             </div>
 
-            <h1 className="text-4xl font-bold text-white mb-4">{product.name}</h1>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{product.name}</h1>
 
             <div className="flex items-center gap-4 mb-6">
               <div className="flex items-center gap-1">
@@ -258,7 +258,7 @@ export default function ProductDetail() {
                   />
                 ))}
               </div>
-              <span className="text-gray-400">({reviews.length} değerlendirme)</span>
+              <span className="text-gray-600">({reviews.length} değerlendirme)</span>
             </div>
 
             <p className="text-gray-300 text-lg mb-6">{product.description}</p>
@@ -267,73 +267,73 @@ export default function ProductDetail() {
               <div className="text-4xl font-bold text-amber-500">
                 {formatPrice(product.price)} ₺
               </div>
-              <p className="text-gray-400 text-sm mt-1">KDV Dahil</p>
+              <p className="text-gray-600 text-sm mt-1">KDV Dahil</p>
             </div>
 
             {/* Özellikler Tablosu */}
             {product.specs && Object.values(product.specs).some(v => v) && (
-              <Card className="bg-gray-900 border-white/10 mb-6">
+              <Card className="bg-white border-gray-200 mb-6">
                 <CardContent className="p-4">
-                  <h3 className="font-bold text-white mb-3 text-lg">Ürün Özellikleri</h3>
+                  <h3 className="font-bold text-gray-900 mb-3 text-lg">Ürün Özellikleri</h3>
                   <div className="space-y-2">
                     {product.specs.glassType && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">CAM CİNSİ</span>
-                        <span className="text-white font-medium">{product.specs.glassType}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">CAM CİNSİ</span>
+                        <span className="text-gray-900 font-medium">{product.specs.glassType}</span>
                       </div>
                     )}
                     {product.specs.machineType && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">MAKİNE CİNSİ</span>
-                        <span className="text-white font-medium">{product.specs.machineType}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">MAKİNE CİNSİ</span>
+                        <span className="text-gray-900 font-medium">{product.specs.machineType}</span>
                       </div>
                     )}
                     {product.specs.dialColor && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">KADRAN RENGİ</span>
-                        <span className="text-white font-medium">{product.specs.dialColor}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">KADRAN RENGİ</span>
+                        <span className="text-gray-900 font-medium">{product.specs.dialColor}</span>
                       </div>
                     )}
                     {product.specs.strapType && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">KORDON CİNSİ</span>
-                        <span className="text-white font-medium">{product.specs.strapType}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">KORDON CİNSİ</span>
+                        <span className="text-gray-900 font-medium">{product.specs.strapType}</span>
                       </div>
                     )}
                     {product.specs.caseSize && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">KASA ÇAPI</span>
-                        <span className="text-white font-medium">{product.specs.caseSize}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">KASA ÇAPI</span>
+                        <span className="text-gray-900 font-medium">{product.specs.caseSize}</span>
                       </div>
                     )}
                     {product.specs.caseMaterial && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">KASA</span>
-                        <span className="text-white font-medium">{product.specs.caseMaterial}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">KASA</span>
+                        <span className="text-gray-900 font-medium">{product.specs.caseMaterial}</span>
                       </div>
                     )}
                     {product.specs.functions && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">FONKSİYONLAR</span>
-                        <span className="text-white font-medium">{product.specs.functions}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">FONKSİYONLAR</span>
+                        <span className="text-gray-900 font-medium">{product.specs.functions}</span>
                       </div>
                     )}
                     {product.specs.calendar && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">TAKVİM</span>
-                        <span className="text-white font-medium">{product.specs.calendar}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">TAKVİM</span>
+                        <span className="text-gray-900 font-medium">{product.specs.calendar}</span>
                       </div>
                     )}
                     {product.specs.features && (
-                      <div className="flex justify-between text-sm border-b border-white/10 pb-2">
-                        <span className="text-gray-400">ÖZELLİKLER</span>
-                        <span className="text-white font-medium">{product.specs.features}</span>
+                      <div className="flex justify-between text-sm border-b border-gray-200 pb-2">
+                        <span className="text-gray-600">ÖZELLİKLER</span>
+                        <span className="text-gray-900 font-medium">{product.specs.features}</span>
                       </div>
                     )}
                     {product.specs.warranty && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">GARANTİ</span>
-                        <span className="text-white font-medium">{product.specs.warranty}</span>
+                        <span className="text-gray-600">GARANTİ</span>
+                        <span className="text-gray-900 font-medium">{product.specs.warranty}</span>
                       </div>
                     )}
                   </div>
@@ -354,7 +354,7 @@ export default function ProductDetail() {
                 >
                   <Minus className="h-5 w-5" />
                 </Button>
-                <div className="text-2xl font-bold text-white w-16 text-center">
+                <div className="text-2xl font-bold text-gray-900 w-16 text-center">
                   {quantity}
                 </div>
                 <Button
@@ -392,8 +392,8 @@ export default function ProductDetail() {
                   variant="outline"
                   className={`h-12 ${
                     isFavorite 
-                      ? 'border-red-500 text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-white' 
-                      : 'border-gray-500 text-gray-400 hover:border-red-500 hover:text-red-500'
+                      ? 'border-red-500 text-red-500 bg-red-500/10 hover:bg-red-500 hover:text-gray-900' 
+                      : 'border-gray-500 text-gray-600 hover:border-red-500 hover:text-red-500'
                   }`}
                 >
                   <Heart className={`h-5 w-5 mr-2 ${isFavorite ? 'fill-current' : ''}`} />
@@ -406,7 +406,7 @@ export default function ProductDetail() {
 
         {/* Tabs: Açıklama, Değerlendirmeler, Ödeme, İade */}
         <Tabs defaultValue="description" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-gray-800">
+          <TabsList className="grid w-full grid-cols-4 bg-gray-100">
             <TabsTrigger value="description" className="data-[state=active]:bg-amber-500 data-[state=active]:text-black">
               <Package className="h-4 w-4 mr-2" />
               AÇIKLAMA
@@ -426,15 +426,15 @@ export default function ProductDetail() {
           </TabsList>
 
           <TabsContent value="description">
-            <Card className="bg-gray-900 border-white/10">
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6">
-                <h3 className="text-2xl font-bold text-white mb-4">Ürün Açıklaması</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Ürün Açıklaması</h3>
                 <p className="text-gray-300 leading-relaxed text-lg">{product.description}</p>
                 
                 {product.brand && (
                   <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg">
                     <h4 className="font-bold text-amber-500 mb-2">Marka</h4>
-                    <p className="text-white">{product.brand}</p>
+                    <p className="text-gray-900">{product.brand}</p>
                   </div>
                 )}
               </CardContent>
@@ -442,14 +442,14 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="reviews">
-            <Card className="bg-gray-900 border-white/10">
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6">
-                <h3 className="text-2xl font-bold text-white mb-4">Müşteri Değerlendirmeleri</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">Müşteri Değerlendirmeleri</h3>
                 
                 {/* Değerlendirme Formu */}
                 {isLoggedIn && (
-                  <div className="mb-8 p-4 bg-gray-800/50 rounded-lg">
-                    <h4 className="font-bold text-white mb-3">Değerlendirme Yap</h4>
+                  <div className="mb-8 p-4 bg-gray-100/50 rounded-lg">
+                    <h4 className="font-bold text-gray-900 mb-3">Değerlendirme Yap</h4>
                     <div className="space-y-3">
                       <div>
                         <label className="text-gray-300 text-sm mb-2 block">Puan</label>
@@ -475,7 +475,7 @@ export default function ProductDetail() {
                           onChange={(e) => setNewReview({ ...newReview, comment: e.target.value })}
                           placeholder="Ürün hakkındaki düşüncelerinizi paylaşın..."
                           rows={4}
-                          className="bg-black/50 border-white/20 text-white"
+                          className="bg-gray-50/50 border-gray-300 text-gray-900"
                         />
                       </div>
                       <Button
@@ -490,17 +490,17 @@ export default function ProductDetail() {
 
                 {/* Değerlendirme Listesi */}
                 {reviews.length === 0 ? (
-                  <p className="text-gray-400 text-center py-8">Henüz değerlendirme yok. İlk değerlendirmeyi siz yapın!</p>
+                  <p className="text-gray-600 text-center py-8">Henüz değerlendirme yok. İlk değerlendirmeyi siz yapın!</p>
                 ) : (
                   <div className="space-y-4">
                     {reviews.map((review) => (
-                      <div key={review.id} className="border-b border-white/10 pb-4">
+                      <div key={review.id} className="border-b border-gray-200 pb-4">
                         <div className="flex items-center gap-3 mb-2">
                           <div className="w-10 h-10 rounded-full bg-gradient-to-r from-amber-500 to-yellow-500 flex items-center justify-center text-black font-bold">
                             {review.userName?.charAt(0)}
                           </div>
                           <div>
-                            <p className="text-white font-medium">{review.userName}</p>
+                            <p className="text-gray-900 font-medium">{review.userName}</p>
                             <div className="flex items-center gap-2">
                               <div className="flex">
                                 {[1, 2, 3, 4, 5].map((star) => (
@@ -510,7 +510,7 @@ export default function ProductDetail() {
                                   />
                                 ))}
                               </div>
-                              <span className="text-gray-400 text-xs">
+                              <span className="text-gray-600 text-xs">
                                 {new Date(review.createdAt).toLocaleDateString('tr-TR')}
                               </span>
                             </div>
@@ -526,32 +526,32 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="payment">
-            <Card className="bg-gray-900 border-white/10">
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6">
-                <h3 className="text-2xl font-bold text-white mb-6">Ödeme Seçenekleri</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">Ödeme Seçenekleri</h3>
                 
                 <div className="space-y-4">
-                  <div className="flex items-start gap-4 p-4 bg-gray-800/50 rounded-lg">
+                  <div className="flex items-start gap-4 p-4 bg-gray-100/50 rounded-lg">
                     <CreditCard className="h-8 w-8 text-amber-500 flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-white mb-1">Kredi Kartı / Banka Kartı</h4>
-                      <p className="text-gray-400 text-sm">Tüm kredi kartları ve banka kartlarıyla güvenli ödeme. Tek çekim veya taksit seçenekleriyle.</p>
+                      <h4 className="font-bold text-gray-900 mb-1">Kredi Kartı / Banka Kartı</h4>
+                      <p className="text-gray-600 text-sm">Tüm kredi kartları ve banka kartlarıyla güvenli ödeme. Tek çekim veya taksit seçenekleriyle.</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 bg-gray-800/50 rounded-lg">
+                  <div className="flex items-start gap-4 p-4 bg-gray-100/50 rounded-lg">
                     <Shield className="h-8 w-8 text-green-500 flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-white mb-1">Havale / EFT</h4>
-                      <p className="text-gray-400 text-sm">Banka havalesi veya EFT ile güvenli ödeme. Havale bilgileri sipariş sonrası email ile gönderilir.</p>
+                      <h4 className="font-bold text-gray-900 mb-1">Havale / EFT</h4>
+                      <p className="text-gray-600 text-sm">Banka havalesi veya EFT ile güvenli ödeme. Havale bilgileri sipariş sonrası email ile gönderilir.</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start gap-4 p-4 bg-gray-800/50 rounded-lg">
+                  <div className="flex items-start gap-4 p-4 bg-gray-100/50 rounded-lg">
                     <Truck className="h-8 w-8 text-blue-500 flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-white mb-1">Güvenli Ödeme</h4>
-                      <p className="text-gray-400 text-sm">Tüm ödemeleriniz 256-bit SSL sertifikası ile korunmaktadır. Kart bilgileriniz saklanmaz.</p>
+                      <h4 className="font-bold text-gray-900 mb-1">Güvenli Ödeme</h4>
+                      <p className="text-gray-600 text-sm">Tüm ödemeleriniz 256-bit SSL sertifikası ile korunmaktadır. Kart bilgileriniz saklanmaz.</p>
                     </div>
                   </div>
                 </div>
@@ -560,9 +560,9 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="return">
-            <Card className="bg-gray-900 border-white/10">
+            <Card className="bg-white border-gray-200">
               <CardContent className="p-6">
-                <h3 className="text-2xl font-bold text-white mb-6">İade & Değişim Koşulları</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-6">İade & Değişim Koşulları</h3>
                 
                 <div className="space-y-6">
                   <div>
