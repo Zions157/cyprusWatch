@@ -380,7 +380,7 @@ export default function WatchesPage() {
                               setCurrentPage(item);
                             }}
                             isActive={currentPage === item}
-                            className={`cursor-pointer ${currentPage === item ? 'bg-[#006039] text-black' : 'text-gray-600 hover:text-gray-900'}`}
+                            className={`cursor-pointer ${currentPage === item ? 'bg-[#006039] text-white' : 'text-gray-600 hover:text-gray-900'}`}
                           >
                             {item}
                           </PaginationLink>

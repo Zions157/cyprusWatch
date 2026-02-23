@@ -549,7 +549,7 @@ export default function AdminPage() {
                   variant={filterType === 'all' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterType('all')}
-                  className={filterType === 'all' ? 'bg-[#006039] text-black' : 'bg-gray-700 text-white'}
+                  className={filterType === 'all' ? 'bg-[#006039] text-white' : 'bg-gray-700 text-white'}
                 >
                   Tümü ({products.length})
                 </Button>
@@ -557,7 +557,7 @@ export default function AdminPage() {
                   variant={filterType === 'watch' ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setFilterType('watch')}
-                  className={filterType === 'watch' ? 'bg-[#006039] text-black' : 'bg-gray-700 text-white'}
+                  className={filterType === 'watch' ? 'bg-[#006039] text-white' : 'bg-gray-700 text-white'}
                 >
                   <Clock className="h-4 w-4 mr-1" /> Saatler ({watchCount})
                 </Button>
@@ -892,7 +892,7 @@ export default function AdminPage() {
                           <Badge className={
                             product.productType === 'eyewear' ? 'bg-purple-500' :
                             product.productType === 'eta' ? 'bg-green-500' :
-                            'bg-[#006039] text-black'
+                            'bg-[#006039] text-white'
                           }>
                             {product.category}
                           </Badge>
@@ -951,7 +951,7 @@ export default function AdminPage() {
                   variant={orderFilter === filter.value ? 'default' : 'ghost'}
                   size="sm"
                   onClick={() => setOrderFilter(filter.value)}
-                  className={orderFilter === filter.value ? 'bg-[#006039] text-black' : 'bg-gray-700 text-white'}
+                  className={orderFilter === filter.value ? 'bg-[#006039] text-white' : 'bg-gray-700 text-white'}
                 >
                   {filter.label} ({filter.count})
                 </Button>
@@ -1109,7 +1109,7 @@ export default function AdminPage() {
                           </div>
                         </div>
                         <div className="text-right">
-                          <Badge className="bg-[#006039] text-black">
+                          <Badge className="bg-[#006039] text-white">
                             {new Date(user.createdAt).toLocaleDateString('tr-TR')}
                           </Badge>
                         </div>

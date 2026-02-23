@@ -237,7 +237,7 @@ export default function ProductDetail() {
               <Badge className={
                 isETA ? 'bg-green-500 text-gray-900' :
                 isEyewear ? 'bg-purple-500 text-gray-900' : 
-                'bg-[#006039] text-black'
+                'bg-[#006039] text-white'
               }>
                 {product.category}
               </Badge>

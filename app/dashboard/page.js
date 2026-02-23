@@ -187,7 +187,7 @@ export default function DashboardPage() {
             <div className="space-y-4">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-white">Sipariş Geçmişi</h2>
-                <Badge className="bg-[#006039] text-black">{orders.length} Sipariş</Badge>
+                <Badge className="bg-[#006039] text-white">{orders.length} Sipariş</Badge>
               </div>
               
               {orders.length === 0 ? (
@@ -253,7 +253,7 @@ export default function DashboardPage() {
             <div>
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-2xl font-bold text-white">Favori Ürünlerim</h2>
-                <Badge className="bg-[#006039] text-black">{favorites.length} Ürün</Badge>
+                <Badge className="bg-[#006039] text-white">{favorites.length} Ürün</Badge>
               </div>
 
               {favorites.length === 0 ? (

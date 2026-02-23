@@ -67,7 +67,7 @@ export default function CartPage() {
             <ShoppingCart className="h-16 w-16 mx-auto text-gray-600 mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">Sepetiniz boş</h3>
             <p className="text-gray-400 mb-4">Ürün eklemek için alışverişe başlayın</p>
-            <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-[#006039] to-[#007a47] text-black">
+            <Button onClick={() => router.push('/watches')} className="bg-gradient-to-r from-[#006039] to-[#007a47] text-white">
               Ürünlere Git
             </Button>
           </Card>
