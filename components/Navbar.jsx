@@ -145,8 +145,8 @@ export default function Navbar() {
                 variant="ghost"
                 className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                   pathname === '/'
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'bg-white/20 text-white'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Home className="h-4 w-4" />
@@ -165,8 +165,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                         isActive
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                          ? 'bg-white/20 text-white'
+                          : 'text-white/80 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -176,11 +176,11 @@ export default function Navbar() {
                   </Link>
                   
                   {/* Hover Dropdown */}
-                  <div className="absolute top-full left-0 mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                  <div className="absolute top-full left-0 mt-1 w-48 bg-[#006039] border border-white/20 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                     <div className="py-2">
                       {category.subItems.map((subItem) => (
                         <Link key={subItem.href} href={subItem.href}>
-                          <div className="px-4 py-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 transition-colors cursor-pointer">
+                          <div className="px-4 py-2 text-white/80 hover:text-white hover:bg-white/10 transition-colors cursor-pointer">
                             {subItem.name}
                           </div>
                         </Link>
@@ -197,8 +197,8 @@ export default function Navbar() {
                 variant="ghost"
                 className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                   pathname === '/about'
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'bg-white/20 text-white'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Info className="h-4 w-4" />
@@ -212,8 +212,8 @@ export default function Navbar() {
                 variant="ghost"
                 className={`flex items-center space-x-2 text-base font-medium px-4 py-2 ${
                   pathname === '/contact'
-                    ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                    ? 'bg-white/20 text-white'
+                    : 'text-white/80 hover:text-white hover:bg-white/10'
                 }`}
               >
                 <Phone className="h-4 w-4" />
@@ -228,28 +228,28 @@ export default function Navbar() {
             {user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                  <Button variant="ghost" className="text-white/80 hover:text-white hover:bg-white/10">
                     <User className="h-5 w-5 mr-2" />
                     <span className="hidden md:inline">{user.fullName?.split(' ')[0] || 'Hesabım'}</span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-56 bg-white border-gray-200">
-                  <DropdownMenuLabel className="text-gray-900">{user.email}</DropdownMenuLabel>
-                  <DropdownMenuSeparator className="bg-gray-200" />
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-700 hover:text-amber-600 hover:bg-amber-50 cursor-pointer">
+                <DropdownMenuContent className="w-56 bg-[#006039] border-white/20">
+                  <DropdownMenuLabel className="text-white">{user.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator className="bg-white/20" />
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-white/80 hover:text-white hover:bg-white/10 cursor-pointer">
                     <Package className="h-4 w-4 mr-2" />
                     Siparişlerim
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-700 hover:text-amber-600 hover:bg-amber-50 cursor-pointer">
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-white/80 hover:text-white hover:bg-white/10 cursor-pointer">
                     <Heart className="h-4 w-4 mr-2" />
                     Favorilerim
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-gray-700 hover:text-amber-600 hover:bg-amber-50 cursor-pointer">
+                  <DropdownMenuItem onClick={() => router.push('/dashboard')} className="text-white/80 hover:text-white hover:bg-white/10 cursor-pointer">
                     <User className="h-4 w-4 mr-2" />
                     Profil Ayarları
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator className="bg-gray-200" />
-                  <DropdownMenuItem onClick={handleLogout} className="text-red-500 hover:text-red-600 hover:bg-red-50 cursor-pointer">
+                  <DropdownMenuSeparator className="bg-white/20" />
+                  <DropdownMenuItem onClick={handleLogout} className="text-red-300 hover:text-red-200 hover:bg-red-500/20 cursor-pointer">
                     <LogOut className="h-4 w-4 mr-2" />
                     Çıkış Yap
                   </DropdownMenuItem>
@@ -259,7 +259,7 @@ export default function Navbar() {
               <Button
                 onClick={() => router.push('/login')}
                 variant="ghost"
-                className="text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                className="text-white/80 hover:text-white hover:bg-white/10"
               >
                 <User className="h-5 w-5 mr-2" />
                 <span className="hidden md:inline">Giriş Yap</span>
@@ -267,10 +267,10 @@ export default function Navbar() {
             )}
 
             <Link href="/cart">
-              <Button className="relative bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white">
+              <Button className="relative bg-white text-[#006039] hover:bg-white/90">
                 <ShoppingCart className="h-5 w-5" />
                 {cartItemCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 bg-red-500 text-white px-2 py-1 text-xs">
+                  <Badge className="absolute -top-2 -right-2 bg-amber-500 text-white px-2 py-1 text-xs">
                     {cartItemCount}
                   </Badge>
                 )}
@@ -280,11 +280,11 @@ export default function Navbar() {
             {/* Mobile Menu */}
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild className="md:hidden">
-                <Button variant="outline" size="icon" className="border-amber-500 text-amber-600 hover:bg-amber-50">
+                <Button variant="outline" size="icon" className="border-white/50 text-white hover:bg-white/10">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[280px] bg-white border-l border-gray-200">
+              <SheetContent side="right" className="w-[280px] bg-[#006039] border-l border-white/20">
                 <div className="flex flex-col space-y-2 mt-8">
                   {/* Anasayfa */}
                   <Link href="/" onClick={() => setIsOpen(false)}>
@@ -292,8 +292,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`w-full justify-start space-x-3 ${
                         pathname === '/'
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                          ? 'bg-white/20 text-white'
+                          : 'text-white/80 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       <Home className="h-5 w-5" />
@@ -311,8 +311,8 @@ export default function Navbar() {
                             variant="ghost"
                             className={`w-full justify-start space-x-3 ${
                               pathname === category.href
-                                ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
-                                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                                ? 'bg-white/20 text-white'
+                                : 'text-white/80 hover:text-white hover:bg-white/10'
                             }`}
                           >
                             <Icon className="h-5 w-5" />
@@ -325,7 +325,7 @@ export default function Navbar() {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="w-full justify-start text-gray-500 hover:text-amber-600 hover:bg-amber-50"
+                                className="w-full justify-start text-white/60 hover:text-white hover:bg-white/10"
                               >
                                 <span>{subItem.name}</span>
                               </Button>
@@ -342,8 +342,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`w-full justify-start space-x-3 ${
                         pathname === '/about'
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                          ? 'bg-white/20 text-white'
+                          : 'text-white/80 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       <Info className="h-5 w-5" />
@@ -357,8 +357,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`w-full justify-start space-x-3 ${
                         pathname === '/contact'
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
-                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
+                          ? 'bg-white/20 text-white'
+                          : 'text-white/80 hover:text-white hover:bg-white/10'
                       }`}
                     >
                       <Phone className="h-5 w-5" />
