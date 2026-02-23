@@ -292,8 +292,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`w-full justify-start space-x-3 ${
                         pathname === '/'
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                       }`}
                     >
                       <Home className="h-5 w-5" />
@@ -311,8 +311,8 @@ export default function Navbar() {
                             variant="ghost"
                             className={`w-full justify-start space-x-3 ${
                               pathname === category.href
-                                ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
-                                : 'text-gray-300 hover:text-white hover:bg-white/10'
+                                ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
+                                : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                             }`}
                           >
                             <Icon className="h-5 w-5" />
@@ -325,7 +325,7 @@ export default function Navbar() {
                               <Button
                                 variant="ghost"
                                 size="sm"
-                                className="w-full justify-start text-gray-400 hover:text-white hover:bg-white/10"
+                                className="w-full justify-start text-gray-500 hover:text-amber-600 hover:bg-amber-50"
                               >
                                 <span>{subItem.name}</span>
                               </Button>
@@ -342,8 +342,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`w-full justify-start space-x-3 ${
                         pathname === '/about'
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                       }`}
                     >
                       <Info className="h-5 w-5" />
@@ -357,8 +357,8 @@ export default function Navbar() {
                       variant="ghost"
                       className={`w-full justify-start space-x-3 ${
                         pathname === '/contact'
-                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-black'
-                          : 'text-gray-300 hover:text-white hover:bg-white/10'
+                          ? 'bg-gradient-to-r from-amber-500 to-yellow-500 text-white'
+                          : 'text-gray-700 hover:text-gray-900 hover:bg-gray-100'
                       }`}
                     >
                       <Phone className="h-5 w-5" />
