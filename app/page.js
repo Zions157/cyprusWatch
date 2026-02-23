@@ -298,17 +298,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500">
+      {/* CTA Section - Green Theme */}
+      <section className="py-20 bg-[#006039]">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold text-white mb-4">Özel Fırsatları Kaçırmayın</h2>
-          <p className="text-[#006039]/80 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
             Yeni ürünler ve kampanyalardan ilk siz haberdar olun
           </p>
           <Button
             onClick={() => router.push('/watches')}
             size="lg"
-            className="bg-[#006039] text-white hover:bg-[#004d2d] px-12"
+            className="bg-white text-[#006039] hover:bg-gray-100 px-12 font-bold"
           >
             Alışverişe Başla
           </Button>
