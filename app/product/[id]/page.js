@@ -263,7 +263,7 @@ export default function ProductDetail() {
 
             <p className="text-gray-300 text-lg mb-6">{product.description}</p>
 
-            <div className="bg-gradient-to-r from-amber-500/20 to-yellow-500/20 p-6 rounded-xl border border-[#006039]/30 mb-6">
+            <div className="bg-gradient-to-r from-[#006039]/20 to-yellow-500/20 p-6 rounded-xl border border-[#006039]/30 mb-6">
               <div className="text-4xl font-bold text-[#006039]">
                 {formatPrice(product.price)} ₺
               </div>
