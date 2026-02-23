@@ -177,7 +177,7 @@ export default function WatchesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
 
       {/* Page Header */}
@@ -186,8 +186,8 @@ export default function WatchesPage() {
           <div className="flex items-center gap-3">
             <Clock className="h-10 w-10 text-amber-500" />
             <div>
-              <h1 className="text-4xl font-bold text-white">Saatler</h1>
-              <p className="text-gray-400">Lüks saat koleksiyonumuzu keşfedin</p>
+              <h1 className="text-4xl font-bold text-gray-900">Saatler</h1>
+              <p className="text-gray-600">Lüks saat koleksiyonumuzu keşfedin</p>
             </div>
           </div>
         </div>
@@ -195,26 +195,26 @@ export default function WatchesPage() {
 
       {/* Filters Section */}
       <div className="container mx-auto px-4 py-6">
-        <div className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6">
+        <div className="bg-white/5 border border-gray-200 rounded-xl p-4 mb-6">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
             <div className="relative flex-1 w-full lg:max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 h-5 w-5" />
               <Input
                 type="text"
                 placeholder="Saat ara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 w-full bg-black/50 border-white/20 text-white placeholder:text-gray-500"
+                className="pl-10 w-full bg-gray-50/50 border-gray-300 text-gray-900 placeholder:text-gray-500"
               />
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-400" />
+              <Filter className="h-5 w-5 text-gray-600" />
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full lg:w-[180px] bg-black/50 border-white/20 text-white">
+                <SelectTrigger className="w-full lg:w-[180px] bg-gray-50/50 border-gray-300 text-gray-900">
                   <SelectValue placeholder="Kategori" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-white/20">
+                <SelectContent className="bg-white border-gray-300">
                   {categories.map((cat) => (
                     <SelectItem key={cat} value={cat}>
                       {cat === 'all' ? 'Tüm Kategoriler' : cat}
@@ -225,12 +225,12 @@ export default function WatchesPage() {
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-400" />
+              <Filter className="h-5 w-5 text-gray-600" />
               <Select value={genderFilter} onValueChange={setGenderFilter}>
-                <SelectTrigger className="w-full lg:w-[150px] bg-black/50 border-white/20 text-white">
+                <SelectTrigger className="w-full lg:w-[150px] bg-gray-50/50 border-gray-300 text-gray-900">
                   <SelectValue placeholder="Cinsiyet" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-white/20">
+                <SelectContent className="bg-white border-gray-300">
                   <SelectItem value="all">Tümü</SelectItem>
                   <SelectItem value="male">Erkek</SelectItem>
                   <SelectItem value="female">Kadın</SelectItem>
@@ -240,12 +240,12 @@ export default function WatchesPage() {
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <SlidersHorizontal className="h-5 w-5 text-gray-400" />
+              <SlidersHorizontal className="h-5 w-5 text-gray-600" />
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full lg:w-[200px] bg-black/50 border-white/20 text-white">
+                <SelectTrigger className="w-full lg:w-[200px] bg-gray-50/50 border-gray-300 text-gray-900">
                   <SelectValue placeholder="Sıralama" />
                 </SelectTrigger>
-                <SelectContent className="bg-gray-900 border-white/20">
+                <SelectContent className="bg-white border-gray-300">
                   <SelectItem value="default">Varsayılan</SelectItem>
                   <SelectItem value="price-asc">Fiyat: Düşükten Yükseğe</SelectItem>
                   <SelectItem value="price-desc">Fiyat: Yüksekten Düşüğe</SelectItem>
@@ -268,7 +268,7 @@ export default function WatchesPage() {
             )}
           </div>
 
-          <div className="mt-4 pt-4 border-t border-white/10 flex items-center justify-between text-sm text-gray-400">
+          <div className="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between text-sm text-gray-600">
             <span>
               {filteredProducts.length} ürün bulundu
               {hasActiveFilters && ' (filtrelendi)'}
@@ -283,7 +283,7 @@ export default function WatchesPage() {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
             {[...Array(10)].map((_, i) => (
-              <Card key={i} className="animate-pulse bg-white/5 border-white/10">
+              <Card key={i} className="animate-pulse bg-white/5 border-gray-200">
                 <CardHeader className="p-0">
                   <div className="h-48 bg-gray-700 rounded-t-lg"></div>
                 </CardHeader>
@@ -300,12 +300,12 @@ export default function WatchesPage() {
               {paginatedProducts.map((product) => (
                 <Card
                   key={product.id}
-                  className="bg-white/5 border-white/10 hover:border-amber-500/50 transition-all duration-300 cursor-pointer group"
+                  className="bg-white/5 border-gray-200 hover:border-amber-500/50 transition-all duration-300 cursor-pointer group"
                 >
                   <CardHeader className="p-0">
                     <div
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="relative h-44 bg-gray-800 rounded-t-lg overflow-hidden"
+                      className="relative h-44 bg-gray-100 rounded-t-lg overflow-hidden"
                     >
                       <img
                         src={product.image}
@@ -322,11 +322,11 @@ export default function WatchesPage() {
                   <CardContent className="p-3">
                     <CardTitle
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="text-sm font-semibold mb-1 line-clamp-1 text-white group-hover:text-amber-500 transition-colors"
+                      className="text-sm font-semibold mb-1 line-clamp-1 text-gray-900 group-hover:text-amber-500 transition-colors"
                     >
                       {product.name}
                     </CardTitle>
-                    <p className="text-xs text-gray-400 line-clamp-2 mb-2">
+                    <p className="text-xs text-gray-600 line-clamp-2 mb-2">
                       {product.description}
                     </p>
                     <div className="flex items-center justify-between">
@@ -364,14 +364,14 @@ export default function WatchesPage() {
                           e.preventDefault();
                           if (currentPage > 1) setCurrentPage(currentPage - 1);
                         }}
-                        className={`${currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'} text-gray-400 hover:text-white`}
+                        className={`${currentPage === 1 ? 'pointer-events-none opacity-50' : 'cursor-pointer'} text-gray-600 hover:text-gray-900`}
                       />
                     </PaginationItem>
 
                     {getPaginationItems().map((item, index) => (
                       <PaginationItem key={index}>
                         {item === 'ellipsis' ? (
-                          <PaginationEllipsis className="text-gray-400" />
+                          <PaginationEllipsis className="text-gray-600" />
                         ) : (
                           <PaginationLink
                             href="#"
@@ -380,7 +380,7 @@ export default function WatchesPage() {
                               setCurrentPage(item);
                             }}
                             isActive={currentPage === item}
-                            className={`cursor-pointer ${currentPage === item ? 'bg-amber-500 text-black' : 'text-gray-400 hover:text-white'}`}
+                            className={`cursor-pointer ${currentPage === item ? 'bg-amber-500 text-black' : 'text-gray-600 hover:text-gray-900'}`}
                           >
                             {item}
                           </PaginationLink>
@@ -395,7 +395,7 @@ export default function WatchesPage() {
                           e.preventDefault();
                           if (currentPage < totalPages) setCurrentPage(currentPage + 1);
                         }}
-                        className={`${currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'} text-gray-400 hover:text-white`}
+                        className={`${currentPage === totalPages ? 'pointer-events-none opacity-50' : 'cursor-pointer'} text-gray-600 hover:text-gray-900`}
                       />
                     </PaginationItem>
                   </PaginationContent>
@@ -408,8 +408,8 @@ export default function WatchesPage() {
             <div className="text-gray-600 mb-4">
               <Search className="h-16 w-16 mx-auto" />
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">Ürün Bulunamadı</h3>
-            <p className="text-gray-400 mb-4">Arama kriterlerinize uygun ürün bulunamadı.</p>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">Ürün Bulunamadı</h3>
+            <p className="text-gray-600 mb-4">Arama kriterlerinize uygun ürün bulunamadı.</p>
             <Button onClick={clearFilters} variant="outline" className="border-amber-500 text-amber-500">
               Filtreleri Temizle
             </Button>
@@ -418,7 +418,7 @@ export default function WatchesPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-8 mt-12 border-t border-white/10">
+      <footer className="bg-gray-50 text-gray-900 py-8 mt-12 border-t border-gray-200">
         <div className="container mx-auto px-4 text-center text-gray-500">
           <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
         </div>
