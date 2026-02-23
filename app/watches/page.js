@@ -181,13 +181,13 @@ export default function WatchesPage() {
       <Navbar />
 
       {/* Page Header */}
-      <div className="pt-24 pb-12 bg-gradient-to-b from-gray-900 to-black">
+      <div className="pt-24 pb-12 bg-gradient-to-b from-amber-500 to-amber-600">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3">
-            <Clock className="h-10 w-10 text-amber-500" />
+            <Clock className="h-10 w-10 text-white" />
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">Saatler</h1>
-              <p className="text-gray-600">Lüks saat koleksiyonumuzu keşfedin</p>
+              <h1 className="text-4xl font-bold text-white">Saatler</h1>
+              <p className="text-white/80">Lüks saat koleksiyonumuzu keşfedin</p>
             </div>
           </div>
         </div>
@@ -195,26 +195,26 @@ export default function WatchesPage() {
 
       {/* Filters Section */}
       <div className="container mx-auto px-4 py-6">
-        <div className="bg-white/5 border border-gray-200 rounded-xl p-4 mb-6">
+        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6 shadow-sm">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
             <div className="relative flex-1 w-full lg:max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 h-5 w-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
               <Input
                 type="text"
                 placeholder="Saat ara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 w-full bg-gray-50/50 border-gray-300 text-gray-900 placeholder:text-gray-500"
+                className="pl-10 w-full bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-400"
               />
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-600" />
+              <Filter className="h-5 w-5 text-gray-500" />
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full lg:w-[180px] bg-gray-50/50 border-gray-300 text-gray-900">
+                <SelectTrigger className="w-full lg:w-[180px] bg-gray-50 border-gray-300 text-gray-900">
                   <SelectValue placeholder="Kategori" />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-gray-300">
+                <SelectContent className="bg-white border-gray-200">
                   {categories.map((cat) => (
                     <SelectItem key={cat} value={cat}>
                       {cat === 'all' ? 'Tüm Kategoriler' : cat}
