@@ -1,6 +1,7 @@
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import { LanguageProvider } from '@/lib/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
 const playfair = Playfair_Display({ 
@@ -25,8 +26,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="tr">
       <body className={`${inter.className} ${playfair.variable}`}>
-        {children}
-        <WhatsAppButton phoneNumber="905331234567" />
+        <LanguageProvider>
+          {children}
+          <WhatsAppButton phoneNumber="905331234567" />
+        </LanguageProvider>
       </body>
     </html>
   );
