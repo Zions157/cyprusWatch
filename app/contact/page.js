@@ -59,14 +59,14 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-gray-50">
       <Navbar />
 
       {/* Header */}
-      <div className="pt-24 pb-16 bg-gradient-to-b from-gray-900 to-black">
+      <div className="pt-24 pb-16 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold text-white mb-4">İletişim</h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">İletişim</h1>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Sorularınız için bize ulaşın. Size en kısa sürede dönüş yapacağız.
           </p>
         </div>
@@ -76,8 +76,8 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Info */}
           <div>
-            <h2 className="text-2xl font-bold text-white mb-6">Bize Ulaşın</h2>
-            <p className="text-gray-400 mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Bize Ulaşın</h2>
+            <p className="text-gray-600 mb-8">
               Cyprus Watch olarak müşteri memnuniyetini ön planda tutuyoruz. 
               Her türlü soru, öneri ve talepleriniz için bizimle iletişime geçebilirsiniz.
             </p>
@@ -86,15 +86,15 @@ export default function ContactPage() {
               {contactInfo.map((item, index) => {
                 const Icon = item.icon;
                 return (
-                  <Card key={index} className="bg-white/5 border-white/10 hover:border-amber-500/50 transition-colors">
+                  <Card key={index} className="bg-white border-gray-200 hover:border-[#006039] transition-colors shadow-sm">
                     <CardContent className="p-5">
                       <div className="flex items-start space-x-4">
-                        <div className="bg-gradient-to-br from-amber-500 to-yellow-500 p-3 rounded-lg">
-                          <Icon className="h-6 w-6 text-black" />
+                        <div className="bg-[#006039] p-3 rounded-lg">
+                          <Icon className="h-6 w-6 text-white" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-white">{item.title}</h3>
-                          <p className="text-amber-500 font-medium">{item.content}</p>
+                          <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                          <p className="text-[#006039] font-medium">{item.content}</p>
                           <p className="text-sm text-gray-500 mt-1">{item.subContent}</p>
                         </div>
                       </div>
@@ -107,18 +107,18 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div>
-            <Card className="bg-white/5 border-white/10">
+            <Card className="bg-white border-gray-200 shadow-sm">
               <CardHeader>
-                <CardTitle className="text-2xl text-white">Mesaj Gönderin</CardTitle>
+                <CardTitle className="text-2xl text-gray-900">Mesaj Gönderin</CardTitle>
               </CardHeader>
               <CardContent>
                 {submitted ? (
                   <div className="text-center py-8">
-                    <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-                    <h3 className="text-xl font-semibold text-white mb-2">
+                    <CheckCircle className="h-16 w-16 text-[#006039] mx-auto mb-4" />
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">
                       Mesajınız Alındı!
                     </h3>
-                    <p className="text-gray-400">
+                    <p className="text-gray-600">
                       En kısa sürede size dönüş yapacağız.
                     </p>
                   </div>
@@ -126,7 +126,7 @@ export default function ContactPage() {
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                           Adınız Soyadınız
                         </label>
                         <Input
@@ -135,11 +135,11 @@ export default function ContactPage() {
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder="Adınız Soyadınız"
-                          className="bg-black/50 border-white/20 text-white"
+                          className="bg-gray-50 border-gray-300 text-gray-900"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-300 mb-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">
                           E-posta Adresiniz
                         </label>
                         <Input
@@ -148,13 +148,13 @@ export default function ContactPage() {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="ornek@email.com"
-                          className="bg-black/50 border-white/20 text-white"
+                          className="bg-gray-50 border-gray-300 text-gray-900"
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
                         Konu
                       </label>
                       <Input
@@ -163,12 +163,12 @@ export default function ContactPage() {
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                         placeholder="Mesajınızın konusu"
-                        className="bg-black/50 border-white/20 text-white"
+                        className="bg-gray-50 border-gray-300 text-gray-900"
                       />
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
                         Mesajınız
                       </label>
                       <Textarea
@@ -177,14 +177,14 @@ export default function ContactPage() {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         placeholder="Mesajınızı buraya yazın..."
-                        className="bg-black/50 border-white/20 text-white"
+                        className="bg-gray-50 border-gray-300 text-gray-900"
                       />
                     </div>
 
                     <Button
                       type="submit"
                       disabled={loading}
-                      className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
+                      className="w-full bg-[#006039] hover:bg-[#004d2d] text-white"
                       size="lg"
                     >
                       {loading ? (
@@ -205,7 +205,7 @@ export default function ContactPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-8 border-t border-white/10">
+      <footer className="bg-white text-gray-900 py-8 border-t border-gray-200">
         <div className="container mx-auto px-4 text-center text-gray-500">
           <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
         </div>
