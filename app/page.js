@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { formatPrice } from '@/lib/utils';
+import { useLanguage } from '@/lib/LanguageContext';
 import {
   Carousel,
   CarouselContent,
@@ -56,6 +57,7 @@ const heroSlides = [
 
 export default function Home() {
   const router = useRouter();
+  const { t } = useLanguage();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
@@ -109,6 +111,14 @@ export default function Home() {
     localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
+  // Features with translations
+  const features = [
+    { icon: Truck, titleKey: 'home.freeShipping', descKey: 'home.freeShippingDesc' },
+    { icon: Award, titleKey: 'home.originalProduct', descKey: 'home.originalProductDesc' },
+    { icon: Clock, titleKey: 'home.support247', descKey: 'home.support247Desc' },
+    { icon: Star, titleKey: 'home.premiumQuality', descKey: 'home.premiumQualityDesc' },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
@@ -142,7 +152,7 @@ export default function Home() {
                       size="sm"
                       className="bg-[#006039] hover:bg-[#004d2d] text-white font-bold px-6"
                     >
-                      Saatleri Keşfet
+                      {t('home.discoverWatches')}
                       <ChevronRight className="ml-1 h-4 w-4" />
                     </Button>
                     <Button
@@ -151,7 +161,7 @@ export default function Home() {
                       variant="outline"
                       className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white px-6"
                     >
-                      Gözlükleri Gör
+                      {t('home.viewEyewear')}
                     </Button>
                   </div>
                 </div>
@@ -204,19 +214,14 @@ export default function Home() {
       <section className="py-4 md:py-10 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
-            {[
-              { icon: Truck, title: 'Ücretsiz Kargo', desc: '500₺ üzeri' },
-              { icon: Award, title: 'Orijinal Ürün', desc: '%100 Garanti' },
-              { icon: Clock, title: '7/24 Destek', desc: 'Yanınızdayız' },
-              { icon: Star, title: 'Premium Kalite', desc: '10.000+ Müşteri' },
-            ].map((item, index) => (
+            {features.map((item, index) => (
               <div key={index} className="flex items-center space-x-2 md:space-x-4 p-2 md:p-6 rounded-lg md:rounded-xl bg-gray-50 border border-gray-200 hover:border-[#006039] transition-colors">
                 <div className="bg-gradient-to-br from-[#006039] to-[#007a47] p-2 md:p-3 rounded-lg flex-shrink-0">
                   <item.icon className="h-4 w-4 md:h-6 md:w-6 text-white" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-semibold text-gray-900 text-xs md:text-base truncate">{item.title}</h3>
-                  <p className="text-xs text-gray-500 hidden md:block">{item.desc}</p>
+                  <h3 className="font-semibold text-gray-900 text-xs md:text-base truncate">{t(item.titleKey)}</h3>
+                  <p className="text-xs text-gray-500 hidden md:block">{t(item.descKey)}</p>
                 </div>
               </div>
             ))}
@@ -231,16 +236,16 @@ export default function Home() {
             <div>
               <h2 className="text-4xl font-bold text-gray-900 flex items-center gap-3">
                 <Sparkles className="h-8 w-8 text-[#006039]" />
-                Öne Çıkan Ürünler
+                {t('home.featuredProducts')}
               </h2>
-              <p className="text-gray-500 mt-2">En çok tercih edilen saat ve gözlükler</p>
+              <p className="text-gray-500 mt-2">{t('home.featuredProductsDesc')}</p>
             </div>
             <Button
               onClick={() => router.push('/watches')}
               variant="outline"
               className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white"
             >
-              Tümünü Gör
+              {t('home.viewAll')}
               <ChevronRight className="h-4 w-4 ml-1" />
             </Button>
           </div>
@@ -275,10 +280,12 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       {product.stock < 10 && (
-                        <Badge className="absolute top-2 right-2 bg-red-500">Son {product.stock} adet</Badge>
+                        <Badge className="absolute top-2 right-2 bg-red-500">
+                          {t('product.lastItems').replace('{count}', product.stock)}
+                        </Badge>
                       )}
                       <Badge className="absolute top-2 left-2 bg-[#006039] text-white">
-                        {product.category === 'Gözlük' ? 'Gözlük' : 'Saat'}
+                        {product.category === 'Gözlük' ? t('nav.eyewear') : t('nav.watches')}
                       </Badge>
                     </div>
                   </CardHeader>
@@ -304,7 +311,7 @@ export default function Home() {
                       variant="outline"
                       className="flex-1 border-gray-300 text-gray-700 hover:border-[#006039] hover:text-[#006039]"
                     >
-                      Detay
+                      {t('product.description')}
                     </Button>
                     <Button
                       onClick={() => addToCart(product)}
@@ -312,7 +319,7 @@ export default function Home() {
                       className="flex-1 bg-gradient-to-r from-[#006039] to-[#007a47] hover:from-amber-600 hover:to-yellow-600 text-white"
                     >
                       <ShoppingCart className="h-4 w-4 mr-1" />
-                      Ekle
+                      {t('home.addToCart')}
                     </Button>
                   </CardFooter>
                 </Card>
@@ -325,16 +332,16 @@ export default function Home() {
       {/* CTA Section - Green Theme */}
       <section className="py-20 bg-[#006039]">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">Özel Fırsatları Kaçırmayın</h2>
+          <h2 className="text-4xl font-bold text-white mb-4">{t('home.specialOffers')}</h2>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
-            Yeni ürünler ve kampanyalardan ilk siz haberdar olun
+            {t('home.specialOffersDesc')}
           </p>
           <Button
             onClick={() => router.push('/watches')}
             size="lg"
             className="bg-white text-[#006039] hover:bg-gray-100 px-12 font-bold"
           >
-            Alışverişe Başla
+            {t('dashboard.startShopping')}
           </Button>
         </div>
       </section>
@@ -345,19 +352,19 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4 text-[#006039]">Cyprus Watch</h3>
-              <p className="text-gray-600">Lüks saat ve gözlüklerin adresi</p>
+              <p className="text-gray-600">{t('about.visionDesc')}</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-gray-900">Hızlı Linkler</h4>
+              <h4 className="font-semibold mb-4 text-gray-900">{t('nav.home')}</h4>
               <ul className="space-y-2 text-gray-600">
-                <li><a href="/" className="hover:text-[#006039] transition-colors">Anasayfa</a></li>
-                <li><a href="/watches" className="hover:text-[#006039] transition-colors">Saatler</a></li>
-                <li><a href="/eyewear" className="hover:text-[#006039] transition-colors">Gözlükler</a></li>
-                <li><a href="/about" className="hover:text-[#006039] transition-colors">Hakkımızda</a></li>
+                <li><a href="/" className="hover:text-[#006039] transition-colors">{t('nav.home')}</a></li>
+                <li><a href="/watches" className="hover:text-[#006039] transition-colors">{t('nav.watches')}</a></li>
+                <li><a href="/eyewear" className="hover:text-[#006039] transition-colors">{t('nav.eyewear')}</a></li>
+                <li><a href="/about" className="hover:text-[#006039] transition-colors">{t('nav.about')}</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-gray-900">İletişim</h4>
+              <h4 className="font-semibold mb-4 text-gray-900">{t('nav.contact')}</h4>
               <ul className="space-y-2 text-gray-600">
                 <li>info@cypruswatch.com</li>
                 <li>+90 533 123 4123</li>
@@ -365,16 +372,16 @@ export default function Home() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-4 text-gray-900">Çalışma Saatleri</h4>
+              <h4 className="font-semibold mb-4 text-gray-900">{t('contact.workingHours')}</h4>
               <ul className="space-y-2 text-gray-600">
-                <li>Pazartesi - Cuma: 09:00 - 18:00</li>
-                <li>Cumartesi: 10:00 - 16:00</li>
-                <li>Pazar: Kapalı</li>
+                <li>Mon - Fri: 09:00 - 18:00</li>
+                <li>Sat: 10:00 - 16:00</li>
+                <li>Sun: Closed</li>
               </ul>
             </div>
           </div>
           <div className="border-t border-gray-200 mt-12 pt-8 text-center text-gray-500">
-            <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
+            <p>© 2026 Cyprus Watch. {t('common.allRightsReserved')}</p>
           </div>
         </div>
       </footer>
