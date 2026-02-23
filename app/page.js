@@ -239,11 +239,11 @@ export default function Home() {
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                       {product.stock < 10 && (
                         <Badge className="absolute top-2 right-2 bg-red-500">Son {product.stock} adet</Badge>
                       )}
-                      <Badge className="absolute top-2 left-2 bg-amber-500 text-black">
+                      <Badge className="absolute top-2 left-2 bg-amber-500 text-white">
                         {product.category === 'Gözlük' ? 'Gözlük' : 'Saat'}
                       </Badge>
                     </div>
@@ -251,15 +251,15 @@ export default function Home() {
                   <CardContent className="p-4">
                     <CardTitle
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="text-lg mb-2 line-clamp-1 text-white group-hover:text-amber-500 transition-colors"
+                      className="text-lg mb-2 line-clamp-1 text-gray-900 group-hover:text-amber-600 transition-colors"
                     >
                       {product.name}
                     </CardTitle>
-                    <p className="text-sm text-gray-400 line-clamp-2 mb-3">
+                    <p className="text-sm text-gray-500 line-clamp-2 mb-3">
                       {product.description}
                     </p>
                     <div className="flex items-center justify-between">
-                      <span className="text-xl font-bold text-amber-500">
+                      <span className="text-xl font-bold text-amber-600">
                         {formatPrice(product.price)} ₺
                       </span>
                     </div>
@@ -268,14 +268,14 @@ export default function Home() {
                     <Button
                       onClick={() => router.push(`/product/${product.id}`)}
                       variant="outline"
-                      className="flex-1 border-gray-600 text-gray-300 hover:border-amber-500 hover:text-amber-500"
+                      className="flex-1 border-gray-300 text-gray-700 hover:border-amber-500 hover:text-amber-600"
                     >
                       Detay
                     </Button>
                     <Button
                       onClick={() => addToCart(product)}
                       disabled={product.stock === 0}
-                      className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-black"
+                      className="flex-1 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white"
                     >
                       <ShoppingCart className="h-4 w-4 mr-1" />
                       Ekle
@@ -289,16 +289,16 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600">
+      <section className="py-20 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-black mb-4">Özel Fırsatları Kaçırmayın</h2>
-          <p className="text-black/70 text-lg mb-8 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold text-white mb-4">Özel Fırsatları Kaçırmayın</h2>
+          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
             Yeni ürünler ve kampanyalardan ilk siz haberdar olun
           </p>
           <Button
             onClick={() => router.push('/watches')}
             size="lg"
-            className="bg-black text-white hover:bg-gray-900 px-12"
+            className="bg-gray-900 text-white hover:bg-gray-800 px-12"
           >
             Alışverişe Başla
           </Button>
@@ -306,7 +306,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-16 border-t border-white/10">
+      <footer className="bg-gray-900 text-white py-16 border-t border-gray-800">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
