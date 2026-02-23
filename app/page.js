@@ -167,7 +167,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-gradient-to-b from-black to-gray-900">
+      <section className="py-16 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {[
@@ -176,7 +176,7 @@ export default function Home() {
               { icon: Clock, title: '7/24 Destek', desc: 'Her zaman yanınızdayız' },
               { icon: Star, title: 'Premium Kalite', desc: '10.000+ Mutlu Müşteri' },
             ].map((item, index) => (
-              <div key={index} className="flex items-center space-x-4 p-6 rounded-xl bg-white/5 border border-white/10 hover:border-amber-500/50 transition-colors">
+              <div key={index} className="flex items-center space-x-4 p-6 rounded-xl bg-gray-50 border border-gray-200 hover:border-amber-500 transition-colors">
                 <div className="bg-gradient-to-br from-amber-500 to-yellow-500 p-3 rounded-lg">
                   <item.icon className="h-6 w-6 text-black" />
                 </div>
