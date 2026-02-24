@@ -499,22 +499,27 @@ export default function ProductDetail() {
 
         {/* Tabs: Açıklama, Değerlendirmeler, Ödeme, İade */}
         <Tabs defaultValue="description" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 bg-gray-100">
-            <TabsTrigger value="description" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
-              <Package className="h-4 w-4 mr-2" />
-              AÇIKLAMA
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 gap-1 bg-gray-100 p-1 h-auto">
+            <TabsTrigger value="description" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white flex items-center justify-center gap-1 py-2 px-2 text-xs md:text-sm">
+              <Package className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">AÇIKLAMA</span>
+              <span className="sm:hidden">AÇIKLAMA</span>
             </TabsTrigger>
-            <TabsTrigger value="reviews" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
-              <Star className="h-4 w-4 mr-2" />
-              DEĞERLENDİRMELER ({reviews.length})
+            <TabsTrigger value="reviews" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white flex items-center justify-center gap-1 py-2 px-2 text-xs md:text-sm">
+              <Star className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">DEĞERLENDİRME</span>
+              <span className="sm:hidden">YORUM</span>
+              <span className="text-xs">({reviews.length})</span>
             </TabsTrigger>
-            <TabsTrigger value="payment" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
-              <CreditCard className="h-4 w-4 mr-2" />
-              ÖDEME SEÇENEKLERİ
+            <TabsTrigger value="payment" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white flex items-center justify-center gap-1 py-2 px-2 text-xs md:text-sm">
+              <CreditCard className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">ÖDEME</span>
+              <span className="sm:hidden">ÖDEME</span>
             </TabsTrigger>
-            <TabsTrigger value="return" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white">
-              <RefreshCw className="h-4 w-4 mr-2" />
-              İADE & DEĞİŞİM
+            <TabsTrigger value="return" className="data-[state=active]:bg-[#006039] data-[state=active]:text-white flex items-center justify-center gap-1 py-2 px-2 text-xs md:text-sm">
+              <RefreshCw className="h-4 w-4 flex-shrink-0" />
+              <span className="hidden sm:inline">İADE</span>
+              <span className="sm:hidden">İADE</span>
             </TabsTrigger>
           </TabsList>
 
