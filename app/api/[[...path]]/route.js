@@ -684,11 +684,20 @@ export async function PUT(request) {
     // PUT /api/products/:id - Ürün güncelle
     if (path.startsWith('products/') && path.split('/').length === 2) {
       const id = path.split('/')[1];
+      
+      // images array'ini oluştur
+      let imagesArray = body.images || [];
+      // Eğer images boşsa ama image varsa, onu array'e ekle
+      if (imagesArray.length === 0 && body.image) {
+        imagesArray = [body.image];
+      }
+      
       const updateData = {
         name: body.name,
         description: body.description,
         price: parseFloat(body.price),
-        image: body.image,
+        image: body.image || (imagesArray.length > 0 ? imagesArray[0] : ''),
+        images: imagesArray, // Çoklu görsel desteği
         stock: parseInt(body.stock),
         category: body.category,
         productType: body.productType || 'watch',
