@@ -110,7 +110,7 @@ function EyewearPageContent() {
     }
 
     return result;
-  }, [products, searchQuery, sortBy]);
+  }, [products, searchQuery, genderFilter, sortBy]);
 
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
   const paginatedProducts = useMemo(() => {
