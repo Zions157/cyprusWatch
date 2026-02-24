@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, Search, ShoppingBag, User, Mail, Phone, MapPin, Calendar, CreditCard, Gem } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, Search, ShoppingBag, User, Mail, Phone, MapPin, Calendar, CreditCard, Gem, X, Image } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { formatPrice } from '@/lib/utils';
@@ -50,6 +50,7 @@ export default function AdminPage() {
     gender: 'unisex',
     brand: '',
     image: '',
+    images: [], // Çoklu fotoğraf için
     specs: {
       glassType: '',
       machineType: '',
@@ -57,14 +58,12 @@ export default function AdminPage() {
       strapType: '',
       caseSize: '',
       caseMaterial: '',
-      functions: '',
       calendar: '',
-      features: '',
       warranty: ''
     }
   });
   const [uploadingImage, setUploadingImage] = useState(false);
-  const [imagePreview, setImagePreview] = useState('');
+  const [imagePreviews, setImagePreviews] = useState([]); // Çoklu önizleme
   const [filterType, setFilterType] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [orderFilter, setOrderFilter] = useState('all');
@@ -203,38 +202,74 @@ export default function AdminPage() {
     });
   };
 
+  // Çoklu fotoğraf yükleme
   const handleFileChange = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setImagePreview(reader.result);
-    };
-    reader.readAsDataURL(file);
+    // Önizlemeleri ekle
+    const newPreviews = [];
+    for (const file of files) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        newPreviews.push(reader.result);
+        if (newPreviews.length === files.length) {
+          setImagePreviews(prev => [...prev, ...newPreviews]);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
 
     setUploadingImage(true);
+    const uploadedUrls = [];
+
     try {
-      const formDataUpload = new FormData();
-      formDataUpload.append('file', file);
+      for (const file of files) {
+        const formDataUpload = new FormData();
+        formDataUpload.append('file', file);
 
-      const response = await fetch('/api/upload', {
-        method: 'POST',
-        body: formDataUpload
-      });
+        const response = await fetch('/api/upload', {
+          method: 'POST',
+          body: formDataUpload
+        });
 
-      const data = await response.json();
-      if (data.success) {
-        setFormData(prev => ({ ...prev, image: data.url }));
-        alert('Görsel başarıyla yüklendi!');
-      } else {
-        alert('Görsel yüklenemedi: ' + data.error);
+        const data = await response.json();
+        if (data.success) {
+          uploadedUrls.push(data.url);
+        } else {
+          console.error('Görsel yüklenemedi:', data.error);
+        }
+      }
+
+      if (uploadedUrls.length > 0) {
+        setFormData(prev => ({
+          ...prev,
+          image: prev.image || uploadedUrls[0], // Ana görsel
+          images: [...(prev.images || []), ...uploadedUrls]
+        }));
+        alert(`${uploadedUrls.length} görsel başarıyla yüklendi!`);
       }
     } catch (error) {
       alert('Görsel yüklenirken hata oluştu: ' + error.message);
     } finally {
       setUploadingImage(false);
     }
+  };
+
+  // Fotoğraf silme
+  const removeImage = (index) => {
+    const newImages = [...(formData.images || [])];
+    const newPreviews = [...imagePreviews];
+    
+    newImages.splice(index, 1);
+    newPreviews.splice(index, 1);
+    
+    setFormData(prev => ({
+      ...prev,
+      image: newImages[0] || '',
+      images: newImages
+    }));
+    setImagePreviews(newPreviews);
   };
 
   const handleSubmit = async (e) => {
@@ -245,7 +280,8 @@ export default function AdminPage() {
         description: formData.description,
         price: formData.price,
         stock: formData.stock,
-        image: formData.image,
+        image: formData.image || (formData.images && formData.images[0]) || '',
+        images: formData.images || [],
         productType: formData.productType,
         category: formData.category,
         gender: formData.gender,
@@ -285,6 +321,7 @@ export default function AdminPage() {
         gender: 'unisex',
         brand: '',
         image: '',
+        images: [],
         specs: {
           glassType: '',
           machineType: '',
@@ -292,13 +329,11 @@ export default function AdminPage() {
           strapType: '',
           caseSize: '',
           caseMaterial: '',
-          functions: '',
           calendar: '',
-          features: '',
           warranty: ''
         }
       });
-      setImagePreview('');
+      setImagePreviews([]);
       fetchProducts();
     } catch (error) {
       alert('Hata: ' + error.message);
@@ -317,6 +352,7 @@ export default function AdminPage() {
       gender: product.gender || 'unisex',
       brand: product.brand || '',
       image: product.image,
+      images: product.images || [product.image],
       specs: product.specs || {
         glassType: '',
         machineType: '',
@@ -324,13 +360,11 @@ export default function AdminPage() {
         strapType: '',
         caseSize: '',
         caseMaterial: '',
-        functions: '',
         calendar: '',
-        features: '',
         warranty: ''
       }
     });
-    setImagePreview(product.image);
+    setImagePreviews(product.images || [product.image]);
     setIsDialogOpen(true);
   };
 
@@ -364,6 +398,7 @@ export default function AdminPage() {
       gender: 'unisex',
       brand: '',
       image: '',
+      images: [],
       specs: {
         glassType: '',
         machineType: '',
@@ -371,13 +406,11 @@ export default function AdminPage() {
         strapType: '',
         caseSize: '',
         caseMaterial: '',
-        functions: '',
         calendar: '',
-        features: '',
         warranty: ''
       }
     });
-    setImagePreview('');
+    setImagePreviews([]);
     setIsDialogOpen(true);
   };
 
@@ -740,7 +773,7 @@ export default function AdminPage() {
                       </div>
                     </div>
 
-                    {/* Ürün Özellikleri */}
+                    {/* Ürün Özellikleri - Fonksiyonlar ve Özellikler kaldırıldı */}
                     <div className="border-t border-white/10 pt-5">
                       <h3 className="text-lg font-bold text-[#006039] mb-4">Ürün Özellikleri (Opsiyonel)</h3>
                       <div className="grid grid-cols-2 gap-4">
@@ -805,32 +838,12 @@ export default function AdminPage() {
                           />
                         </div>
                         <div>
-                          <Label className="text-gray-300">Fonksiyonlar</Label>
-                          <Input
-                            name="specs.functions"
-                            value={formData.specs.functions}
-                            onChange={handleInputChange}
-                            placeholder="Örn: Tüm Fonksiyonlar Aktif"
-                            className="bg-black/50 border-white/20 text-white"
-                          />
-                        </div>
-                        <div>
                           <Label className="text-gray-300">Takvim</Label>
                           <Input
                             name="specs.calendar"
                             value={formData.specs.calendar}
                             onChange={handleInputChange}
                             placeholder="Örn: Yok"
-                            className="bg-black/50 border-white/20 text-white"
-                          />
-                        </div>
-                        <div>
-                          <Label className="text-gray-300">Özellikler</Label>
-                          <Input
-                            name="specs.features"
-                            value={formData.specs.features}
-                            onChange={handleInputChange}
-                            placeholder="Örn: Su Geçirmez"
                             className="bg-black/50 border-white/20 text-white"
                           />
                         </div>
@@ -847,23 +860,80 @@ export default function AdminPage() {
                       </div>
                     </div>
 
-                    {/* Görsel */}
-                    <div>
-                      <Label className="text-gray-300">Ürün Görseli</Label>
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        disabled={uploadingImage}
-                        className="bg-black/50 border-white/20 text-white file:bg-[#006039] file:text-black"
-                      />
-                      {uploadingImage && <p className="text-sm text-[#006039] mt-1">Yükleniyor...</p>}
+                    {/* Çoklu Görsel Yükleme - JPG destekli */}
+                    <div className="border-t border-white/10 pt-5">
+                      <h3 className="text-lg font-bold text-[#006039] mb-4 flex items-center gap-2">
+                        <Image className="h-5 w-5" />
+                        Ürün Görselleri (Çoklu Seçim)
+                      </h3>
+                      <div className="bg-gray-800/50 border-2 border-dashed border-gray-600 rounded-xl p-6 text-center hover:border-[#006039] transition-colors">
+                        <Input
+                          type="file"
+                          accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/jpg,image/png,image/webp"
+                          onChange={handleFileChange}
+                          disabled={uploadingImage}
+                          multiple
+                          className="hidden"
+                          id="image-upload"
+                        />
+                        <label 
+                          htmlFor="image-upload" 
+                          className="cursor-pointer flex flex-col items-center gap-3"
+                        >
+                          <div className="w-16 h-16 bg-[#006039]/20 rounded-full flex items-center justify-center">
+                            <Plus className="h-8 w-8 text-[#006039]" />
+                          </div>
+                          <div>
+                            <p className="text-white font-medium">Fotoğraf Ekle</p>
+                            <p className="text-gray-400 text-sm">JPG, JPEG, PNG veya WEBP formatında</p>
+                            <p className="text-gray-500 text-xs mt-1">Birden fazla fotoğraf seçebilirsiniz</p>
+                          </div>
+                        </label>
+                        {uploadingImage && (
+                          <div className="mt-4">
+                            <div className="w-full bg-gray-700 rounded-full h-2">
+                              <div className="bg-[#006039] h-2 rounded-full animate-pulse w-1/2"></div>
+                            </div>
+                            <p className="text-sm text-[#006039] mt-2">Yükleniyor...</p>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    {imagePreview && (
+                    {/* Yüklenen Görseller Önizlemesi */}
+                    {imagePreviews.length > 0 && (
                       <div>
-                        <Label className="text-gray-300">Önizleme</Label>
-                        <img src={imagePreview} alt="Preview" className="w-full h-48 object-cover rounded-lg" />
+                        <Label className="text-gray-300 mb-3 block">
+                          Yüklenen Görseller ({imagePreviews.length})
+                        </Label>
+                        <div className="grid grid-cols-4 gap-3">
+                          {imagePreviews.map((preview, index) => (
+                            <div key={index} className="relative group">
+                              <img 
+                                src={preview} 
+                                alt={`Preview ${index + 1}`} 
+                                className={`w-full h-28 object-cover rounded-lg border-2 ${
+                                  index === 0 ? 'border-[#006039]' : 'border-gray-600'
+                                }`}
+                              />
+                              {index === 0 && (
+                                <Badge className="absolute top-1 left-1 bg-[#006039] text-white text-xs">
+                                  Ana
+                                </Badge>
+                              )}
+                              <button
+                                type="button"
+                                onClick={() => removeImage(index)}
+                                className="absolute top-1 right-1 bg-red-500 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                              >
+                                <X className="h-3 w-3" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="text-xs text-gray-500 mt-2">
+                          İlk görsel ana görsel olarak kullanılacaktır. Silmek için görselin üzerine gelin.
+                        </p>
                       </div>
                     )}
 
@@ -885,7 +955,14 @@ export default function AdminPage() {
                 <Card key={product.id} className="bg-gray-900 border-white/10 hover:border-[#006039]/50 transition-colors">
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-4">
-                      <img src={product.image} alt={product.name} className="w-24 h-24 object-cover rounded-lg" />
+                      <div className="relative">
+                        <img src={product.image} alt={product.name} className="w-24 h-24 object-cover rounded-lg" />
+                        {product.images && product.images.length > 1 && (
+                          <Badge className="absolute -bottom-1 -right-1 bg-gray-700 text-white text-xs">
+                            +{product.images.length - 1}
+                          </Badge>
+                        )}
+                      </div>
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <h3 className="font-bold text-lg text-white">{product.name}</h3>
@@ -922,7 +999,7 @@ export default function AdminPage() {
             </div>
           </TabsContent>
 
-          {/* SİPARİŞ YÖNETİMİ - Önceki kod aynı kalacak, buraya eklenmedi (uzun olmasın diye) */}
+          {/* SİPARİŞ YÖNETİMİ */}
           <TabsContent value="orders">
             {/* Arama Kutusu */}
             <div className="mb-4">
