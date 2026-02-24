@@ -346,7 +346,7 @@ export async function POST(request) {
   const path = url.pathname.replace('/api/', '');
 
   try {
-    // POST /api/upload - Dosya yükleme (FormData kullanır, JSON değil)
+    // POST /api/upload - Dosya yükleme (MongoDB'ye base64 olarak kaydeder)
     if (path === 'upload' || path === 'upload/') {
       try {
         const formData = await request.formData();
@@ -367,19 +367,27 @@ export async function POST(request) {
           return NextResponse.json({ error: 'Dosya boyutu 5MB\'dan küçük olmalıdır' }, { status: 400 });
         }
 
-        // Benzersiz dosya adı oluştur
+        // Dosyayı base64'e çevir
         const bytes = await file.arrayBuffer();
         const buffer = Buffer.from(bytes);
+        const base64Data = `data:${file.type};base64,${buffer.toString('base64')}`;
 
-        const fileExtension = file.name.split('.').pop();
-        const fileName = `${uuidv4()}.${fileExtension}`;
-        const filePath = join(process.cwd(), 'public', 'uploads', fileName);
+        // MongoDB'ye kaydet
+        const db = await getDB();
+        const imageId = uuidv4();
+        const imageDoc = {
+          id: imageId,
+          filename: file.name,
+          mimeType: file.type,
+          size: file.size,
+          data: base64Data,
+          createdAt: new Date().toISOString()
+        };
+        
+        await db.collection('images').insertOne(imageDoc);
 
-        // Dosyayı kaydet
-        await writeFile(filePath, buffer);
-
-        // URL'i döndür
-        const fileUrl = `/uploads/${fileName}`;
+        // API URL'i döndür (artık /api/images/id formatında)
+        const fileUrl = `/api/images/${imageId}`;
         return NextResponse.json({ url: fileUrl, success: true });
       } catch (error) {
         console.error('Upload Error:', error);
