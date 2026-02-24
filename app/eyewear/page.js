@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
@@ -28,7 +28,7 @@ import { ShoppingCart, Search, Filter, SlidersHorizontal, X, Glasses } from 'luc
 
 const ITEMS_PER_PAGE = 10;
 
-export default function EyewearPage() {
+function EyewearPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState([]);
