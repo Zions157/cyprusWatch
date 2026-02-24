@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { ArrowLeft, ShoppingCart, Package, Minus, Plus, Clock, Glasses, Heart, Star, Truck, RefreshCw, CreditCard, Shield, Gem } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Package, Minus, Plus, Clock, Glasses, Heart, Star, Truck, RefreshCw, CreditCard, Shield, Gem, ChevronLeft, ChevronRight } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
 
 export default function ProductDetail() {
@@ -22,6 +22,7 @@ export default function ProductDetail() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState({ rating: 5, comment: '' });
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
     if (params.id) {
@@ -173,6 +174,44 @@ export default function ProductDetail() {
     alert('Ürün sepete eklendi!');
   };
 
+  // Görsel listesini oluştur
+  const getProductImages = () => {
+    if (!product) return [];
+    
+    // Eğer images array varsa ve dolu ise onu kullan
+    if (product.images && product.images.length > 0) {
+      return product.images;
+    }
+    
+    // Yoksa sadece ana görseli kullan
+    if (product.image) {
+      return [product.image];
+    }
+    
+    return [];
+  };
+
+  const productImages = product ? getProductImages() : [];
+
+  // Sonraki görsel
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === productImages.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  // Önceki görsel
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => 
+      prev === 0 ? productImages.length - 1 : prev - 1
+    );
+  };
+
+  // Belirli bir görsele git
+  const goToImage = (index) => {
+    setCurrentImageIndex(index);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -210,24 +249,90 @@ export default function ProductDetail() {
         </Button>
 
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
-          {/* Sol: Görsel */}
-          <div className="relative">
-            <div className="aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm">
+          {/* Sol: Görsel Galerisi */}
+          <div className="space-y-4">
+            {/* Ana Görsel */}
+            <div className="relative aspect-square rounded-2xl overflow-hidden bg-white border border-gray-200 shadow-sm group">
               <img
-                src={product.image}
+                src={productImages[currentImageIndex] || product.image}
                 alt={product.name}
-                className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
+              
+              {/* Navigasyon Okları - Sadece birden fazla görsel varsa göster */}
+              {productImages.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                  >
+                    <ChevronLeft className="h-6 w-6" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-gray-800 p-2 rounded-full shadow-lg transition-all opacity-0 group-hover:opacity-100"
+                  >
+                    <ChevronRight className="h-6 w-6" />
+                  </button>
+                  
+                  {/* Görsel Sayacı */}
+                  <div className="absolute bottom-3 right-3 bg-black/60 text-white px-3 py-1 rounded-full text-sm">
+                    {currentImageIndex + 1} / {productImages.length}
+                  </div>
+                </>
+              )}
+              
+              {/* Stok Durumu */}
+              {product.stock < 10 && product.stock > 0 && (
+                <Badge className="absolute top-4 left-4 bg-red-500 text-white">
+                  Son {product.stock} Adet!
+                </Badge>
+              )}
+              {product.stock === 0 && (
+                <Badge className="absolute top-4 left-4 bg-gray-500 text-white">
+                  Stokta Yok
+                </Badge>
+              )}
             </div>
-            {product.stock < 10 && product.stock > 0 && (
-              <Badge className="absolute top-4 left-4 bg-red-500 text-white">
-                Son {product.stock} Adet!
-              </Badge>
+
+            {/* Küçük Resimler (Thumbnails) - Sadece birden fazla görsel varsa göster */}
+            {productImages.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-2">
+                {productImages.map((img, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToImage(index)}
+                    className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                      index === currentImageIndex 
+                        ? 'border-[#006039] ring-2 ring-[#006039]/30' 
+                        : 'border-gray-200 hover:border-gray-400'
+                    }`}
+                  >
+                    <img
+                      src={img}
+                      alt={`${product.name} - ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                ))}
+              </div>
             )}
-            {product.stock === 0 && (
-              <Badge className="absolute top-4 left-4 bg-gray-500 text-white">
-                Stokta Yok
-              </Badge>
+
+            {/* Dot Göstergeleri (Mobil için) - Sadece birden fazla görsel varsa göster */}
+            {productImages.length > 1 && (
+              <div className="flex justify-center gap-2 lg:hidden">
+                {productImages.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => goToImage(index)}
+                    className={`w-2.5 h-2.5 rounded-full transition-all ${
+                      index === currentImageIndex 
+                        ? 'bg-[#006039] w-6' 
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                  />
+                ))}
+              </div>
             )}
           </div>
 
@@ -312,22 +417,10 @@ export default function ProductDetail() {
                         <span className="text-gray-900 font-medium">{product.specs.caseMaterial}</span>
                       </div>
                     )}
-                    {product.specs.functions && (
-                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
-                        <span className="text-gray-500">FONKSİYONLAR</span>
-                        <span className="text-gray-900 font-medium">{product.specs.functions}</span>
-                      </div>
-                    )}
                     {product.specs.calendar && (
                       <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
                         <span className="text-gray-500">TAKVİM</span>
                         <span className="text-gray-900 font-medium">{product.specs.calendar}</span>
-                      </div>
-                    )}
-                    {product.specs.features && (
-                      <div className="flex justify-between text-sm border-b border-gray-100 pb-2">
-                        <span className="text-gray-500">ÖZELLİKLER</span>
-                        <span className="text-gray-900 font-medium">{product.specs.features}</span>
                       </div>
                     )}
                     {product.specs.warranty && (
