@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -30,6 +30,7 @@ const ITEMS_PER_PAGE = 10;
 
 export default function WatchesPage() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [cart, setCart] = useState([]);
@@ -39,6 +40,14 @@ export default function WatchesPage() {
   const [genderFilter, setGenderFilter] = useState('all');
   const [sortBy, setSortBy] = useState('default');
   const [currentPage, setCurrentPage] = useState(1);
+
+  // URL'den gender parametresini oku
+  useEffect(() => {
+    const genderParam = searchParams.get('gender');
+    if (genderParam && ['male', 'female', 'unisex'].includes(genderParam)) {
+      setGenderFilter(genderParam);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     fetchProducts();
