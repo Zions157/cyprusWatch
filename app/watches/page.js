@@ -209,14 +209,14 @@ export default function WatchesPage() {
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-500" />
+              <Filter className="h-5 w-5 text-gray-700" />
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full lg:w-[180px] bg-gray-50 border-gray-300 text-gray-900">
-                  <SelectValue placeholder="Kategori" />
+                <SelectTrigger className="w-full lg:w-[180px] bg-white border-gray-300 text-gray-900 font-medium">
+                  <SelectValue placeholder="Kategori" className="text-gray-900" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-200">
                   {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat}>
+                    <SelectItem key={cat} value={cat} className="text-gray-900 font-medium">
                       {cat === 'all' ? 'Tüm Kategoriler' : cat}
                     </SelectItem>
                   ))}
@@ -225,33 +225,33 @@ export default function WatchesPage() {
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-600" />
+              <Filter className="h-5 w-5 text-gray-700" />
               <Select value={genderFilter} onValueChange={setGenderFilter}>
-                <SelectTrigger className="w-full lg:w-[150px] bg-gray-50/50 border-gray-300 text-gray-900">
-                  <SelectValue placeholder="Cinsiyet" />
+                <SelectTrigger className="w-full lg:w-[150px] bg-white border-gray-300 text-gray-900 font-medium">
+                  <SelectValue placeholder="Cinsiyet" className="text-gray-900" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-300">
-                  <SelectItem value="all">Tümü</SelectItem>
-                  <SelectItem value="male">Erkek</SelectItem>
-                  <SelectItem value="female">Kadın</SelectItem>
-                  <SelectItem value="unisex">Unisex</SelectItem>
+                  <SelectItem value="all" className="text-gray-900 font-medium">Tümü</SelectItem>
+                  <SelectItem value="male" className="text-gray-900 font-medium">Erkek</SelectItem>
+                  <SelectItem value="female" className="text-gray-900 font-medium">Kadın</SelectItem>
+                  <SelectItem value="unisex" className="text-gray-900 font-medium">Unisex</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <SlidersHorizontal className="h-5 w-5 text-gray-600" />
+              <SlidersHorizontal className="h-5 w-5 text-gray-700" />
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full lg:w-[200px] bg-gray-50/50 border-gray-300 text-gray-900">
-                  <SelectValue placeholder="Sıralama" />
+                <SelectTrigger className="w-full lg:w-[200px] bg-white border-gray-300 text-gray-900 font-medium">
+                  <SelectValue placeholder="Sıralama" className="text-gray-900" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-300">
-                  <SelectItem value="default">Varsayılan</SelectItem>
-                  <SelectItem value="price-asc">Fiyat: Düşükten Yükseğe</SelectItem>
-                  <SelectItem value="price-desc">Fiyat: Yüksekten Düşüğe</SelectItem>
-                  <SelectItem value="name-asc">İsim: A-Z</SelectItem>
-                  <SelectItem value="name-desc">İsim: Z-A</SelectItem>
-                  <SelectItem value="newest">En Yeni</SelectItem>
+                  <SelectItem value="default" className="text-gray-900 font-medium">Varsayılan</SelectItem>
+                  <SelectItem value="price-asc" className="text-gray-900 font-medium">Fiyat: Düşükten Yükseğe</SelectItem>
+                  <SelectItem value="price-desc" className="text-gray-900 font-medium">Fiyat: Yüksekten Düşüğe</SelectItem>
+                  <SelectItem value="name-asc" className="text-gray-900 font-medium">İsim: A-Z</SelectItem>
+                  <SelectItem value="name-desc" className="text-gray-900 font-medium">İsim: Z-A</SelectItem>
+                  <SelectItem value="newest" className="text-gray-900 font-medium">En Yeni</SelectItem>
                 </SelectContent>
               </Select>
             </div>
