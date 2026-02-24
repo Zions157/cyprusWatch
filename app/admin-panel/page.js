@@ -342,6 +342,15 @@ export default function AdminPage() {
 
   const handleEdit = (product) => {
     setEditingProduct(product);
+    
+    // images array'ini düzgün oluştur
+    let productImages = [];
+    if (product.images && product.images.length > 0) {
+      productImages = product.images;
+    } else if (product.image) {
+      productImages = [product.image];
+    }
+    
     setFormData({
       name: product.name,
       description: product.description,
@@ -351,8 +360,8 @@ export default function AdminPage() {
       productType: product.productType || 'watch',
       gender: product.gender || 'unisex',
       brand: product.brand || '',
-      image: product.image,
-      images: product.images || [product.image],
+      image: product.image || (productImages.length > 0 ? productImages[0] : ''),
+      images: productImages,
       specs: product.specs || {
         glassType: '',
         machineType: '',
@@ -364,7 +373,7 @@ export default function AdminPage() {
         warranty: ''
       }
     });
-    setImagePreviews(product.images || [product.image]);
+    setImagePreviews(productImages);
     setIsDialogOpen(true);
   };
 
