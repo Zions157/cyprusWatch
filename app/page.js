@@ -284,8 +284,14 @@ export default function Home() {
                           {t('product.lastItems').replace('{count}', product.stock)}
                         </Badge>
                       )}
-                      <Badge className="absolute top-2 left-2 bg-[#006039] text-white">
-                        {product.category === 'Gözlük' ? t('nav.eyewear') : t('nav.watches')}
+                      <Badge className={`absolute top-2 left-2 text-white ${
+                        product.productType === 'eyewear' ? 'bg-purple-500' :
+                        product.productType === 'eta' ? 'bg-green-600' :
+                        'bg-[#006039]'
+                      }`}>
+                        {product.productType === 'eyewear' ? t('nav.eyewear') :
+                         product.productType === 'eta' ? 'ETA' :
+                         t('nav.watches')}
                       </Badge>
                     </div>
                   </CardHeader>
