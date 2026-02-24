@@ -464,12 +464,20 @@ export async function POST(request) {
 
     // POST /api/products - Yeni ürün ekle
     if (path === 'products' || path === 'products/') {
+      // images array'ini oluştur
+      let imagesArray = body.images || [];
+      // Eğer images boşsa ama image varsa, onu array'e ekle
+      if (imagesArray.length === 0 && body.image) {
+        imagesArray = [body.image];
+      }
+      
       const product = {
         id: uuidv4(),
         name: body.name,
         description: body.description,
         price: parseFloat(body.price),
-        image: body.image || 'https://via.placeholder.com/400x300?text=Ürün+Görseli',
+        image: body.image || (imagesArray.length > 0 ? imagesArray[0] : 'https://via.placeholder.com/400x300?text=Ürün+Görseli'),
+        images: imagesArray, // Çoklu görsel desteği
         stock: parseInt(body.stock) || 100,
         category: body.category || 'Genel',
         productType: body.productType || 'watch', // 'watch', 'eyewear', 'eta'
