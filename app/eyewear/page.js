@@ -390,3 +390,11 @@ function EyewearPageContent() {
     </div>
   );
 }
+
+export default function EyewearPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 flex items-center justify-center"><div className="text-gray-600">Yükleniyor...</div></div>}>
+      <EyewearPageContent />
+    </Suspense>
+  );
+}
