@@ -192,6 +192,27 @@ export async function GET(request) {
   try {
     const db = await getDB();
 
+    // GET /api/images/:id - MongoDB'den görsel getir
+    if (path.startsWith('images/') && path.split('/').length === 2) {
+      const imageId = path.split('/')[1];
+      const image = await db.collection('images').findOne({ id: imageId });
+      
+      if (!image) {
+        return new NextResponse('Image not found', { status: 404 });
+      }
+      
+      // Base64'ü binary'ye çevir
+      const base64Data = image.data.replace(/^data:image\/\w+;base64,/, '');
+      const imageBuffer = Buffer.from(base64Data, 'base64');
+      
+      return new NextResponse(imageBuffer, {
+        headers: {
+          'Content-Type': image.mimeType || 'image/jpeg',
+          'Cache-Control': 'public, max-age=31536000, immutable',
+        },
+      });
+    }
+
     // GET /api/products - Tüm ürünleri listele
     if (path === 'products' || path === 'products/') {
       const products = await db.collection('products').find({}).toArray();
