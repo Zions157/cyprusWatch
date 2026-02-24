@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
@@ -28,7 +28,7 @@ import { ShoppingCart, Search, Filter, SlidersHorizontal, X, Clock } from 'lucid
 
 const ITEMS_PER_PAGE = 10;
 
-export default function WatchesPage() {
+function WatchesPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [products, setProducts] = useState([]);
