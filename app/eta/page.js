@@ -193,28 +193,28 @@ export default function ETAPage() {
 
       {/* Filters Section */}
       <div className="container mx-auto px-4 py-6">
-        <div className="bg-white/5 border border-gray-200 rounded-xl p-4 mb-6">
+        <div className="bg-white border border-gray-200 rounded-xl p-4 mb-6 shadow-sm">
           <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center">
             <div className="relative flex-1 w-full lg:max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-600 h-5 w-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700 h-5 w-5" />
               <Input
                 type="text"
                 placeholder="ETA ara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 w-full bg-gray-50/50 border-gray-300 text-gray-900 placeholder:text-gray-500"
+                className="pl-10 w-full bg-white border-gray-300 text-gray-900 placeholder:text-gray-500"
               />
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-600" />
+              <Filter className="h-5 w-5 text-gray-700" />
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full lg:w-[180px] bg-gray-50/50 border-gray-300 text-gray-900">
-                  <SelectValue placeholder="Kategori" />
+                <SelectTrigger className="w-full lg:w-[180px] bg-white border-gray-300 text-gray-900 font-medium">
+                  <SelectValue placeholder="Kategori" className="text-gray-900" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-300">
                   {categories.map((cat) => (
-                    <SelectItem key={cat} value={cat}>
+                    <SelectItem key={cat} value={cat} className="text-gray-900 font-medium">
                       {cat === 'all' ? 'Tüm Kategoriler' : cat}
                     </SelectItem>
                   ))}
@@ -223,33 +223,33 @@ export default function ETAPage() {
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <Filter className="h-5 w-5 text-gray-600" />
+              <Filter className="h-5 w-5 text-gray-700" />
               <Select value={genderFilter} onValueChange={setGenderFilter}>
-                <SelectTrigger className="w-full lg:w-[150px] bg-gray-50/50 border-gray-300 text-gray-900">
-                  <SelectValue placeholder="Cinsiyet" />
+                <SelectTrigger className="w-full lg:w-[150px] bg-white border-gray-300 text-gray-900 font-medium">
+                  <SelectValue placeholder="Cinsiyet" className="text-gray-900" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-300">
-                  <SelectItem value="all">Tümü</SelectItem>
-                  <SelectItem value="male">Erkek</SelectItem>
-                  <SelectItem value="female">Kadın</SelectItem>
-                  <SelectItem value="unisex">Unisex</SelectItem>
+                  <SelectItem value="all" className="text-gray-900 font-medium">Tümü</SelectItem>
+                  <SelectItem value="male" className="text-gray-900 font-medium">Erkek</SelectItem>
+                  <SelectItem value="female" className="text-gray-900 font-medium">Kadın</SelectItem>
+                  <SelectItem value="unisex" className="text-gray-900 font-medium">Unisex</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="flex items-center gap-2 w-full lg:w-auto">
-              <SlidersHorizontal className="h-5 w-5 text-gray-600" />
+              <SlidersHorizontal className="h-5 w-5 text-gray-700" />
               <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-full lg:w-[200px] bg-gray-50/50 border-gray-300 text-gray-900">
-                  <SelectValue placeholder="Sıralama" />
+                <SelectTrigger className="w-full lg:w-[200px] bg-white border-gray-300 text-gray-900 font-medium">
+                  <SelectValue placeholder="Sıralama" className="text-gray-900" />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-gray-300">
-                  <SelectItem value="default">Varsayılan</SelectItem>
-                  <SelectItem value="price-asc">Fiyat: Düşükten Yükseğe</SelectItem>
-                  <SelectItem value="price-desc">Fiyat: Yüksekten Düşüğe</SelectItem>
-                  <SelectItem value="name-asc">İsim: A-Z</SelectItem>
-                  <SelectItem value="name-desc">İsim: Z-A</SelectItem>
-                  <SelectItem value="newest">En Yeni</SelectItem>
+                  <SelectItem value="default" className="text-gray-900 font-medium">Varsayılan</SelectItem>
+                  <SelectItem value="price-asc" className="text-gray-900 font-medium">Fiyat: Düşükten Yükseğe</SelectItem>
+                  <SelectItem value="price-desc" className="text-gray-900 font-medium">Fiyat: Yüksekten Düşüğe</SelectItem>
+                  <SelectItem value="name-asc" className="text-gray-900 font-medium">İsim: A-Z</SelectItem>
+                  <SelectItem value="name-desc" className="text-gray-900 font-medium">İsim: Z-A</SelectItem>
+                  <SelectItem value="newest" className="text-gray-900 font-medium">En Yeni</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -258,7 +258,7 @@ export default function ETAPage() {
               <Button
                 variant="ghost"
                 onClick={clearFilters}
-                className="text-red-400 hover:text-red-300 hover:bg-red-500/10"
+                className="text-red-500 hover:text-red-600 hover:bg-red-500/10"
               >
                 <X className="h-4 w-4 mr-1" />
                 Temizle
@@ -266,7 +266,7 @@ export default function ETAPage() {
             )}
           </div>
 
-          <div className="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between text-sm text-gray-600">
+          <div className="mt-4 pt-4 border-t border-gray-200 flex items-center justify-between text-sm text-gray-700">
             <span>
               {filteredProducts.length} ürün bulundu
               {hasActiveFilters && ' (filtrelendi)'}
