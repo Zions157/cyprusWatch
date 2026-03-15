@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} ${playfair.variable}`}>
         <LanguageProvider>
           {children}
-          <WhatsAppButton phoneNumber="905331234567" />
+          <WhatsAppButton phoneNumber="905428572726" />
         </LanguageProvider>
       </body>
     </html>

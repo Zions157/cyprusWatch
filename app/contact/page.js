@@ -35,7 +35,7 @@ export default function ContactPage() {
     {
       icon: Phone,
       title: 'Telefon',
-      content: '+90 533 123 4567',
+      content: '+90 542 857 27 26',
       subContent: 'Pazartesi - Cumartesi: 09:00 - 18:00',
     },
     {

@@ -137,7 +137,7 @@ function generateInvoiceHTML(order, user) {
         </div>
 
         <div class="footer">
-          <p><strong>Cyprus Watch</strong> | info@cypruswatch.com | +90 533 123 4123</p>
+          <p><strong>Cyprus Watch</strong> | info@cypruswatch.com | +90 542 857 27 26</p>
           <p>Kıbrıs, Lefkoşa | www.cypruswatch.com</p>
           <p style="margin-top: 10px;">Teşekkür ederiz! 🎉</p>
         </div>
