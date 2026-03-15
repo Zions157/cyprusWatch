@@ -61,11 +61,8 @@ function ETAPageContent() {
     try {
       const response = await fetch('/api/products');
       const data = await response.json();
-      // Filter only watch products using productType
-      const watchProducts = (Array.isArray(data) ? data : []).filter(
-        p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')
-      );
-      setProducts(watchProducts);
+      // Tüm ürünleri al - filtreleme useMemo'da yapılacak
+      setProducts(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Ürünler yüklenemedi:', error);
       setProducts([]);
