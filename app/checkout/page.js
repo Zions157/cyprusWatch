@@ -378,15 +378,15 @@ export default function CheckoutPage() {
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between border-b border-blue-100 pb-2">
                             <span className="text-gray-600">Banka:</span>
-                            <span className="font-medium text-gray-900">Ziraat Bankası</span>
+                            <span className="font-medium text-gray-900">DENİZBANK</span>
                           </div>
                           <div className="flex justify-between border-b border-blue-100 pb-2">
                             <span className="text-gray-600">Hesap Sahibi:</span>
-                            <span className="font-medium text-gray-900">E-Ticaret Şirketi A.Ş.</span>
+                            <span className="font-medium text-gray-900">AHMET & İBRAHİM TRADING LİMİTED</span>
                           </div>
                           <div className="flex justify-between border-b border-blue-100 pb-2">
                             <span className="text-gray-600">IBAN:</span>
-                            <span className="font-medium text-gray-900">TR33 0006 1005 1978 6457 8413 26</span>
+                            <span className="font-medium text-gray-900">TR81 0013 4000 0259 2998 2000 01</span>
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-600">Tutar:</span>

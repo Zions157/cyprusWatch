@@ -128,9 +128,9 @@ function generateInvoiceHTML(order, user) {
           ${order.paymentMethod === 'transfer' ? `
             <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #f59e0b;">
               <h4 style="margin-top: 0; color: #92400e;">Havale Bilgileri</h4>
-              <p><strong>IBAN:</strong> TR33 0006 1005 1978 6457 8413 26</p>
-              <p><strong>Hesap Adı:</strong> E-Ticaret Şirketi A.Ş.</p>
-              <p><strong>Banka:</strong> Ziraat Bankası</p>
+              <p><strong>IBAN:</strong> TR81 0013 4000 0259 2998 2000 01</p>
+              <p><strong>Hesap Adı:</strong> AHMET & İBRAHİM TRADING LİMİTED</p>
+              <p><strong>Banka:</strong> DENİZBANK</p>
               <p style="font-size: 12px; color: #92400e; margin-bottom: 0;">⚠️ Lütfen açıklama kısmına sipariş numaranızı yazınız: <strong>${order.id}</strong></p>
             </div>
           ` : ''}
@@ -593,8 +593,8 @@ export async function POST(request) {
 
       return NextResponse.json({
         success: true,
-        iban: 'TR33 0006 1005 1978 6457 8413 26',
-        accountName: 'E-Ticaret Şirketi A.Ş.',
+        iban: 'TR81 0013 4000 0259 2998 2000 01',
+        accountName: 'AHMET & İBRAHİM TRADING LİMİTED',
         message: 'Havale bilgileri email adresinize gönderildi.'
       });
     }
