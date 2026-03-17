@@ -376,7 +376,7 @@ export default function Home() {
               <ul className="space-y-2 text-gray-600">
                 <li><a href="/garanti-iade" className="hover:text-[#006039] transition-colors">Garanti ve İade Koşulları</a></li>
                 <li><a href="/gizlilik-guvenlik" className="hover:text-[#006039] transition-colors">Gizlilik ve Güvenlik</a></li>
-                <li><a href="/kisisel-veriler" className="hover:text-[#006039] transition-colors">Kişisel Verilerin İşlenmesi</a></li>
+                <li><a href="/teslimat" className="hover:text-[#006039] transition-colors">Teslimat</a></li>
                 <li><a href="/cerez-politikasi" className="hover:text-[#006039] transition-colors">Çerez Politikası</a></li>
                 <li><a href="/sss" className="hover:text-[#006039] transition-colors">Sıkça Sorulan Sorular</a></li>
               </ul>
