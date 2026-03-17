@@ -186,7 +186,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex items-center space-x-2 group">
               <Logo size={36} className="group-hover:scale-105 transition-transform" />
-              <span className="text-xl font-semibold text-white tracking-widest font-[family-name:var(--font-playfair)]" style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '0.15em' }}>
+              <span className="text-sm md:text-base font-semibold text-white tracking-widest font-[family-name:var(--font-playfair)]" style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '0.1em' }}>
                 CYPRUS WATCH
               </span>
             </Link>
