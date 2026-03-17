@@ -181,13 +181,13 @@ export default function Navbar() {
   return (
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-[#006039]/95 backdrop-blur-md shadow-lg' : 'bg-[#006039]'}`}>
-        <div className="container mx-auto px-4 py-3">
+        <div className="container mx-auto px-2 py-3">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-2 group">
-              <Logo size={36} className="group-hover:scale-105 transition-transform" />
-              <span className="text-sm md:text-base font-semibold text-white tracking-widest font-[family-name:var(--font-playfair)]" style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '0.1em' }}>
-                CYPRUS WATCH
+            <Link href="/" className="flex items-center space-x-1 group flex-shrink-0">
+              <Logo size={32} className="group-hover:scale-105 transition-transform" />
+              <span className="text-xs md:text-sm font-semibold text-white tracking-wide font-[family-name:var(--font-playfair)]" style={{ fontFamily: 'Playfair Display, serif', letterSpacing: '0.05em' }}>
+                CYPRUS<br/>WATCH
               </span>
             </Link>
 
