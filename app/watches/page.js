@@ -195,7 +195,7 @@ function WatchesPageContent() {
           <div className="flex items-center gap-3">
             <Clock className="h-10 w-10 text-[#006039]" />
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">Saatler</h1>
+              <h1 className="text-4xl font-bold text-gray-900">Premium Saatler</h1>
               <p className="text-gray-600">Lüks saat koleksiyonumuzu keşfedin</p>
             </div>
           </div>

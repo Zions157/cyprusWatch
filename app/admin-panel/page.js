@@ -606,7 +606,7 @@ export default function AdminPage() {
                   onClick={() => setFilterType('watch')}
                   className={filterType === 'watch' ? 'bg-[#006039] text-white' : 'bg-gray-700 text-white'}
                 >
-                  <Clock className="h-4 w-4 mr-1" /> Saatler ({watchCount})
+                  <Clock className="h-4 w-4 mr-1" /> Premium Saatler ({watchCount})
                 </Button>
                 <Button
                   variant={filterType === 'eyewear' ? 'default' : 'ghost'}
@@ -622,7 +622,7 @@ export default function AdminPage() {
                   onClick={() => setFilterType('eta')}
                   className={filterType === 'eta' ? 'bg-green-500 text-white' : 'bg-gray-700 text-white'}
                 >
-                  <Gem className="h-4 w-4 mr-1" /> ETA ({etaCount})
+                  <Gem className="h-4 w-4 mr-1" /> ETA Saatler ({etaCount})
                 </Button>
                 <Button
                   variant={filterType === 'accessory' ? 'default' : 'ghost'}
@@ -673,7 +673,7 @@ export default function AdminPage() {
                           }`}
                         >
                           <Clock className="h-8 w-8" />
-                          <span className="font-bold">SAAT</span>
+                          <span className="font-bold">PREMIUM SAAT</span>
                         </button>
                         <button
                           type="button"
@@ -697,7 +697,7 @@ export default function AdminPage() {
                           }`}
                         >
                           <Gem className="h-8 w-8" />
-                          <span className="font-bold">ETA</span>
+                          <span className="font-bold">ETA SAAT</span>
                         </button>
                         <button
                           type="button"

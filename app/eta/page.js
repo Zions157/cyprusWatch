@@ -190,7 +190,7 @@ function ETAPageContent() {
           <div className="flex items-center gap-3">
             <Gem className="h-10 w-10 text-[#006039]" />
             <div>
-              <h1 className="text-4xl font-bold text-gray-900">ETA</h1>
+              <h1 className="text-4xl font-bold text-gray-900">ETA Saatler</h1>
               <p className="text-gray-600">Premium ETA koleksiyonumuzu keşfedin</p>
             </div>
           </div>
