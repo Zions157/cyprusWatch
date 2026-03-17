@@ -1,6 +1,7 @@
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import InstagramButton from '@/components/InstagramButton';
 import { LanguageProvider } from '@/lib/LanguageContext';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
         <LanguageProvider>
           {children}
           <WhatsAppButton phoneNumber="905428572726" />
+          <InstagramButton instagramUrl="https://www.instagram.com/cypruswatchofficial?igsh=d3d6Z2lpa214Ymhv" />
         </LanguageProvider>
       </body>
     </html>
