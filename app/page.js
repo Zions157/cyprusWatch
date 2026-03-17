@@ -139,20 +139,20 @@ export default function Home() {
                 className="max-h-full max-w-full object-contain"
               />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent py-8">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent py-8">
               <div className="container mx-auto px-4">
                 <div className="max-w-xl">
-                  <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 animate-fade-in drop-shadow-lg">
+                  <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 animate-fade-in" style={{textShadow: '2px 2px 8px rgba(0,0,0,0.9), 0 0 20px rgba(0,0,0,0.7)'}}>
                     {slide.title}
                   </h1>
-                  <p className="text-sm md:text-base text-white/90 mb-4 drop-shadow">
+                  <p className="text-sm md:text-base text-white mb-4 font-medium" style={{textShadow: '1px 1px 6px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.7)'}}>
                     {slide.subtitle}
                   </p>
                   <div className="flex gap-3">
                     <Button
                       onClick={() => router.push('/watches')}
                       size="sm"
-                      className="bg-[#006039] hover:bg-[#004d2d] text-white font-bold px-6"
+                      className="bg-[#006039] hover:bg-[#004d2d] text-white font-bold px-6 shadow-lg"
                     >
                       {t('home.discoverWatches')}
                       <ChevronRight className="ml-1 h-4 w-4" />
@@ -161,7 +161,7 @@ export default function Home() {
                       onClick={() => router.push('/eyewear')}
                       size="sm"
                       variant="outline"
-                      className="border-white text-white hover:bg-white hover:text-[#006039] px-6"
+                      className="border-[#006039] bg-white/90 text-[#006039] hover:bg-[#006039] hover:text-white px-6 font-semibold shadow-lg"
                     >
                       {t('home.viewEyewear')}
                     </Button>
