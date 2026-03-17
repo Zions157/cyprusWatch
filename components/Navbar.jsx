@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
-import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package, Gem, ChevronDown, Search, X, Globe } from 'lucide-react';
+import { Home, Clock, Glasses, Info, Phone, ShoppingCart, Menu, User, LogOut, Heart, Package, Gem, ChevronDown, Search, X, Globe, Watch } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { useLanguage } from '@/lib/LanguageContext';
 import { languageFlags } from '@/lib/translations';
@@ -69,6 +69,15 @@ export default function Navbar() {
         { name: t('nav.allEta'), href: '/eta' },
         { name: t('nav.menEta'), href: '/eta?gender=male' },
         { name: t('nav.womenEta'), href: '/eta?gender=female' },
+      ]
+    },
+    accessories: {
+      name: 'Aksesuarlar',
+      href: '/accessories',
+      icon: Watch,
+      subItems: [
+        { name: 'Tüm Aksesuarlar', href: '/accessories' },
+        { name: 'Kordonlar', href: '/accessories?type=strap' },
       ]
     }
   };

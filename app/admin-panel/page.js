@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, Search, ShoppingBag, User, Mail, Phone, MapPin, Calendar, CreditCard, Gem, X, Image } from 'lucide-react';
+import { Plus, Edit, Trash2, Package, Lock, Clock, Glasses, Search, ShoppingBag, User, Mail, Phone, MapPin, Calendar, CreditCard, Gem, X, Image, Watch } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { formatPrice } from '@/lib/utils';
@@ -28,6 +28,8 @@ const WATCH_CATEGORIES = ['Lüks', 'Spor', 'Klasik', 'Dijital', 'Akıllı Saat']
 const EYEWEAR_CATEGORIES = ['Güneş Gözlüğü', 'Optik', 'Spor Gözlük', 'Moda'];
 // ETA kategorileri
 const ETA_CATEGORIES = ['Premium', 'Limited Edition', 'Classic', 'Modern'];
+// Aksesuar kategorileri
+const ACCESSORY_CATEGORIES = ['Kordon', 'Bileklik', 'Diğer'];
 
 export default function AdminPage() {
   const router = useRouter();
@@ -194,6 +196,7 @@ export default function AdminPage() {
     if (type === 'watch') newCategory = WATCH_CATEGORIES[0];
     else if (type === 'eyewear') newCategory = EYEWEAR_CATEGORIES[0];
     else if (type === 'eta') newCategory = ETA_CATEGORIES[0];
+    else if (type === 'accessory') newCategory = ACCESSORY_CATEGORIES[0];
     
     setFormData({
       ...formData,
@@ -429,6 +432,7 @@ export default function AdminPage() {
       if (filterType === 'watch') return p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük');
       if (filterType === 'eyewear') return p.productType === 'eyewear' || p.category === 'Gözlük';
       if (filterType === 'eta') return p.productType === 'eta';
+      if (filterType === 'accessory') return p.productType === 'accessory';
       return true;
     });
 
@@ -482,6 +486,7 @@ export default function AdminPage() {
   const watchCount = products.filter(p => p.productType === 'watch' || (!p.productType && p.category !== 'Gözlük')).length;
   const eyewearCount = products.filter(p => p.productType === 'eyewear' || p.category === 'Gözlük').length;
   const etaCount = products.filter(p => p.productType === 'eta').length;
+  const accessoryCount = products.filter(p => p.productType === 'accessory').length;
 
   const getStatusBadge = (status) => {
     const statusConfig = {
@@ -619,6 +624,14 @@ export default function AdminPage() {
                 >
                   <Gem className="h-4 w-4 mr-1" /> ETA ({etaCount})
                 </Button>
+                <Button
+                  variant={filterType === 'accessory' ? 'default' : 'ghost'}
+                  size="sm"
+                  onClick={() => setFilterType('accessory')}
+                  className={filterType === 'accessory' ? 'bg-amber-500 text-white' : 'bg-gray-700 text-white'}
+                >
+                  <Watch className="h-4 w-4 mr-1" /> Aksesuarlar ({accessoryCount})
+                </Button>
               </div>
 
               <div className="relative flex-1 max-w-md">
@@ -649,7 +662,7 @@ export default function AdminPage() {
                     {/* Ürün Tipi */}
                     <div className="bg-gradient-to-r from-gray-800 to-gray-900 p-5 rounded-xl border border-white/10">
                       <Label className="text-[#006039] font-bold text-lg mb-4 block">Ürün Tipi Seçin *</Label>
-                      <div className="grid grid-cols-3 gap-4">
+                      <div className="grid grid-cols-4 gap-4">
                         <button
                           type="button"
                           onClick={() => handleProductTypeChange('watch')}
@@ -686,6 +699,18 @@ export default function AdminPage() {
                           <Gem className="h-8 w-8" />
                           <span className="font-bold">ETA</span>
                         </button>
+                        <button
+                          type="button"
+                          onClick={() => handleProductTypeChange('accessory')}
+                          className={`p-4 rounded-xl border-2 transition-all flex flex-col items-center gap-2 ${
+                            formData.productType === 'accessory' 
+                              ? 'border-amber-500 bg-amber-500/20 text-amber-500' 
+                              : 'border-gray-600 bg-gray-800 text-gray-400'
+                          }`}
+                        >
+                          <Watch className="h-8 w-8" />
+                          <span className="font-bold">AKSESUAR</span>
+                        </button>
                       </div>
                     </div>
 
@@ -698,7 +723,10 @@ export default function AdminPage() {
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            {(formData.productType === 'watch' ? WATCH_CATEGORIES : formData.productType === 'eyewear' ? EYEWEAR_CATEGORIES : ETA_CATEGORIES).map(cat => (
+                            {(formData.productType === 'watch' ? WATCH_CATEGORIES : 
+                              formData.productType === 'eyewear' ? EYEWEAR_CATEGORIES : 
+                              formData.productType === 'accessory' ? ACCESSORY_CATEGORIES :
+                              ETA_CATEGORIES).map(cat => (
                               <SelectItem key={cat} value={cat}>{cat}</SelectItem>
                             ))}
                           </SelectContent>
@@ -978,6 +1006,7 @@ export default function AdminPage() {
                           <Badge className={
                             product.productType === 'eyewear' ? 'bg-purple-500' :
                             product.productType === 'eta' ? 'bg-green-500' :
+                            product.productType === 'accessory' ? 'bg-amber-500' :
                             'bg-[#006039] text-white'
                           }>
                             {product.category}
