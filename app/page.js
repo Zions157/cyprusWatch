@@ -354,6 +354,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Yurtiçi Kargo Section */}
+      <section className="bg-gradient-to-r from-gray-100 to-gray-50 py-10 border-t border-gray-200">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8">
+            {/* Yurtiçi Kargo Logo */}
+            <div className="bg-[#FFCC00] px-6 py-3 rounded-lg shadow-md">
+              <span className="text-[#003366] font-bold text-2xl tracking-tight">YURTİÇİ KARGO</span>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="bg-[#006039] p-3 rounded-full">
+                <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                </svg>
+              </div>
+              <div>
+                <p className="text-gray-800 font-semibold text-lg">
+                  Kargolarımız <span className="text-[#003366] font-bold">Yurtiçi Kargo</span> tarafından ulaştırılmaktadır.
+                </p>
+                <p className="text-gray-500 text-sm">Güvenli ve hızlı teslimat</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer - White Theme */}
       <footer className="bg-white text-gray-900 py-16 border-t border-gray-200">
         <div className="container mx-auto px-4">
