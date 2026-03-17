@@ -77,7 +77,6 @@ export default function Navbar() {
       icon: Watch,
       subItems: [
         { name: 'Tüm Aksesuarlar', href: '/accessories' },
-        { name: 'Kordonlar', href: '/accessories?type=strap' },
       ]
     }
   };
