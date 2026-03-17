@@ -271,7 +271,7 @@ export default function Home() {
                   <CardHeader className="p-0">
                     <div
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="relative h-52 bg-gray-100 overflow-hidden"
+                      className="relative h-80 bg-gray-100 overflow-hidden"
                     >
                       <img
                         src={product.image}
