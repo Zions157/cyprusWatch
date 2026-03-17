@@ -19,39 +19,24 @@ import { ShoppingCart, ChevronRight, ChevronLeft, Star, Clock, Award, Truck, Spa
 
 const heroSlides = [
   {
-    image: 'https://media.rolex.com/image/upload/q_auto:eco/f_auto/c_limit,w_1920/v1/catalogue/2025/upright-c/m136668lb-0001.jpg',
+    image: '/slider-1-rolex-deepsea.jpg',
     title: 'Rolex Deepsea',
     subtitle: 'M136668LB-0001 - 18 karat sarı altın',
   },
   {
-    image: 'https://patek-res.cloudinary.com/dfsmedia/0906caea301d42b3b8bd23bd656d1711/202222-51887',
+    image: '/slider-2-patek-nautilus.jpg',
     title: 'Patek Philippe Nautilus',
     subtitle: '5726/1A-014 - Annual Calendar',
   },
   {
-    image: 'https://images.bobswatches.com/images/Used-Rolex-Yacht-Master-II-116680-SKU185896.jpg?q=50&ef=2&h=950&sh=true&dpr=2',
+    image: '/slider-3-rolex-yacht-master.jpg',
     title: 'Rolex Yacht-Master II',
     subtitle: '116680 - Çelik, Beyaz Kadran',
   },
   {
-    image: 'https://dynamicmedia.audemarspiguet.com/is/image/audemarspiguet/watch-1031?size=1920,0&wid=1920&fmt=avif-alpha&dpr=off',
+    image: '/slider-4-audemars-piguet.jpg',
     title: 'Audemars Piguet Royal Oak',
     subtitle: '26730ST - Selfwinding Flying Tourbillon',
-  },
-  {
-    image: 'https://static.ticimax.cloud/cdn-cgi/image/width=1888,quality=85/49839/uploads/urunresimleri/buyuk/gucci-1869s-001-53-erkek-gunes-gozlugu--9062-.png',
-    title: 'Gucci Eyewear',
-    subtitle: 'GG 1869S 001 - Erkek Güneş Gözlüğü',
-  },
-  {
-    image: 'https://www.prada.com/content/dam/pradanux/common_assets/brand/products/F/SPS/B07/M1BO/FE70U/SPSB07_M1BO_FE70U_S_000_SLF.jpg',
-    title: 'Prada Linea Rossa',
-    subtitle: 'Active - Erkek Güneş Gözlüğü',
-  },
-  {
-    image: 'https://stn-atasun.mncdn.com/mnresize/1500/1500/Content/media/ProductImg/original/gu032087-rb-3548n-001-5121145-638755903607437429.jpg',
-    title: 'Ray-Ban Hexagonal',
-    subtitle: 'RB 3548N - Klasik Altın Çerçeve',
   },
 ];
 
@@ -123,8 +108,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Slider - %50 büyütüldü */}
-      <section className="relative h-[42vh] mt-16 overflow-hidden">
+      {/* Hero Slider - Yeni Tasarım */}
+      <section className="relative h-[60vh] md:h-[70vh] mt-16 overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
@@ -132,18 +117,20 @@ export default function Home() {
               index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0 pointer-events-none'
             }`}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/60 to-transparent" />
-            <div className="absolute inset-0 flex items-center">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <img
+                src={slide.image}
+                alt={slide.title}
+                className="max-h-full max-w-full object-contain"
+              />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent py-8">
               <div className="container mx-auto px-4">
                 <div className="max-w-xl">
-                  <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2 animate-fade-in">
+                  <h1 className="text-2xl md:text-4xl font-bold text-white mb-2 animate-fade-in drop-shadow-lg">
                     {slide.title}
                   </h1>
-                  <p className="text-sm md:text-base text-gray-600 mb-4">
+                  <p className="text-sm md:text-base text-white/90 mb-4 drop-shadow">
                     {slide.subtitle}
                   </p>
                   <div className="flex gap-3">
@@ -159,7 +146,7 @@ export default function Home() {
                       onClick={() => router.push('/eyewear')}
                       size="sm"
                       variant="outline"
-                      className="border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white px-6"
+                      className="border-white text-white hover:bg-white hover:text-[#006039] px-6"
                     >
                       {t('home.viewEyewear')}
                     </Button>
