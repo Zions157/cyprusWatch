@@ -16,9 +16,9 @@ export const metadata = {
   keywords: 'luxury watches, premium watches, Cyprus Watch, saatler, lüks saatler',
   icons: {
     icon: [
-      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.png', type: 'image/png' },
     ],
-    apple: '/favicon.svg',
+    apple: '/favicon.png',
   },
 };
 
