@@ -357,7 +357,7 @@ export default function Home() {
       {/* Footer - White Theme */}
       <footer className="bg-white text-gray-900 py-16 border-t border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4 text-[#006039]">Cyprus Watch</h3>
               <p className="text-gray-600">{t('about.visionDesc')}</p>
@@ -369,6 +369,16 @@ export default function Home() {
                 <li><a href="/watches" className="hover:text-[#006039] transition-colors">{t('nav.watches')}</a></li>
                 <li><a href="/eyewear" className="hover:text-[#006039] transition-colors">{t('nav.eyewear')}</a></li>
                 <li><a href="/about" className="hover:text-[#006039] transition-colors">{t('nav.about')}</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-4 text-gray-900">Müşteri Hizmetleri</h4>
+              <ul className="space-y-2 text-gray-600">
+                <li><a href="/garanti-iade" className="hover:text-[#006039] transition-colors">Garanti ve İade Koşulları</a></li>
+                <li><a href="/gizlilik-guvenlik" className="hover:text-[#006039] transition-colors">Gizlilik ve Güvenlik</a></li>
+                <li><a href="/kisisel-veriler" className="hover:text-[#006039] transition-colors">Kişisel Verilerin İşlenmesi</a></li>
+                <li><a href="/cerez-politikasi" className="hover:text-[#006039] transition-colors">Çerez Politikası</a></li>
+                <li><a href="/sss" className="hover:text-[#006039] transition-colors">Sıkça Sorulan Sorular</a></li>
               </ul>
             </div>
             <div>
