@@ -123,8 +123,8 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      {/* Hero Slider - 50% smaller, starts below navbar */}
-      <section className="relative h-[28vh] mt-16 overflow-hidden">
+      {/* Hero Slider - %50 büyütüldü */}
+      <section className="relative h-[42vh] mt-16 overflow-hidden">
         {heroSlides.map((slide, index) => (
           <div
             key={index}
@@ -271,7 +271,7 @@ export default function Home() {
                   <CardHeader className="p-0">
                     <div
                       onClick={() => router.push(`/product/${product.id}`)}
-                      className="relative h-80 bg-gray-100 overflow-hidden"
+                      className="relative h-52 bg-gray-100 overflow-hidden"
                     >
                       <img
                         src={product.image}
