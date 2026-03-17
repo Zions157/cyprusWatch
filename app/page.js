@@ -419,13 +419,66 @@ export default function Home() {
             <div>
               <h4 className="font-semibold mb-4 text-gray-900">{t('contact.workingHours')}</h4>
               <ul className="space-y-2 text-gray-600">
-                <li>Mon - Fri: 09:00 - 18:00</li>
-                <li>Sat: 10:00 - 16:00</li>
-                <li>Sun: Closed</li>
+                <li>Pazartesi - Cuma: 09:00 - 18:00</li>
+                <li>Cumartesi: 10:00 - 16:00</li>
+                <li>Pazar: Kapalı</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-gray-200 mt-12 pt-8 text-center text-gray-500">
+          
+          {/* Ödeme Yöntemleri */}
+          <div className="border-t border-gray-200 mt-8 pt-8">
+            <div className="flex flex-col items-center">
+              <h4 className="font-semibold text-gray-700 mb-4">Ödeme Yöntemleri</h4>
+              <div className="flex flex-wrap items-center justify-center gap-3">
+                {/* Visa */}
+                <div className="bg-white border border-gray-200 rounded-md px-3 py-2 shadow-sm">
+                  <svg className="h-6 w-10" viewBox="0 0 50 16" fill="none">
+                    <rect width="50" height="16" rx="2" fill="#1A1F71"/>
+                    <text x="25" y="11" fontSize="8" fill="white" textAnchor="middle" fontWeight="bold" fontStyle="italic">VISA</text>
+                  </svg>
+                </div>
+                {/* Mastercard */}
+                <div className="bg-white border border-gray-200 rounded-md px-3 py-2 shadow-sm">
+                  <svg className="h-6 w-10" viewBox="0 0 50 16">
+                    <rect width="50" height="16" rx="2" fill="#1A1F71"/>
+                    <circle cx="20" cy="8" r="5" fill="#EB001B"/>
+                    <circle cx="30" cy="8" r="5" fill="#F79E1B"/>
+                  </svg>
+                </div>
+                {/* American Express */}
+                <div className="bg-white border border-gray-200 rounded-md px-3 py-2 shadow-sm">
+                  <svg className="h-6 w-10" viewBox="0 0 50 16">
+                    <rect width="50" height="16" rx="2" fill="#006FCF"/>
+                    <text x="25" y="10" fontSize="5" fill="white" textAnchor="middle" fontWeight="bold">AMEX</text>
+                  </svg>
+                </div>
+                {/* PayPal */}
+                <div className="bg-white border border-gray-200 rounded-md px-3 py-2 shadow-sm">
+                  <svg className="h-6 w-10" viewBox="0 0 50 16">
+                    <rect width="50" height="16" rx="2" fill="#003087"/>
+                    <text x="25" y="11" fontSize="6" fill="white" textAnchor="middle" fontWeight="bold">PayPal</text>
+                  </svg>
+                </div>
+                {/* Havale/EFT */}
+                <div className="bg-white border border-gray-200 rounded-md px-3 py-2 shadow-sm flex items-center gap-1">
+                  <svg className="h-5 w-5 text-[#006039]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
+                  <span className="text-xs font-semibold text-gray-700">Havale/EFT</span>
+                </div>
+                {/* Kripto */}
+                <div className="bg-white border border-gray-200 rounded-md px-3 py-2 shadow-sm flex items-center gap-1">
+                  <svg className="h-5 w-5 text-[#F7931A]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-6h2v-2h1c1.1 0 2-.9 2-2s-.9-2-2-2h-1V7h-2v1h-1c-1.1 0-2 .9-2 2s.9 2 2 2h1v2zm0-4h2c.55 0 1 .45 1 1s-.45 1-1 1h-2v-2zm-2 0c0-.55.45-1 1-1h1v2h-1c-.55 0-1-.45-1-1z"/>
+                  </svg>
+                  <span className="text-xs font-semibold text-gray-700">Kripto</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 mt-8 pt-8 text-center text-gray-500">
             <p>© 2026 Cyprus Watch. {t('common.allRightsReserved')}</p>
           </div>
         </div>
