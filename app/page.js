@@ -448,9 +448,10 @@ export default function Home() {
                 </div>
                 {/* American Express */}
                 <div className="bg-white border border-gray-200 rounded-lg px-4 py-3 shadow-sm hover:shadow-md transition-shadow">
-                  <svg className="h-8 w-14" viewBox="0 0 50 16">
-                    <rect width="50" height="16" rx="2" fill="#006FCF"/>
-                    <text x="25" y="10" fontSize="5" fill="white" textAnchor="middle" fontWeight="bold">AMEX</text>
+                  <svg className="h-8 w-20" viewBox="0 0 80 24">
+                    <rect width="80" height="24" rx="3" fill="#006FCF"/>
+                    <text x="40" y="10" fontSize="5" fill="white" textAnchor="middle" fontWeight="bold">AMERICAN</text>
+                    <text x="40" y="18" fontSize="5" fill="white" textAnchor="middle" fontWeight="bold">EXPRESS</text>
                   </svg>
                 </div>
                 {/* Discover */}
