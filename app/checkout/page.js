@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { ArrowLeft, CreditCard, Building2, CheckCircle } from 'lucide-react';
+import { ArrowLeft, CreditCard, Building2, CheckCircle, LogIn, UserPlus } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { formatPrice } from '@/lib/utils';
 
@@ -19,6 +19,8 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [transferInfo, setTransferInfo] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -31,19 +33,16 @@ export default function CheckoutPage() {
 
   useEffect(() => {
     loadCart();
-    loadUserInfo();
+    checkAuth();
   }, []);
 
-  const loadCart = () => {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
-  };
-
-  const loadUserInfo = async () => {
+  const checkAuth = async () => {
     const token = localStorage.getItem('token');
-    if (!token) return;
+    if (!token) {
+      setIsLoggedIn(false);
+      setCheckingAuth(false);
+      return;
+    }
 
     try {
       const response = await fetch('/api/auth/me', {
@@ -52,6 +51,7 @@ export default function CheckoutPage() {
 
       if (response.ok) {
         const user = await response.json();
+        setIsLoggedIn(true);
         setFormData(prevData => ({
           ...prevData,
           fullName: user.fullName || '',
@@ -59,9 +59,23 @@ export default function CheckoutPage() {
           phone: user.phone || '',
           address: user.address || ''
         }));
+      } else {
+        setIsLoggedIn(false);
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
       }
     } catch (error) {
-      console.error('Kullanıcı bilgileri yüklenemedi:', error);
+      console.error('Auth check error:', error);
+      setIsLoggedIn(false);
+    } finally {
+      setCheckingAuth(false);
+    }
+  };
+
+  const loadCart = () => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
     }
   };
 
@@ -153,6 +167,72 @@ export default function CheckoutPage() {
       setLoading(false);
     }
   };
+
+  // Loading durumu
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="flex items-center justify-center py-20">
+          <div className="text-gray-600 text-xl">Yükleniyor...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Giriş yapılmamışsa uyarı göster
+  if (!isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Navbar />
+        <div className="container mx-auto px-4 py-12 pt-24">
+          <Card className="max-w-lg mx-auto bg-white border-gray-200 shadow-lg">
+            <CardHeader className="text-center pb-2">
+              <div className="w-20 h-20 bg-[#006039]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <LogIn className="h-10 w-10 text-[#006039]" />
+              </div>
+              <CardTitle className="text-2xl text-gray-900">Üyelik Gerekli</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center space-y-6">
+              <p className="text-gray-600">
+                Sipariş verebilmek için lütfen giriş yapın veya üye olun.
+              </p>
+              
+              <div className="space-y-3">
+                <Button 
+                  onClick={() => router.push('/login')} 
+                  className="w-full bg-[#006039] hover:bg-[#004d2d] text-white h-12 text-lg"
+                >
+                  <LogIn className="h-5 w-5 mr-2" />
+                  Giriş Yap
+                </Button>
+                
+                <Button 
+                  onClick={() => router.push('/login')} 
+                  variant="outline"
+                  className="w-full border-[#006039] text-[#006039] hover:bg-[#006039] hover:text-white h-12 text-lg"
+                >
+                  <UserPlus className="h-5 w-5 mr-2" />
+                  Üye Ol
+                </Button>
+              </div>
+
+              <div className="pt-4 border-t border-gray-200">
+                <Button 
+                  onClick={() => router.push('/cart')} 
+                  variant="ghost"
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Sepete Dön
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
 
   if (cart.length === 0 && !orderComplete) {
     return (
