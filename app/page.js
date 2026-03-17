@@ -359,9 +359,11 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             {/* Yurtiçi Kargo Logo */}
-            <div className="bg-[#FFCC00] px-6 py-3 rounded-lg shadow-md">
-              <span className="text-[#003366] font-bold text-2xl tracking-tight">YURTİÇİ KARGO</span>
-            </div>
+            <img 
+              src="/yurtici-kargo-logo.jpg" 
+              alt="Yurtiçi Kargo" 
+              className="h-20 object-contain"
+            />
             <div className="flex items-center gap-4">
               <div className="bg-[#006039] p-3 rounded-full">
                 <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -370,7 +372,7 @@ export default function Home() {
               </div>
               <div>
                 <p className="text-gray-800 font-semibold text-lg">
-                  Kargolarımız <span className="text-[#003366] font-bold">Yurtiçi Kargo</span> tarafından ulaştırılmaktadır.
+                  Kargolarımız <span className="text-[#E86A10] font-bold">Yurtiçi Kargo</span> tarafından ulaştırılmaktadır.
                 </p>
                 <p className="text-gray-500 text-sm">Güvenli ve hızlı teslimat</p>
               </div>
