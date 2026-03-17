@@ -161,13 +161,15 @@ function AccessoriesPageContent() {
       <Navbar />
 
       {/* Header */}
-      <div className="bg-gradient-to-r from-amber-600 to-yellow-500 pt-24 pb-12">
+      <div className="pt-24 pb-12 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-3 mb-2">
-            <Watch className="h-8 w-8 text-white" />
-            <h1 className="text-4xl font-bold text-white">Aksesuarlar</h1>
+          <div className="flex items-center gap-3">
+            <Watch className="h-10 w-10 text-[#006039]" />
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900">Aksesuarlar</h1>
+              <p className="text-gray-500">Saat kordonları ve aksesuarlar</p>
+            </div>
           </div>
-          <p className="text-white/80">Saat kordonları ve aksesuarlar</p>
         </div>
       </div>
 
