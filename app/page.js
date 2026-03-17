@@ -38,6 +38,21 @@ const heroSlides = [
     title: 'Audemars Piguet Royal Oak',
     subtitle: '26730ST - Selfwinding Flying Tourbillon',
   },
+  {
+    image: '/slider-5-gucci-eyewear.jpg',
+    title: 'Gucci Eyewear',
+    subtitle: 'GG 1869S 001 - Kadın Güneş Gözlüğü',
+  },
+  {
+    image: '/slider-6-prada-linea-rossa.jpg',
+    title: 'Prada Linea Rossa',
+    subtitle: 'Active - Erkek Güneş Gözlüğü',
+  },
+  {
+    image: '/slider-7-rayban-hexagonal.jpg',
+    title: 'Ray-Ban Hexagonal',
+    subtitle: 'RB 3548N - Klasik Altın Çerçeve',
+  },
 ];
 
 export default function Home() {
