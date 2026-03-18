@@ -263,7 +263,8 @@ export default function GizlilikGuvenlikPage() {
         <div className="container mx-auto px-4">
           <PaymentMethods />
           <div className="text-center text-gray-500 mt-8">
-          <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
+            <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
+          </div>
         </div>
       </footer>
     </div>
