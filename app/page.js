@@ -113,10 +113,10 @@ export default function Home() {
 
   // Features with translations
   const features = [
-    { icon: Truck, titleKey: 'home.freeShipping', descKey: 'home.freeShippingDesc' },
-    { icon: Award, titleKey: 'home.originalProduct', descKey: 'home.originalProductDesc' },
-    { icon: Clock, titleKey: 'home.support247', descKey: 'home.support247Desc' },
-    { icon: Star, titleKey: 'home.premiumQuality', descKey: 'home.premiumQualityDesc' },
+    { icon: Truck, titleKey: 'home.freeShipping', descKey: 'home.freeShippingDesc', link: null },
+    { icon: Award, titleKey: 'home.originalProduct', descKey: 'home.originalProductDesc', link: '/watches' },
+    { icon: Clock, titleKey: 'home.support247', descKey: 'home.support247Desc', link: null },
+    { icon: Star, titleKey: 'home.premiumQuality', descKey: 'home.premiumQualityDesc', link: '/eta' },
   ];
 
   return (
@@ -216,17 +216,29 @@ export default function Home() {
       <section className="py-4 md:py-10 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-6">
-            {features.map((item, index) => (
-              <div key={index} className="flex items-center space-x-2 md:space-x-4 p-2 md:p-6 rounded-lg md:rounded-xl bg-gray-50 border border-gray-200 hover:border-[#006039] transition-colors">
-                <div className="bg-gradient-to-br from-[#006039] to-[#007a47] p-2 md:p-3 rounded-lg flex-shrink-0">
-                  <item.icon className="h-4 w-4 md:h-6 md:w-6 text-white" />
+            {features.map((item, index) => {
+              const content = (
+                <div className={`flex items-center space-x-2 md:space-x-4 p-2 md:p-6 rounded-lg md:rounded-xl bg-gray-50 border border-gray-200 hover:border-[#006039] transition-colors ${item.link ? 'cursor-pointer hover:bg-gray-100' : ''}`}>
+                  <div className="bg-gradient-to-br from-[#006039] to-[#007a47] p-2 md:p-3 rounded-lg flex-shrink-0">
+                    <item.icon className="h-4 w-4 md:h-6 md:w-6 text-white" />
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold text-gray-900 text-xs md:text-base truncate">{t(item.titleKey)}</h3>
+                    <p className="text-xs text-gray-500 hidden md:block">{t(item.descKey)}</p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <h3 className="font-semibold text-gray-900 text-xs md:text-base truncate">{t(item.titleKey)}</h3>
-                  <p className="text-xs text-gray-500 hidden md:block">{t(item.descKey)}</p>
+              );
+              
+              return item.link ? (
+                <a key={index} href={item.link}>
+                  {content}
+                </a>
+              ) : (
+                <div key={index}>
+                  {content}
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>

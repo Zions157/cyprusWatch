@@ -1,6 +1,7 @@
 'use client';
 
 import Navbar from '@/components/Navbar';
+import PaymentMethods from '@/components/PaymentMethods';
 import { Shield, MapPin, Phone } from 'lucide-react';
 
 export default function GarantiIadePage() {
@@ -85,8 +86,11 @@ export default function GarantiIadePage() {
 
       {/* Footer */}
       <footer className="bg-white text-gray-900 py-8 border-t border-gray-200 mt-8">
-        <div className="container mx-auto px-4 text-center text-gray-500">
-          <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
+        <div className="container mx-auto px-4">
+          <PaymentMethods />
+          <div className="text-center text-gray-500 mt-8">
+            <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
+          </div>
         </div>
       </footer>
     </div>

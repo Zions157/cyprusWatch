@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Navbar from '@/components/Navbar';
+import PaymentMethods from '@/components/PaymentMethods';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -383,8 +384,11 @@ function EyewearPageContent() {
 
       {/* Footer */}
       <footer className="bg-gray-50 text-gray-900 py-8 mt-12 border-t border-gray-200">
-        <div className="container mx-auto px-4 text-center text-gray-500">
-          <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
+        <div className="container mx-auto px-4">
+          <PaymentMethods />
+          <div className="text-center text-gray-500 mt-8">
+            <p>© 2026 Cyprus Watch. Tüm hakları saklıdır.</p>
+          </div>
         </div>
       </footer>
     </div>
